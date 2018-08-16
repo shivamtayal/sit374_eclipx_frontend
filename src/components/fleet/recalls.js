@@ -5,6 +5,8 @@ const axios = require('axios');
 
 const mock = require('./mock');
 
+const cheerio = require('cheerio');
+
 class Recalls extends Component {
     constructor(props){
         super(props);
