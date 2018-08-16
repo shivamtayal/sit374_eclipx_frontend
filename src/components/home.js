@@ -21,17 +21,40 @@ class Home extends Component {
   }
 
   buildList($){
+    let manufacturer = '';
+    let man_item = 0;
+    let temp = [];
+
       $('.table-takata-recalls tbody tr').each((i, e) => {
         if($(e).hasClass('table-header')){
-          this.handleManufacturer($(e));
-        }
-        $(e.children).each((i, e) => {
-          if($(e).get(0).tagName == 'td'){
-            this.handleRecall($(e));
-            //data[k].recalls.push($(e).text())
+          manufacturer = $(e).text();
+          this.recall_list[man_item] = {
+            "manufacturer": manufacturer
           }
-        })
+          man_item++;
+        } else {
+          let recall_item = {
+            id: 0,
+            model: '',
+            year: '',
+            pra: ''
+          };
+
+          $(e).find('td').each((i, e) => {
+            if(i == 0){
+              recall_item.model = $(e).text().trim(); 
+            }
+            if(i == 1){
+              recall_item.year = $(e).text().trim();
+            }
+            if(i == 2){
+              recall_item.pra = $(e).text().trim();
+            }
+          })
+          temp.push(recall_item);
+        }
       })
+      console.log(temp);
       console.log(this.recall_list);
   }
 
