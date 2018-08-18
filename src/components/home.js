@@ -27,7 +27,7 @@ class Home extends Component {
 
       $('.table-takata-recalls tbody tr').each((i, e) => {
         if($(e).hasClass('table-header')){
-          manufacturer = $(e).text();
+          manufacturer = $(e).text().trim();
           this.recall_list[man_item] = {
             "manufacturer": manufacturer
           }

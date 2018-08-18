@@ -7,6 +7,7 @@ import Nav from './components/navigation/navigation';
 import Home from './components/home';
 import Recalls from './components/fleet/recalls';
 import FleetDrill from './components/fleet/drill_fleet';
+import Search from './components/search/search';
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
           <Route exact path='/' component={Home} />
           <Route path='/recall/:fleet_id' component={FleetDrill} />
           <Route path='/recalls' component={Recalls} />
+          <Route path='/search' component={Search} />
       </div>
     );
   }
