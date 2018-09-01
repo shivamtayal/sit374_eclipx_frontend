@@ -76,7 +76,7 @@ class Home extends Component {
   render() {
     return (
         <div className="home">
-            <h1>SIT374</h1>
+            <h1>SIT374 changes</h1>
         </div>
     );
   }
