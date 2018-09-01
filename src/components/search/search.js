@@ -7,11 +7,12 @@ class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            newItem: "",
+            newRecall: "",
             manufacturer: "",
             model: "",
             year: "",
             vin: "",
+            editID: "",
             list: []
         }
     }
@@ -21,10 +22,11 @@ class Search extends Component {
     localStorage.removeItem("model")
     localStorage.removeItem("year")
     localStorage.removeItem("vin")
-    this.hydrateStateWithLocalStorage();
+    localStorage.removeItem("editID")
+    this.initialiseData();
   }
 
-  hydrateStateWithLocalStorage() {
+  initialiseData() {
     // for all items in state
     for (let key in this.state) {
       // if the key exists in localStorage
@@ -42,6 +44,19 @@ class Search extends Component {
         }
       }
     }
+  }
+
+  editRecall(id,manuf,mod,yr,vin) {
+    const editID = id;
+    const manufacturer = manuf;
+    const model = mod;
+    const year = yr;
+    const vinNumber = vin;
+    localStorage.setItem("editID", editID);
+    localStorage.setItem("manufacturer", manufacturer);
+    localStorage.setItem("model", model);
+    localStorage.setItem("year", year);
+    localStorage.setItem("vin", vinNumber);
   }
 
   render() {
@@ -76,7 +91,7 @@ class Search extends Component {
                             </div>
                             <div className="col-4 result-group">
                             <span class="badge badge-secondary">VIN</span>
-                            <Link to='/editRecall' className="nav-link">{item.vin}</Link>
+                            <Link to='/editRecall' className="nav-link" onClick={() => this.editRecall(item.id, item.manufacturer,item.model,item.year,item.vin)}>{item.vin}</Link>
                             </div>
                         </div>
                     </li>

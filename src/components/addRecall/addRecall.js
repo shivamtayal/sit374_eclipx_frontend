@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './addRecall.css';
+import {Link} from 'react-router-dom';
 
 class addRecall extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newItem: "",
+      newRecall: "",
       manufacturer: "",
       model: "",
       year: "",
@@ -19,20 +20,17 @@ class addRecall extends Component {
     localStorage.removeItem("model")
     localStorage.removeItem("year")
     localStorage.removeItem("vin")
-    this.hydrateStateWithLocalStorage();
+    this.initialiseData();
   }
 
   updateInput(key, value) {
-    // update react state
     this.setState({ [key]: value });
 
-    // update localStorage
     localStorage.setItem(key, value);
   }
 
   addItem() {
-    // create a new item
-    const newItem = {
+    const newRecall = {
       id: 1 + Math.random(),
       manufacturer: this.state.manufacturer.slice(),
       model: this.state.model.slice(),
@@ -40,23 +38,19 @@ class addRecall extends Component {
       vin: this.state.vin.slice()
     };
 
-    // copy current list of items
     const list = [...this.state.list];
 
-    // add the new item to the list
-    list.push(newItem);
+    list.push(newRecall);
 
-    // update state with new list, reset the new item input
     this.setState({
       list,
-      newItem: "",
+      newRecall: "",
       manufacturer: "",
       model: "",
       year: "",
       vin: ""
     });
     
-    // update localStorage
     localStorage.setItem("list", JSON.stringify(list));
     localStorage.setItem("manufacturer", "");
     localStorage.setItem("model", "");
@@ -65,9 +59,7 @@ class addRecall extends Component {
   }
 
   deleteItem(id) {
-    // copy current list of items
     const list = [...this.state.list];
-    // filter out the item being deleted
     const updatedList = list.filter(item => item.id !== id);
 
     this.setState({ list: updatedList });
@@ -75,20 +67,15 @@ class addRecall extends Component {
     localStorage.setItem("list", JSON.stringify(updatedList));
   }
 
-  hydrateStateWithLocalStorage() {
-    // for all items in state
+  initialiseData() {
     for (let key in this.state) {
-      // if the key exists in localStorage
       if (localStorage.hasOwnProperty(key)) {
-        // get the key's value from localStorage
         let value = localStorage.getItem(key);
 
-        // parse the localStorage string and setState
         try {
           value = JSON.parse(value);
           this.setState({ [key]: value });
         } catch (e) {
-          // handle empty string
           this.setState({ [key]: value });
         }
       }
@@ -137,26 +124,14 @@ class addRecall extends Component {
             onChange={e => this.updateInput("vin", e.target.value)}
           />
           <br /><br />
+          <Link to="/search">
           <button
             onClick={() => this.addItem()}
-            //disabled={!this.state.manufacturer.length}
+            disabled={!this.state.manufacturer.length}
           >
           Save
           </button>
-
-          <ul>
-            {this.state.list.map(item => {
-              return (
-                <li key={item.id}>
-                  {item.value}
-                  <button onClick={() => this.deleteItem(item.id)}>
-                    Remove
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-
+          </Link>
         </div>
       </div>
     );
