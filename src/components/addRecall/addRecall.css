@@ -1,0 +1,32 @@
+.addRecall {
+    width: 40%;
+    margin: 100px auto 2em;
+}
+
+.addRecall-results {
+    margin-top: 50px;
+    padding: 2em;
+    box-shadow: 2px 5px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.addRecall-results h3{
+    text-align: left;
+}
+
+
+.addRecall-results .list-group-item .col-4  span{
+    text-align: center;
+    width: 100%;
+}
+
+.addRecall-results .list-group-item .col-4  p{
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.addRecall-results .list-group-item {
+    margin: 0.5em 0;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+}
