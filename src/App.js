@@ -8,7 +8,13 @@ import Home from './components/home';
 import Recalls from './components/fleet/recalls';
 import FleetDrill from './components/fleet/drill_fleet';
 import Search from './components/search/search';
+<<<<<<< HEAD
 import Detail from './components/detail/detail';            {/*-----need to modify----*/} 
+=======
+import addRecall from './components/addRecall/addRecall';
+import editRecall from './components/editRecall/editRecall';
+
+>>>>>>> origin
 
 class App extends Component {
   render() {
@@ -19,7 +25,12 @@ class App extends Component {
           <Route path='/recall/:fleet_id' component={FleetDrill} />
           <Route path='/recalls' component={Recalls} />
           <Route path='/search' component={Search} />
+<<<<<<< HEAD
           <Route path='/detail' component={Detail} />       {/*-----need to modify----*/} 
+=======
+          <Route path='/addRecall' component={addRecall} />
+          <Route path='/editRecall' component={editRecall} />
+>>>>>>> origin
       </div>
     );
   }

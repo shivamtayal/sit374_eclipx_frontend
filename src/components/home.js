@@ -76,7 +76,11 @@ class Home extends Component {
   render() {
     return (
         <div className="home">
+<<<<<<< HEAD
             <h1>SIT374 test</h1>
+=======
+            <h1>SIT374 changes</h1>
+>>>>>>> origin
         </div>
     );
   }

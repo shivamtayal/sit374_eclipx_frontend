@@ -6,6 +6,8 @@ import './detail.css';
 
 class View extends Component {
 
+
+
     render() {
         return (
             <div className="detail">
@@ -66,7 +68,7 @@ class View extends Component {
                 <div className="detail-tabs">
                     <ul className="nav nav-tabs" id="detailTabs" role="tablist">
                         <li className="nav-item">
-                            <a id="recalls-tab active" data-toggle="tab" href="#recalls" role="tab" aria-controls="recalls" aria-selected="true"><a>RECALLS</a></a>
+                            <a id="active" data-toggle="tab" href="#recalls" role="tab" aria-controls="recalls" aria-selected="true"><a>RECALLS</a></a>
                         </li>
                         <li className="nav-item">
                             <a id="communciations-tab" data-toggle="tab" href="#communciations" role="tab" aria-controls="communciations" aria-selected="false"><a>COMMUNCIATIONS</a></a>
@@ -126,6 +128,9 @@ class View extends Component {
                         </div>
                         <div className="tab-pane fade" id="communciations" role="tabpanel" aria-labelledby="communciations-tab">
                             <h1>Communciations</h1>
+                            <div className="test">
+
+                            </div>
                         </div>
                         <div className="tab-pane fade" id="notes" role="tabpanel" aria-labelledby="notes-tab">
                             <h1>Notes</h1>
