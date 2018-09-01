@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './search.css';
+import {Link} from 'react-router-dom';
 
 
 class Search extends Component {
@@ -10,11 +11,16 @@ class Search extends Component {
             manufacturer: "",
             model: "",
             year: "",
+            vin: "",
             list: []
         }
     }
 
   componentDidMount(){
+    localStorage.removeItem("manufacturer")
+    localStorage.removeItem("model")
+    localStorage.removeItem("year")
+    localStorage.removeItem("vin")
     this.hydrateStateWithLocalStorage();
   }
 
@@ -52,70 +58,30 @@ class Search extends Component {
             <div className="search-results">
                 <h3>Results:</h3>
                 <ul className="list-group">
-                    <li className="list-group-item">
+                    {this.state.list.map(item => {
+                    return (                       
+                    <li key={item.id}>
                         <div className="row">
                             <div className="col-4 result-group">
                             <span class="badge badge-secondary">Manufacturer</span>
-                            <span class="badge badge-light">Manufacturer X</span>
+                            <span class="badge badge-light">{item.manufacturer}</span>
                             </div>
                             <div className="col-4 result-group">
                             <span class="badge badge-secondary">Model</span>
-                            <span class="badge badge-light">Model X</span>
+                            <span class="badge badge-light">{item.model}</span>
                             </div>
                             <div className="col-4 result-group">
                             <span class="badge badge-secondary">Year of Model</span>
-                            <span class="badge badge-light">2018</span>
+                            <span class="badge badge-light">{item.year}</span>
+                            </div>
+                            <div className="col-4 result-group">
+                            <span class="badge badge-secondary">VIN</span>
+                            <Link to='/editRecall' className="nav-link">{item.vin}</Link>
                             </div>
                         </div>
                     </li>
-                    <li className="list-group-item">
-                        <div className="row">
-                        <div className="col-4 result-group">
-                            <span class="badge badge-secondary">Manufacturer</span>
-                            <span class="badge badge-light">Manufacturer X</span>
-                            </div>
-                            <div className="col-4 result-group">
-                            <span class="badge badge-secondary">Model</span>
-                            <span class="badge badge-light">Model X</span>
-                            </div>
-                            <div className="col-4 result-group">
-                            <span class="badge badge-secondary">Year of Model</span>
-                            <span class="badge badge-light">2018</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="list-group-item">
-                        <div className="row">
-                        <div className="col-4 result-group">
-                            <span class="badge badge-secondary">Manufacturer</span>
-                            <span class="badge badge-light">Manufacturer X</span>
-                            </div>
-                            <div className="col-4 result-group">
-                            <span class="badge badge-secondary">Model</span>
-                            <span class="badge badge-light">Model X</span>
-                            </div>
-                            <div className="col-4 result-group">
-                            <span class="badge badge-secondary">Year of Model</span>
-                            <span class="badge badge-light">2018</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="list-group-item">
-                        <div className="row">
-                        <div className="col-4 result-group">
-                                <span class="badge badge-secondary">Manufacturer</span>
-                                <span class="badge badge-light">Manufacturer X</span>
-                            </div>
-                            <div className="col-4 result-group">
-                            <span class="badge badge-secondary">Model</span>
-                            <span class="badge badge-light">Model X</span>
-                            </div>
-                            <div className="col-4 result-group">
-                            <span class="badge badge-secondary">Year of Model</span>
-                            <span class="badge badge-light">2018</span>
-                            </div>
-                        </div>
-                    </li>
+                        );
+                    })}
                 </ul>
             </div>
         </div>       

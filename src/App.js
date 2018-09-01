@@ -9,6 +9,7 @@ import Recalls from './components/fleet/recalls';
 import FleetDrill from './components/fleet/drill_fleet';
 import Search from './components/search/search';
 import addRecall from './components/addRecall/addRecall';
+import editRecall from './components/editRecall/editRecall';
 
 
 class App extends Component {
@@ -21,6 +22,7 @@ class App extends Component {
           <Route path='/recalls' component={Recalls} />
           <Route path='/search' component={Search} />
           <Route path='/addRecall' component={addRecall} />
+          <Route path='/editRecall' component={editRecall} />
       </div>
     );
   }

@@ -9,6 +9,7 @@ class addRecall extends Component {
       manufacturer: "",
       model: "",
       year: "",
+      vin: "",
       list: []
     };
   }
@@ -17,6 +18,7 @@ class addRecall extends Component {
     localStorage.removeItem("manufacturer")
     localStorage.removeItem("model")
     localStorage.removeItem("year")
+    localStorage.removeItem("vin")
     this.hydrateStateWithLocalStorage();
   }
 
@@ -34,7 +36,8 @@ class addRecall extends Component {
       id: 1 + Math.random(),
       manufacturer: this.state.manufacturer.slice(),
       model: this.state.model.slice(),
-      year: this.state.year.slice()
+      year: this.state.year.slice(),
+      vin: this.state.vin.slice()
     };
 
     // copy current list of items
@@ -49,7 +52,8 @@ class addRecall extends Component {
       newItem: "",
       manufacturer: "",
       model: "",
-      year: ""
+      year: "",
+      vin: ""
     });
     
     // update localStorage
@@ -57,6 +61,7 @@ class addRecall extends Component {
     localStorage.setItem("manufacturer", "");
     localStorage.setItem("model", "");
     localStorage.setItem("year", "");
+    localStorage.setItem("vin", "");
   }
 
   deleteItem(id) {
@@ -125,26 +130,33 @@ class addRecall extends Component {
             onChange={e => this.updateInput("year", e.target.value)}
           />
           <br /><br />
+          <input
+            type="text"
+            placeholder="VIN"
+            value={this.state.vin}
+            onChange={e => this.updateInput("vin", e.target.value)}
+          />
+          <br /><br />
           <button
             onClick={() => this.addItem()}
             //disabled={!this.state.manufacturer.length}
           >
           Save
           </button>
-          <br /> <br />
+
           <ul>
             {this.state.list.map(item => {
               return (
                 <li key={item.id}>
-                  {item.manufacturer}
+                  {item.value}
                   <button onClick={() => this.deleteItem(item.id)}>
-                  Delete
+                    Remove
                   </button>
-                  <li>{item.model}</li>
                 </li>
               );
             })}
-          </ul>         
+          </ul>
+
         </div>
       </div>
     );
