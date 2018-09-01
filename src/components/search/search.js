@@ -1,12 +1,41 @@
 import React, { Component } from 'react';
-
 import './search.css';
 
 
 class Search extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            newItem: "",
+            manufacturer: "",
+            model: "",
+            year: "",
+            list: []
+        }
+    }
 
   componentDidMount(){
+    this.hydrateStateWithLocalStorage();
+  }
 
+  hydrateStateWithLocalStorage() {
+    // for all items in state
+    for (let key in this.state) {
+      // if the key exists in localStorage
+      if (localStorage.hasOwnProperty(key)) {
+        // get the key's value from localStorage
+        let value = localStorage.getItem(key);
+
+        // parse the localStorage string and setState
+        try {
+          value = JSON.parse(value);
+          this.setState({ [key]: value });
+        } catch (e) {
+          // handle empty string
+          this.setState({ [key]: value });
+        }
+      }
+    }
   }
 
   render() {
@@ -89,7 +118,7 @@ class Search extends Component {
                     </li>
                 </ul>
             </div>
-        </div>
+        </div>       
     );
   }
 }
