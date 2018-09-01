@@ -1,12 +1,62 @@
 import React, { Component } from 'react';
-
 import './search.css';
+import {Link} from 'react-router-dom';
 
 
 class Search extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            newRecall: "",
+            manufacturer: "",
+            model: "",
+            year: "",
+            vin: "",
+            editID: "",
+            list: []
+        }
+    }
 
   componentDidMount(){
+    localStorage.removeItem("manufacturer")
+    localStorage.removeItem("model")
+    localStorage.removeItem("year")
+    localStorage.removeItem("vin")
+    localStorage.removeItem("editID")
+    this.initialiseData();
+  }
 
+  initialiseData() {
+    // for all items in state
+    for (let key in this.state) {
+      // if the key exists in localStorage
+      if (localStorage.hasOwnProperty(key)) {
+        // get the key's value from localStorage
+        let value = localStorage.getItem(key);
+
+        // parse the localStorage string and setState
+        try {
+          value = JSON.parse(value);
+          this.setState({ [key]: value });
+        } catch (e) {
+          // handle empty string
+          this.setState({ [key]: value });
+        }
+      }
+    }
+  }
+
+  editRecall(id,manuf,mod,yr,vin) {
+    const editID = id;
+    const manufacturer = manuf;
+    const model = mod;
+    const year = yr;
+    const vinNumber = vin;
+    localStorage.setItem("editID", editID);
+    localStorage.setItem("manufacturer", manufacturer);
+    localStorage.setItem("model", model);
+    localStorage.setItem("year", year);
+    localStorage.setItem("vin", vinNumber);
   }
 
   render() {
@@ -23,73 +73,33 @@ class Search extends Component {
             <div className="search-results">
                 <h3>Results:</h3>
                 <ul className="list-group">
-                    <li className="list-group-item">
+                    {this.state.list.map(item => {
+                    return (                       
+                    <li key={item.id}>
                         <div className="row">
                             <div className="col-4 result-group">
                             <span class="badge badge-secondary">Manufacturer</span>
-                            <span class="badge badge-light">Manufacturer X</span>
+                            <span class="badge badge-light">{item.manufacturer}</span>
                             </div>
                             <div className="col-4 result-group">
                             <span class="badge badge-secondary">Model</span>
-                            <span class="badge badge-light">Model X</span>
+                            <span class="badge badge-light">{item.model}</span>
                             </div>
                             <div className="col-4 result-group">
                             <span class="badge badge-secondary">Year of Model</span>
-                            <span class="badge badge-light">2018</span>
+                            <span class="badge badge-light">{item.year}</span>
+                            </div>
+                            <div className="col-4 result-group">
+                            <span class="badge badge-secondary">VIN</span>
+                            <Link to='/editRecall' className="nav-link" onClick={() => this.editRecall(item.id, item.manufacturer,item.model,item.year,item.vin)}>{item.vin}</Link>
                             </div>
                         </div>
                     </li>
-                    <li className="list-group-item">
-                        <div className="row">
-                        <div className="col-4 result-group">
-                            <span class="badge badge-secondary">Manufacturer</span>
-                            <span class="badge badge-light">Manufacturer X</span>
-                            </div>
-                            <div className="col-4 result-group">
-                            <span class="badge badge-secondary">Model</span>
-                            <span class="badge badge-light">Model X</span>
-                            </div>
-                            <div className="col-4 result-group">
-                            <span class="badge badge-secondary">Year of Model</span>
-                            <span class="badge badge-light">2018</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="list-group-item">
-                        <div className="row">
-                        <div className="col-4 result-group">
-                            <span class="badge badge-secondary">Manufacturer</span>
-                            <span class="badge badge-light">Manufacturer X</span>
-                            </div>
-                            <div className="col-4 result-group">
-                            <span class="badge badge-secondary">Model</span>
-                            <span class="badge badge-light">Model X</span>
-                            </div>
-                            <div className="col-4 result-group">
-                            <span class="badge badge-secondary">Year of Model</span>
-                            <span class="badge badge-light">2018</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="list-group-item">
-                        <div className="row">
-                        <div className="col-4 result-group">
-                                <span class="badge badge-secondary">Manufacturer</span>
-                                <span class="badge badge-light">Manufacturer X</span>
-                            </div>
-                            <div className="col-4 result-group">
-                            <span class="badge badge-secondary">Model</span>
-                            <span class="badge badge-light">Model X</span>
-                            </div>
-                            <div className="col-4 result-group">
-                            <span class="badge badge-secondary">Year of Model</span>
-                            <span class="badge badge-light">2018</span>
-                            </div>
-                        </div>
-                    </li>
+                        );
+                    })}
                 </ul>
             </div>
-        </div>
+        </div>       
     );
   }
 }

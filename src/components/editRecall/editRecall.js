@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import './addRecall.css';
+import React, {Component} from 'react';
+import './editRecall.css'
 import {Link} from 'react-router-dom';
 
-class addRecall extends Component {
+class editRecall extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,36 +11,38 @@ class addRecall extends Component {
       model: "",
       year: "",
       vin: "",
+      editID: "",
       list: []
     };
   }
 
   componentDidMount(){
-    localStorage.removeItem("manufacturer")
-    localStorage.removeItem("model")
-    localStorage.removeItem("year")
-    localStorage.removeItem("vin")
     this.initialiseData();
   }
 
   updateInput(key, value) {
     this.setState({ [key]: value });
-
     localStorage.setItem(key, value);
   }
 
-  addItem() {
+  addItem(idEdit) {
+    const editID = idEdit
+    const list = [...this.state.list];
+    const updatedList = list.filter(item => item.id !== editID);
+
+    this.setState({ list: updatedList });
+
+    localStorage.setItem("list", JSON.stringify(updatedList));
+
     const newRecall = {
       id: 1 + Math.random(),
-      manufacturer: this.state.manufacturer.slice(),
-      model: this.state.model.slice(),
-      year: this.state.year.slice(),
-      vin: this.state.vin.slice()
+      manufacturer: this.state.manufacturer,
+      model: this.state.model,
+      year: this.state.year,
+      vin: this.state.vin
     };
 
-    const list = [...this.state.list];
-
-    list.push(newRecall);
+    updatedList.push(newRecall);
 
     this.setState({
       list,
@@ -51,21 +53,23 @@ class addRecall extends Component {
       vin: ""
     });
     
-    localStorage.setItem("list", JSON.stringify(list));
+    localStorage.setItem("list", JSON.stringify(updatedList));
     localStorage.setItem("manufacturer", "");
     localStorage.setItem("model", "");
     localStorage.setItem("year", "");
     localStorage.setItem("vin", "");
   }
 
-  deleteItem(id) {
+  deleteRecall(id) {
+    const editID = id
     const list = [...this.state.list];
-    const updatedList = list.filter(item => item.id !== id);
+    const updatedList = list.filter(item => item.id !== editID);
 
     this.setState({ list: updatedList });
 
     localStorage.setItem("list", JSON.stringify(updatedList));
-  }
+  } 
+
 
   initialiseData() {
     for (let key in this.state) {
@@ -76,10 +80,7 @@ class addRecall extends Component {
           value = JSON.parse(value);
           this.setState({ [key]: value });
         } catch (e) {
-<<<<<<< HEAD
-          // handle empty string
-=======
->>>>>>> origin
+
           this.setState({ [key]: value });
         }
       }
@@ -88,14 +89,8 @@ class addRecall extends Component {
 
   render() {
     return (
-      <div className="addRecall">
-<<<<<<< HEAD
-        
-        <h1 className="addRecall-title">Add new recalled vehicle</h1>
-        
-=======
-          <h1 className="addRecall-title">Add Recall</h1>
->>>>>>> origin
+      <div className="editRecall">
+          <h1 className="editRecall-title">Edit Recall</h1>
         <div
           style={{
             padding: 50,
@@ -105,46 +100,6 @@ class addRecall extends Component {
           }}
         >
           Vehicle details
-<<<<<<< HEAD
-          <br />
-          <input
-            type="text"
-            placeholder="Make"
-            value={this.state.newItem}
-            onChange={e => this.updateInput("newItem", e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Model"
-            value={this.state.newItem}
-            onChange={e => this.updateInput("newItem", e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Year"
-            value={this.state.newItem}
-            onChange={e => this.updateInput("newItem", e.target.value)}
-          />
-          <button
-            onClick={() => this.addItem()}
-            disabled={!this.state.newItem.length}
-          >
-          Save
-          </button>
-          <br /> <br />
-          <ul>
-            {this.state.list.map(item => {
-              return (
-                <li key={item.id}>
-                  {item.value}
-                  <button onClick={() => this.deleteItem(item.id)}>
-                    Remove
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-=======
           <br /><br />
           <input
             type="text"
@@ -176,17 +131,23 @@ class addRecall extends Component {
           <br /><br />
           <Link to="/search">
           <button
-            onClick={() => this.addItem()}
-            disabled={!this.state.manufacturer.length}
+            onClick={() => this.addItem(this.state.editID)}
           >
-          Save
+          Edit
           </button>
           </Link>
->>>>>>> origin
+          <br /><br />
+          <Link to="/search">
+          <button
+            onClick={() => this.deleteRecall(this.state.editID)}
+          >
+          Delete
+          </button>
+          </Link>
         </div>
       </div>
     );
   }
 }
 
-export default addRecall;
+export default editRecall;
