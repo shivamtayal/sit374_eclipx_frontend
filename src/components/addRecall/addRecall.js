@@ -124,6 +124,76 @@ class addRecall extends Component {
             onChange={e => this.updateInput("vin", e.target.value)}
           />
           <br /><br />
+          <input
+            type="text"
+            placeholder="Registration"
+            value={this.state.vin}
+            onChange={e => this.updateInput("vin", e.target.value)}
+          />
+          <br /><br />
+          <input
+            type="text"
+            placeholder="FP Vehicle ID"
+            value={this.state.vin}
+            onChange={e => this.updateInput("vin", e.target.value)}
+          />
+          <br /><br />
+          <input
+            type="text"
+            placeholder="Description"
+            value={this.state.vin}
+            onChange={e => this.updateInput("vin", e.target.value)}
+          />
+          <br /><br />
+          <input
+            type="text"
+            placeholder="Name"
+            value={this.state.vin}
+            onChange={e => this.updateInput("vin", e.target.value)}
+          />
+          <br /><br />
+          <input
+            type="text"
+            placeholder="Contact Email"
+            value={this.state.vin}
+            onChange={e => this.updateInput("vin", e.target.value)}
+          />
+          <br /><br />
+          <input
+            type="text"
+            placeholder="Email"
+            value={this.state.vin}
+            onChange={e => this.updateInput("vin", e.target.value)}
+          />
+          <br /><br />
+          <input
+            type="text"
+            placeholder="Orginisation"
+            value={this.state.vin}
+            onChange={e => this.updateInput("vin", e.target.value)}
+          />
+          <br /><br />
+          <input
+            type="text"
+            placeholder="Org Contact"
+            value={this.state.vin}
+            onChange={e => this.updateInput("vin", e.target.value)}
+          />
+          <br /><br />
+          <input
+            type="text"
+            placeholder="Org Email"
+            value={this.state.vin}
+            onChange={e => this.updateInput("vin", e.target.value)}
+          />
+          <br /><br />
+          <input
+            type="text"
+            placeholder="Org Number"
+            value={this.state.vin}
+            onChange={e => this.updateInput("vin", e.target.value)}
+          />
+          <br /><br />
           <Link to="/search">
           <button
             onClick={() => this.addItem()}
