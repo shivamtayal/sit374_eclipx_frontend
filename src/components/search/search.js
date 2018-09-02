@@ -13,7 +13,8 @@ class Search extends Component {
             year: "",
             vin: "",
             editID: "",
-            list: []
+            list: [],
+            alphabetList: []
         }
     }
 
@@ -27,19 +28,13 @@ class Search extends Component {
   }
 
   initialiseData() {
-    // for all items in state
     for (let key in this.state) {
-      // if the key exists in localStorage
       if (localStorage.hasOwnProperty(key)) {
-        // get the key's value from localStorage
         let value = localStorage.getItem(key);
-
-        // parse the localStorage string and setState
         try {
           value = JSON.parse(value);
           this.setState({ [key]: value });
         } catch (e) {
-          // handle empty string
           this.setState({ [key]: value });
         }
       }
@@ -57,6 +52,10 @@ class Search extends Component {
     localStorage.setItem("model", model);
     localStorage.setItem("year", year);
     localStorage.setItem("vin", vinNumber);
+  }
+
+  sortbyAlphabet(list) {
+
   }
 
   render() {
@@ -98,6 +97,7 @@ class Search extends Component {
                         );
                     })}
                 </ul>
+                <button>Sort by alphabet</button>
             </div>
         </div>       
     );
