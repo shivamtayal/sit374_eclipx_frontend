@@ -11,16 +11,6 @@ class addRecall extends Component {
       model: "",
       year: "",
       vin: "",
-      registration: "",
-      vehicleId: "",
-      description: "",
-      name: "",
-      contactNumber: "",
-      email: "",
-      organisation: "",
-      orgContact: "",
-      orgEmail: "",
-      orgNumber: "",
       list: []
     };
   }
@@ -30,16 +20,6 @@ class addRecall extends Component {
     localStorage.removeItem("model")
     localStorage.removeItem("year")
     localStorage.removeItem("vin")
-    localStorage.removeItem("registration")
-    localStorage.removeItem("vehicleId")
-    localStorage.removeItem("description")
-    localStorage.removeItem("name")
-    localStorage.removeItem("contactNumber")
-    localStorage.removeItem("email")
-    localStorage.removeItem("organisation")
-    localStorage.removeItem("orgContact")
-    localStorage.removeItem("orgEmail")
-    localStorage.removeItem("orgNumber")
     this.initialiseData();
   }
 
@@ -55,8 +35,7 @@ class addRecall extends Component {
       manufacturer: this.state.manufacturer,
       model: this.state.model,
       year: this.state.year(),
-      vin: this.state.vin(),
-      registration: this.state.registration()
+      vin: this.state.vin()
     };
 
     const list = [...this.state.list];
@@ -70,7 +49,6 @@ class addRecall extends Component {
       model: "",
       year: "",
       vin: "",
-      registration: ""
     });
     
     localStorage.setItem("list", JSON.stringify(list));
@@ -78,7 +56,6 @@ class addRecall extends Component {
     localStorage.setItem("model", "");
     localStorage.setItem("year", "");
     localStorage.setItem("vin", "");
-    localStorage.setItem("registration","");
   }
 
   deleteItem(id) {
@@ -149,7 +126,7 @@ class addRecall extends Component {
             onChange={e => this.updateInput("vin", e.target.value)}
           />
       </div>
-      <button type="submit" className="btn btn-primary" onClick={() => this.addItem()}>Submit</button>
+      <button type="submit" className="btn btn-primary" onClick={() => this.addItem}>Submit</button>
     </form>
     );
   }
