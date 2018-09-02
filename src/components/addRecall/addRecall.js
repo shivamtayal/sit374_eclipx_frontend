@@ -11,6 +11,16 @@ class addRecall extends Component {
       model: "",
       year: "",
       vin: "",
+      registration: "",
+      vehicleId: "",
+      description: "",
+      name: "",
+      contactNumber: "",
+      email: "",
+      organisation: "",
+      orgContact: "",
+      orgEmail: "",
+      orgNumber: "",
       list: []
     };
   }
@@ -20,6 +30,16 @@ class addRecall extends Component {
     localStorage.removeItem("model")
     localStorage.removeItem("year")
     localStorage.removeItem("vin")
+    localStorage.removeItem("registration")
+    localStorage.removeItem("vehicleId")
+    localStorage.removeItem("description")
+    localStorage.removeItem("name")
+    localStorage.removeItem("contactNumber")
+    localStorage.removeItem("email")
+    localStorage.removeItem("organisation")
+    localStorage.removeItem("orgContact")
+    localStorage.removeItem("orgEmail")
+    localStorage.removeItem("orgNumber")
     this.initialiseData();
   }
 
@@ -32,10 +52,11 @@ class addRecall extends Component {
   addItem() {
     const newRecall = {
       id: 1 + Math.random(),
-      manufacturer: this.state.manufacturer.slice(),
-      model: this.state.model.slice(),
-      year: this.state.year.slice(),
-      vin: this.state.vin.slice()
+      manufacturer: this.state.manufacturer,
+      model: this.state.model,
+      year: this.state.year(),
+      vin: this.state.vin(),
+      registration: this.state.registration()
     };
 
     const list = [...this.state.list];
@@ -48,7 +69,8 @@ class addRecall extends Component {
       manufacturer: "",
       model: "",
       year: "",
-      vin: ""
+      vin: "",
+      registration: ""
     });
     
     localStorage.setItem("list", JSON.stringify(list));
@@ -56,6 +78,7 @@ class addRecall extends Component {
     localStorage.setItem("model", "");
     localStorage.setItem("year", "");
     localStorage.setItem("vin", "");
+    localStorage.setItem("registration","");
   }
 
   deleteItem(id) {
@@ -125,91 +148,108 @@ class addRecall extends Component {
             value={this.state.vin}
             onChange={e => this.updateInput("vin", e.target.value)}
           />
-<<<<<<< HEAD
-          <br /><br />
-          <input
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="registration"
             type="text"
             placeholder="Registration"
-            value={this.state.vin}
-            onChange={e => this.updateInput("vin", e.target.value)}
+            value={this.state.registration}
+            onChange={e => this.updateInput("registration", e.target.value)}
           />
-          <br /><br />
-          <input
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="vehicleId"
             type="text"
             placeholder="FP Vehicle ID"
-            value={this.state.vin}
-            onChange={e => this.updateInput("vin", e.target.value)}
+            value={this.state.vehicleId}
+            onChange={e => this.updateInput("vehicleId", e.target.value)}
           />
-          <br /><br />
-          <input
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="description"
             type="text"
             placeholder="Description"
-            value={this.state.vin}
-            onChange={e => this.updateInput("vin", e.target.value)}
+            value={this.state.description}
+            onChange={e => this.updateInput("description", e.target.value)}
           />
-          <br /><br />
-          <input
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="name"
             type="text"
             placeholder="Name"
-            value={this.state.vin}
-            onChange={e => this.updateInput("vin", e.target.value)}
+            value={this.state.name}
+            onChange={e => this.updateInput("name", e.target.value)}
           />
-          <br /><br />
-          <input
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="contactNumber"
             type="text"
-            placeholder="Contact Email"
-            value={this.state.vin}
-            onChange={e => this.updateInput("vin", e.target.value)}
+            placeholder="Contact Number"
+            value={this.state.contactNumber}
+            onChange={e => this.updateInput("contactNumber", e.target.value)}
           />
-          <br /><br />
-          <input
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="email"
             type="text"
             placeholder="Email"
-            value={this.state.vin}
-            onChange={e => this.updateInput("vin", e.target.value)}
+            value={this.state.email}
+            onChange={e => this.updateInput("email", e.target.value)}
           />
-          <br /><br />
-          <input
-            type="text"
-            placeholder="Orginisation"
-            value={this.state.vin}
-            onChange={e => this.updateInput("vin", e.target.value)}
-          />
-          <br /><br />
-          <input
-            type="text"
-            placeholder="Org Contact"
-            value={this.state.vin}
-            onChange={e => this.updateInput("vin", e.target.value)}
-          />
-          <br /><br />
-          <input
-            type="text"
-            placeholder="Org Email"
-            value={this.state.vin}
-            onChange={e => this.updateInput("vin", e.target.value)}
-          />
-          <br /><br />
-          <input
-            type="text"
-            placeholder="Org Number"
-            value={this.state.vin}
-            onChange={e => this.updateInput("vin", e.target.value)}
-          />
-          <br /><br />
-          <Link to="/search">
-          <button
-            onClick={() => this.addItem()}
-            disabled={!this.state.manufacturer.length}
-          >
-          Save
-          </button>
-          </Link>
-        </div>
-=======
->>>>>>> origin
       </div>
-      <button type="submit" className="btn btn-primary">Submit</button>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="organisation"
+            type="text"
+            placeholder="Organisation"
+            value={this.state.organisation}
+            onChange={e => this.updateInput("organisation", e.target.value)}
+          />
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="orgContact"
+            type="text"
+            placeholder="Organisation Contact"
+            value={this.state.orgContact}
+            onChange={e => this.updateInput("orgContact", e.target.value)}
+          />
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="orgEmail"
+            type="text"
+            placeholder="Organisation Email"
+            value={this.state.orgEmail}
+            onChange={e => this.updateInput("orgEmail", e.target.value)}
+          />
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="orgNumber"
+            type="text"
+            placeholder="Organisation Number"
+            value={this.state.orgNumber}
+            onChange={e => this.updateInput("orgNumber", e.target.value)}
+          />
+      </div>    
+      <button type="submit" className="btn btn-primary" onClick={() => this.addItem()}>Submit</button>
     </form>
     );
   }
