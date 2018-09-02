@@ -1,12 +1,126 @@
 import React, { Component } from 'react';
-
 import './detail.css';
+import {Link} from 'react-router-dom';
 
 //const mock = require('./');
 
 class View extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            newRecall: "",
+            manufacturer: "",
+            model: "",
+            year: "",
+            vin: "",
+            registration: "",
+            vehicleId: "",
+            description: "",
+            name: "",
+            contactNumber: "",
+            email: "",
+            organisation: "",
+            orgContact: "",
+            orgEmail: "",
+            orgNumber: "",
+            editID: "",
+            list: [],
+            alphabetList: []
+        }
+    }
 
+    componentDidMount(){
+        this.initialiseData();
+      }
 
+    initialiseData() {
+        for (let key in this.state) {
+          if (localStorage.hasOwnProperty(key)) {
+            let value = localStorage.getItem(key);
+    
+            try {
+              value = JSON.parse(value);
+              this.setState({ [key]: value });
+            } catch (e) {
+    
+              this.setState({ [key]: value });
+            }
+          }
+        }
+      }
+
+    updateInput(key, value) {
+        this.setState({ [key]: value });
+        localStorage.setItem(key, value);
+    }
+    
+    addItem(idEdit) {
+        const editID = idEdit
+        const list = [...this.state.list];
+        const updatedList = list.filter(item => item.id !== editID);
+    
+        this.setState({ list: updatedList });
+    
+        localStorage.setItem("list", JSON.stringify(updatedList));
+    
+        const newRecall = {
+          id: 1 + Math.random(),
+          manufacturer: this.state.manufacturer,
+          model: this.state.model,
+          year: this.state.year,
+          vin: this.state.vin
+        };
+    
+        updatedList.push(newRecall);
+    
+        this.setState({
+          list,
+          newRecall: "",
+          manufacturer: "",
+          model: "",
+          year: "",
+          vin: ""
+        });
+        
+        localStorage.setItem("list", JSON.stringify(updatedList));
+        localStorage.setItem("manufacturer", "");
+        localStorage.setItem("model", "");
+        localStorage.setItem("year", "");
+        localStorage.setItem("vin", "");
+      }
+
+      editRecall(id,manuf,mod,yr,vin,reg,vid,des,nm,cnum,em,org,orgc,orge,orgn) {
+        const editID = id;
+        const manufacturer = manuf;
+        const model = mod;
+        const year = yr;
+        const vinNumber = vin;
+        const rego = reg;
+        const vehid = vid;
+        const desc = des;
+        const nme = nm;
+        const connum = cnum;
+        const ema = em;
+        const organ = org;
+        const orgcon = orgc;
+        const orgem = orge;
+        const orgnum = orgn
+        localStorage.setItem("editID", editID);
+        localStorage.setItem("manufacturer", manufacturer);
+        localStorage.setItem("model", model);
+        localStorage.setItem("year", year);
+        localStorage.setItem("vin", vinNumber);
+        localStorage.setItem("registration", rego)
+        localStorage.setItem("vehicleId", vehid)
+        localStorage.setItem("description", desc)
+        localStorage.setItem("name", nme)
+        localStorage.setItem("contactNumber", connum)
+        localStorage.setItem("email", ema)
+        localStorage.setItem("organisation", organ)
+        localStorage.setItem("orgContact", orgcon)
+        localStorage.setItem("orgEmail", orgem)
+        localStorage.setItem("orgNumber", orgnum)
+      }
 
     render() {
         return (
@@ -22,49 +136,50 @@ class View extends Component {
                         <tbody>
                             <tr>
                                 <th>VIN</th>
-                                <td>WBAZW420700B67949</td>
+                                <td>{this.state.vin}</td>
                                 <th>Name</th>
-                                <td>Jeremy Dkes</td>
+                                <td>{this.state.name}</td>
                             </tr>
                             <tr>
                                 <th>Registration</th>
-                                <td>SUE482</td>
+                                <td>{this.state.registration}</td>
                                 <th>Contact Number</th>
                                 <td>04 1234 5678</td>
                             </tr>
                             <tr>
                                 <th>MAKE</th>
-                                <td>BMW</td>
+                                <td>{this.state.manufacturer}</td>
                                 <th>Email</th>
-                                <td>Driver@gmail.com</td>
+                                <td>{this.state.email}</td>
                             </tr>
                             <tr>
                                 <th>Model</th>
-                                <td>x5</td>
+                                <td>{this.state.model}</td>
                                 <th>Organisation</th>
-                                <td>Sydney in Home</td>
+                                <td>{this.state.organisation}</td>
                             </tr>
                             <tr>
                                 <th>Model Year</th>
-                                <td>BMW</td>
+                                <td>{this.state.year}</td>
                                 <th>Org-Contact</th>
-                                <td>Fleet Manager</td>
+                                <td>{this.state.orgContact}</td>
                             </tr>
                             <tr>
                                 <th>FP Vehicle ID</th>
-                                <td>AAAM1215</td>
+                                <td>{this.state.vehicleId}}</td>
                                 <th>Org-Email</th>
-                                <td>driver@sihc.com.au</td>
+                                <td>{this.state.orgEmail}}</td>
                             </tr>
                             <tr>
                                 <th>Description</th>
-                                <td>BMW X5 E70 xDrive30d Executive Pack Steptronic 4x4</td>
+                                <td>{this.state.description}</td>
                                 <th>Org-Number</th>
-                                <td>02 1234 5678</td>
+                                <td>{this.state.orgNumber}}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                <Link to='/editRecall' className="nav-link" >Edit</Link>
                 <div className="detail-tabs">
                     <ul className="nav nav-tabs" id="detailTabs" role="tablist">
                         <li className="nav-item">
