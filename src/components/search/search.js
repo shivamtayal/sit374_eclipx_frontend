@@ -90,6 +90,7 @@ class Search extends Component {
                             </div>
                             <div className="col-4 result-group">
                             <span class="badge badge-secondary">VIN</span>
+                            <span class="badge badge-light">{item.vin}</span>
                             <Link to='/editRecall' className="nav-link" onClick={() => this.editRecall(item.id, item.manufacturer,item.model,item.year,item.vin)}>{item.vin}</Link>
                             </div>
                         </div>
