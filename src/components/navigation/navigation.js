@@ -30,6 +30,9 @@ class Nav extends Component {
                     <li className="nav-item">  
                     <Link to='/addRecall' className="nav-link">Add Recall</Link>
                 </li>
+                <li className="nav-item">
+                    <Link to='/detail' className="nav-link">Detail</Link>
+                </li>
                 </ul>
             </div>
             </nav>
