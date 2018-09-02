@@ -84,56 +84,50 @@ class addRecall extends Component {
 
   render() {
     return (
-      <div className="addRecall">
-          <h1 className="addRecall-title">Add Recall</h1>
-        <div
-          style={{
-            padding: 50,
-            textAlign: "left",
-            maxWidth: 500,
-            margin: "auto"
-          }}
-        >
-          Vehicle details
-          <br /><br />
-          <input
+      <form className="w-50 m-auto">
+      <div className="form-group addRecall">
+      <h1 className="addRecall-title">Add Recall</h1>
+      <input
+            className="form-control"
+            id="manufacturer"
             type="text"
             placeholder="Manufacturer"
             value={this.state.manufacturer}
             onChange={e => this.updateInput("manufacturer", e.target.value)}
           />
-          <br /><br />
-          <input
+      </div>
+      <div className="form-group">
+        <input
+            className="form-control"
+            id="model"
             type="text"
             placeholder="Model"
             value={this.state.model}
             onChange={e => this.updateInput("model", e.target.value)}
           />
-          <br /><br />
-          <input
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"
+            id="year"
             type="text"
             placeholder="Year"
             value={this.state.year}
             onChange={e => this.updateInput("year", e.target.value)}
           />
-          <br /><br />
-          <input
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="vin"
             type="text"
             placeholder="VIN"
             value={this.state.vin}
             onChange={e => this.updateInput("vin", e.target.value)}
           />
-          <br /><br />
-          <Link to="/search">
-          <button
-            onClick={() => this.addItem()}
-            disabled={!this.state.manufacturer.length}
-          >
-          Save
-          </button>
-          </Link>
-        </div>
       </div>
+      <button type="submit" className="btn btn-primary">Submit</button>
+    </form>
     );
   }
 }
