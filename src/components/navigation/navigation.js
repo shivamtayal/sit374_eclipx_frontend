@@ -25,6 +25,7 @@ class Nav extends Component {
                     <Link to='/search' className="nav-link">Search</Link>
                 </li>
                 <li className="nav-item">
+                    <Link to='/detail' className="nav-link">Detail</Link>     {/*-----need to modify----*/} 
                     <Link to='/addRecall' className="nav-link">Add Recall</Link>
                 </li>
                 </ul>
