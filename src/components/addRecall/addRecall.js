@@ -11,16 +11,6 @@ class addRecall extends Component {
       model: "",
       year: "",
       vin: "",
-      registration: "",
-      vehicleId: "",
-      description: "",
-      name: "",
-      contactNumber: "",
-      email: "",
-      organisation: "",
-      orgContact: "",
-      orgEmail: "",
-      orgNumber: "",
       list: []
     };
   }
@@ -30,16 +20,6 @@ class addRecall extends Component {
     localStorage.removeItem("model")
     localStorage.removeItem("year")
     localStorage.removeItem("vin")
-    localStorage.removeItem("registration")
-    localStorage.removeItem("vehicleId")
-    localStorage.removeItem("description")
-    localStorage.removeItem("name")
-    localStorage.removeItem("contactNumber")
-    localStorage.removeItem("email")
-    localStorage.removeItem("organisation")
-    localStorage.removeItem("orgContact")
-    localStorage.removeItem("orgEmail")
-    localStorage.removeItem("orgNumber")
     this.initialiseData();
   }
 
@@ -70,7 +50,6 @@ class addRecall extends Component {
       model: "",
       year: "",
       vin: "",
-      registration: ""
     });
     
     localStorage.setItem("list", JSON.stringify(list));
@@ -78,7 +57,6 @@ class addRecall extends Component {
     localStorage.setItem("model", "");
     localStorage.setItem("year", "");
     localStorage.setItem("vin", "");
-    localStorage.setItem("registration","");
   }
 
   deleteItem(id) {
@@ -178,8 +156,8 @@ class addRecall extends Component {
             value={this.state.vin}
             onChange={e => this.updateInput("vin", e.target.value)}
           />
-      </div>
-      <button type="submit" className="btn btn-primary" onClick={() => this.addItem()}>Submit</button>
+      </div>s
+      <button type="submit" className="btn btn-primary" onClick={() => this.addItem}>Submit</button>
     </form>
     );
   }
