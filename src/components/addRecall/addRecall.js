@@ -126,7 +126,7 @@ class addRecall extends Component {
             onChange={e => this.updateInput("vin", e.target.value)}
           />
       </div>
-      <button type="submit" className="btn btn-primary">Submit</button>
+      <button type="submit" className="btn btn-primary" onClick={() => this.addItem}>Submit</button>
     </form>
     );
   }
