@@ -54,9 +54,9 @@ class addRecall extends Component {
       id: 1 + Math.random(),
       manufacturer: this.state.manufacturer,
       model: this.state.model,
-      year: this.state.year(),
-      vin: this.state.vin(),
-      registration: this.state.registration()
+      year: this.state.year,
+      vin: this.state.vin,
+      registration: this.state.registration
     };
 
     const list = [...this.state.list];
@@ -137,6 +137,36 @@ class addRecall extends Component {
             placeholder="Year"
             value={this.state.year}
             onChange={e => this.updateInput("year", e.target.value)}
+          />
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="vin"
+            type="text"
+            placeholder="VIN"
+            value={this.state.vin}
+            onChange={e => this.updateInput("vin", e.target.value)}
+          />
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="registration"
+            type="text"
+            placeholder="Registration"
+            value={this.state.registration}
+            onChange={e => this.updateInput("registration", e.target.value)}
+          />
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="vehicleId"
+            type="text"
+            placeholder="FP Vehicle ID"
+            value={this.state.vehicleId}
+            onChange={e => this.updateInput("vehicleId", e.target.value)}
           />
       </div>
       <div className="form-group">
