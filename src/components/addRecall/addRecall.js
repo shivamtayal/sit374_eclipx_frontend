@@ -40,6 +40,7 @@ class addRecall extends Component {
     localStorage.removeItem("orgContact")
     localStorage.removeItem("orgEmail")
     localStorage.removeItem("orgNumber")
+    localStorage.removeItem("editID")
     this.initialiseData();
   }
 

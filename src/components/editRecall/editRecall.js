@@ -11,6 +11,16 @@ class editRecall extends Component {
       model: "",
       year: "",
       vin: "",
+      registration: "",
+      vehicleId: "",
+      description: "",
+      name: "",
+      contactNumber: "",
+      email: "",
+      organisation: "",
+      orgContact: "",
+      orgEmail: "",
+      orgNumber: "",
       editID: "",
       list: []
     };
@@ -39,7 +49,17 @@ class editRecall extends Component {
       manufacturer: this.state.manufacturer,
       model: this.state.model,
       year: this.state.year,
-      vin: this.state.vin
+      vin: this.state.vin,
+      registration: this.state.registration,
+      vehicleId: this.state.vehicleId,
+      description: this.state.description,
+      name: this.state.name,
+      contactNumber: this.state.contactNumber,
+      email: this.state.email,
+      organisation: this.state.organisation,
+      orgContact: this.state.orgContact,
+      orgEmail: this.state.orgEmail,
+      orgNumber: this.state.orgNumber
     };
 
     updatedList.push(newRecall);
@@ -50,7 +70,17 @@ class editRecall extends Component {
       manufacturer: "",
       model: "",
       year: "",
-      vin: ""
+      vin: "",
+      registration: "",
+      vehicleId: "",
+      description: "",
+      name: "",
+      contactNumber: "",
+      email: "",
+      organisation: "",
+      orgContact: "",
+      orgEmail: "",
+      orgNumber: ""
     });
     
     localStorage.setItem("list", JSON.stringify(updatedList));
@@ -58,6 +88,16 @@ class editRecall extends Component {
     localStorage.setItem("model", "");
     localStorage.setItem("year", "");
     localStorage.setItem("vin", "");
+    localStorage.setItem("registration", "");
+    localStorage.setItem("vehicleId", "");
+    localStorage.setItem("description", "");
+    localStorage.setItem("name", "");
+    localStorage.setItem("contactNumber", "");
+    localStorage.setItem("email", "");
+    localStorage.setItem("organisation", "");
+    localStorage.setItem("orgContact", "");
+    localStorage.setItem("orgEmail", "");
+    localStorage.setItem("orgNumber", "");
   }
 
   deleteRecall(id) {
@@ -89,63 +129,163 @@ class editRecall extends Component {
 
   render() {
     return (
-      <div className="editRecall">
-          <h1 className="editRecall-title">Edit Recall</h1>
-        <div
-          style={{
-            padding: 50,
-            textAlign: "left",
-            maxWidth: 500,
-            margin: "auto"
-          }}
-        >
-          Vehicle details
-          <br /><br />
-          <input
+      <form className="w-50 m-auto">
+      <div className="form-group addRecall">
+      <h1 className="addRecall-title">Edit Recall</h1>
+      <input
+            className="form-control"
+            id="manufacturer"
             type="text"
             placeholder="Manufacturer"
             value={this.state.manufacturer}
             onChange={e => this.updateInput("manufacturer", e.target.value)}
           />
-          <br /><br />
-          <input
+      </div>
+      <div className="form-group">
+        <input
+            className="form-control"
+            id="model"
             type="text"
             placeholder="Model"
             value={this.state.model}
             onChange={e => this.updateInput("model", e.target.value)}
           />
-          <br /><br />
-          <input
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"
+            id="year"
             type="text"
             placeholder="Year"
             value={this.state.year}
             onChange={e => this.updateInput("year", e.target.value)}
           />
-          <br /><br />
-          <input
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="vin"
             type="text"
             placeholder="VIN"
             value={this.state.vin}
             onChange={e => this.updateInput("vin", e.target.value)}
           />
-          <br /><br />
-          <Link to="/search">
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="registration"
+            type="text"
+            placeholder="Registration"
+            value={this.state.registration}
+            onChange={e => this.updateInput("registration", e.target.value)}
+          />
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="vehicleId"
+            type="text"
+            placeholder="FP Vehicle ID"
+            value={this.state.vehicleId}
+            onChange={e => this.updateInput("vehicleId", e.target.value)}
+          />
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="description"
+            type="text"
+            placeholder="Description"
+            value={this.state.description}
+            onChange={e => this.updateInput("description", e.target.value)}
+          />
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="name"
+            type="text"
+            placeholder="Name"
+            value={this.state.name}
+            onChange={e => this.updateInput("name", e.target.value)}
+          />
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="contactNumber"
+            type="text"
+            placeholder="Contact Number"
+            value={this.state.contactNumber}
+            onChange={e => this.updateInput("contactNumber", e.target.value)}
+          />
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="email"
+            type="text"
+            placeholder="Email"
+            value={this.state.email}
+            onChange={e => this.updateInput("email", e.target.value)}
+          />
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="organisation"
+            type="text"
+            placeholder="Organisation"
+            value={this.state.organisation}
+            onChange={e => this.updateInput("organisation", e.target.value)}
+          />
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="orgContact"
+            type="text"
+            placeholder="Organisation Conact"
+            value={this.state.orgContact}
+            onChange={e => this.updateInput("orgContact", e.target.value)}
+          />
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="orgEmail"
+            type="text"
+            placeholder="Organisation Email"
+            value={this.state.orgEmail}
+            onChange={e => this.updateInput("orgEmail", e.target.value)}
+          />
+      </div>
+      <div className="form-group">
+      <input
+            className="form-control"  
+            id="orgNumber"
+            type="text"
+            placeholder="Organisation Number"
+            value={this.state.orgNumber}
+            onChange={e => this.updateInput("orgNumber", e.target.value)}
+          />
+      </div>
+      <Link to="/search">
           <button
             onClick={() => this.addItem(this.state.editID)}
           >
           Edit
           </button>
-          </Link>
-          <br /><br />
-          <Link to="/search">
+      </Link>
+      <Link to="/search">
           <button
             onClick={() => this.deleteRecall(this.state.editID)}
           >
           Delete
           </button>
-          </Link>
-        </div>
-      </div>
+      </Link>
+    </form>
     );
   }
 }

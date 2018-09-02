@@ -166,15 +166,15 @@ class View extends Component {
                             </tr>
                             <tr>
                                 <th>FP Vehicle ID</th>
-                                <td>{this.state.vehicleId}}</td>
+                                <td>{this.state.vehicleId}</td>
                                 <th>Org-Email</th>
-                                <td>{this.state.orgEmail}}</td>
+                                <td>{this.state.orgEmail}</td>
                             </tr>
                             <tr>
                                 <th>Description</th>
                                 <td>{this.state.description}</td>
                                 <th>Org-Number</th>
-                                <td>{this.state.orgNumber}}</td>
+                                <td>{this.state.orgNumber}</td>
                             </tr>
                         </tbody>
                     </table>
