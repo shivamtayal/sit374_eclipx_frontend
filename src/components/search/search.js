@@ -44,6 +44,7 @@ class Search extends Component {
     localStorage.removeItem("orgEmail")
     localStorage.removeItem("orgNumber")
     localStorage.removeItem("editID")
+    this.sortbyAlphabet();
     this.initialiseData();
   }
 
@@ -94,13 +95,15 @@ class Search extends Component {
     localStorage.setItem("orgNumber", orgnum)
   }
 
-  sortbyAlphabet(list) {
-
+  sortbyAlphabet() {
+      var arraySort = require('array-sort')
+      this.state.alphabetList = arraySort(this.state.list, 'manufacturer')      
   }
 
   generateRecalls(){
       if(this.state.list.length >= 1){
-        return this.state.list.map(item => {
+          this.sortbyAlphabet();
+        return this.state.alphabetList.map(item => {
             return (                       
             <li className="list-group-item" key={item.id}>
                 <div className="row">
@@ -127,6 +130,9 @@ class Search extends Component {
                     <div className="col-2 result-group">
                     <span className="badge badge-secondary">VIN</span>
                     <Link to='/detail' className="nav-link" onClick={() => this.editRecall(item.id, item.manufacturer,item.model,item.year,item.vin,item.registration,item.vehicleId,item.description,item.name,item.contactNumber,item.email,item.organisation,item.orgContact,item.orgEmail,item.orgNumber)}>{item.vin}</Link>
+                    <Link to='/detail'>
+                    <button onClick={() => this.editRecall(item.id, item.manufacturer,item.model,item.year,item.vin,item.registration,item.vehicleId,item.description,item.name,item.contactNumber,item.email,item.organisation,item.orgContact,item.orgEmail,item.orgNumber)}>temp</button>
+                    </Link>
                     </div>
                 </div>
             </li>

@@ -139,6 +139,7 @@ class addRecall extends Component {
         <Link className="route-linker btn btn-outline-dark" to='/recalls'>Back To Recalls</Link>
       <form className="w-50 m-auto">
       <div className="form-group addRecall">
+      <h4 className="addRecall-title">Vehicle</h4>
       <input
             className="form-control"
             id="manufacturer"
@@ -209,6 +210,7 @@ class addRecall extends Component {
           />
       </div>
       <div className="form-group">
+      <h4 className="addRecall-title">Custodian</h4>
       <input
             className="form-control"  
             id="name"
