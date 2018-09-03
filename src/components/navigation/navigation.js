@@ -19,19 +19,13 @@ class Nav extends Component {
                     <Link to='/' className="nav-link">Home</Link>
                 </li>
                 <li className="nav-item">
-                    <Link to='/recalls' className="nav-link">Recalls</Link>
+                    <Link to='/recalls' className="nav-link">Recall Campaigns</Link>
                 </li>
                 <li className="nav-item">
-                    <Link to='/search' className="nav-link">Search</Link>
+                    <Link to='/search' className="nav-link">View Recalls</Link>
                 </li>
-                <li className="nav-item">
-                    <Link to='/detail' className="nav-link">Detail</Link> 
-                    </li>
                     <li className="nav-item">  
                     <Link to='/addRecall' className="nav-link">Add Recall</Link>
-                </li>
-                <li className="nav-item">
-                    <Link to='/detail' className="nav-link">Detail</Link>
                 </li>
                 </ul>
             </div>

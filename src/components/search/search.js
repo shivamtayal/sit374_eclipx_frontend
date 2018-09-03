@@ -94,8 +94,8 @@ class Search extends Component {
     localStorage.setItem("orgNumber", orgnum)
   }
 
-  sortbyAlphabet(list) {
-
+  sortbyAlphabet() {
+    const sortList = [...this.state.contacts];
   }
 
   render() {
@@ -111,9 +111,11 @@ class Search extends Component {
             </div>
             <div className="search-results">
                 <h3>Results:</h3>
+                <button>Sort by alphabet</button>
+
                 <ul className="list-group">
                     {this.state.list.map(item => {
-                    return (                       
+                    return (          
                     <li key={item.id}>
                         <div className="row">
                             <div className="col-4 result-group">
@@ -137,7 +139,6 @@ class Search extends Component {
                         );
                     })}
                 </ul>
-                <button>Sort by alphabet</button>
             </div>
         </div>       
     );

@@ -137,7 +137,7 @@ class addRecall extends Component {
     return (
       <form className="w-50 m-auto">
       <div className="form-group addRecall">
-      <h1 className="addRecall-title">Add Recall</h1>
+      <h1 className="addRecall-title">Vehicle</h1>
       <input
             className="form-control"
             id="manufacturer"
@@ -207,6 +207,7 @@ class addRecall extends Component {
             onChange={e => this.updateInput("description", e.target.value)}
           />
       </div>
+      <h1 className="addRecall-title">Custodian</h1>
       <div className="form-group">
       <input
             className="form-control"  
