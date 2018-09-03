@@ -45,7 +45,7 @@ class editRecall extends Component {
     localStorage.setItem("list", JSON.stringify(updatedList));
 
     const newRecall = {
-      id: 1 + Math.random(),
+      id: 1 + Math.round(Math.random()),
       manufacturer: this.state.manufacturer,
       model: this.state.model,
       year: this.state.year,
@@ -272,14 +272,14 @@ class editRecall extends Component {
           />
       </div>
       <Link to="/search">
-          <button
+          <button className="btn btn-outline-primary"
             onClick={() => this.addItem(this.state.editID)}
           >
-          Edit
+          Save
           </button>
-      </Link>
+      </Link>&nbsp;
       <Link to="/search">
-          <button
+          <button className="btn btn-outline-primary"
             onClick={() => this.deleteRecall(this.state.editID)}
           >
           Delete

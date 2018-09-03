@@ -1,11 +1,19 @@
 .jumbotron{
-    padding: 10px 0 20px !important;
+    padding: 10px 0 10px !important;
     width: 90%;
     margin: auto !important;
+    padding: 2em;
+    box-shadow: 2px 5px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.jumbotron h4{
+    margin-top: 20px;
+    text-align: center;
 }
 
 .jumbotron p {
-    margin: auto 0 auto;
+    margin: 10px 0 auto;
 }
 
 .seperator{

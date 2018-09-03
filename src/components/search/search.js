@@ -144,7 +144,7 @@ class Search extends Component {
         <div className="search">
             <div className="search-bar">
                 <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder="Search Functionality Will Be Available In The Future" aria-p="Recall Search Input" aria-describedby="Eclipx" disabled/>
+                    <input type="text" className="form-control" placeholder="Search Functionality Will Be Available In The Future" aria-describedby="Eclipx" disabled/>
                     <div className="input-group-append">
                         <button className="btn btn-primary" type="button">Search</button>
                     </div>

@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import './detail.css';
 import {Link} from 'react-router-dom';
 
-//const mock = require('./');
+import DetailTable from './table';
+import Communications from './communications';
+import Notes from './notes';
 
 class View extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            table: true,
+            communications: false,
+            notes: false,
             newRecall: "",
             manufacturer: "",
             model: "",
@@ -122,138 +127,46 @@ class View extends Component {
         localStorage.setItem("orgNumber", orgnum)
       }
 
+    checkIsActive(type){
+        if(this.state[type]){
+            return 'active';
+        } else {
+            return '';
+        }
+    }
+
+    tileToRender(){
+        if(this.state.table){
+            return <DetailTable state={this.state}/>
+        } else if (this.state.communications){
+            return <Communications/>
+        } else if (this.state.notes){
+            return <Notes/>
+        }
+    }
+
+
     render() {
         return (
-            <div className="detail">
-                <div className="detail-header">
-                    <table className="table table-borderless detail-table">
-                        <thead>
-                            <tr>
-                                <th colSpan="2">VEHICLE</th>
-                                <th colSpan="2">CUSTODIAN</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th>VIN</th>
-                                <td>{this.state.vin}</td>
-                                <th>Name</th>
-                                <td>{this.state.name}</td>
-                            </tr>
-                            <tr>
-                                <th>Registration</th>
-                                <td>{this.state.registration}</td>
-                                <th>Contact Number</th>
-                                <td>04 1234 5678</td>
-                            </tr>
-                            <tr>
-                                <th>MAKE</th>
-                                <td>{this.state.manufacturer}</td>
-                                <th>Email</th>
-                                <td>{this.state.email}</td>
-                            </tr>
-                            <tr>
-                                <th>Model</th>
-                                <td>{this.state.model}</td>
-                                <th>Organisation</th>
-                                <td>{this.state.organisation}</td>
-                            </tr>
-                            <tr>
-                                <th>Model Year</th>
-                                <td>{this.state.year}</td>
-                                <th>Org-Contact</th>
-                                <td>{this.state.orgContact}</td>
-                            </tr>
-                            <tr>
-                                <th>FP Vehicle ID</th>
-                                <td>{this.state.vehicleId}</td>
-                                <th>Org-Email</th>
-                                <td>{this.state.orgEmail}</td>
-                            </tr>
-                            <tr>
-                                <th>Description</th>
-                                <td>{this.state.description}</td>
-                                <th>Org-Number</th>
-                                <td>{this.state.orgNumber}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <Link to='/editRecall' className="nav-link" >Edit</Link>
-                <div className="detail-tabs">
-                    <ul className="nav nav-tabs" id="detailTabs" role="tablist">
-                        <li className="nav-item">
-                            <a id="active" data-toggle="tab" href="#recalls" role="tab" aria-controls="recalls" aria-selected="true"><a>RECALLS</a></a>
-                        </li>
-                        <li className="nav-item">
-                            <a id="communciations-tab" data-toggle="tab" href="#communciations" role="tab" aria-controls="communciations" aria-selected="false"><a>COMMUNCIATIONS</a></a>
-                        </li>
-                        <li className="nav-item">
-                            <a id="notes-tab" data-toggle="tab" href="#notes" role="tab" aria-controls="notes" aria-selected="false"><a>NOTES</a></a>
-                        </li>
-                    </ul>
-                    <div className="tab-content" id="detailTabsContent">
-                        <div className="tab-pane fade show active" id="recalls" role="tabpanel" aria-labelledby="recalls-tab">
-                            <table className="table recalls-table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col"> </th>
-                                        <th scope="col">Active Recall?</th>
-                                        <th scope="col">Recall Priority</th>
-                                        <th scope="col">Recall No</th>
-                                        <th scope="col">PRA No</th>
-                                        <th scope="col">Description</th>
-                                        <th scope="col">Rectified?</th>
-                                        <th scope="col">Rectification Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>save delete</td>
-                                        <td>YES</td>
-                                        <td>Alpha</td>
-                                        <td>00 26 3701 00</td>
-                                        <td>00 26 3701 00</td>
-                                        <td>Replace front driveshaft</td>
-                                        <td>No</td>
-                                        <td>05-01-2018</td>
-                                    </tr>
-                                    <tr>
-                                        <td>update</td>
-                                        <td>YES</td>
-                                        <td>Beta</td>
-                                        <td>00 32 6402 00</td>
-                                        <td>00 32 6402 00</td>
-                                        <td>Replace drivers airbag</td>
-                                        <td>No</td>
-                                        <td> </td>
-                                    </tr>
-                                    <tr>
-                                        <td> </td>
-                                        <td>YES</td>
-                                        <td>Beta</td>
-                                        <td>00 72 9301 00</td>
-                                        <td>00 72 9301 00</td>
-                                        <td>Replace passenger airbag</td>
-                                        <td>Yes</td>
-                                        <td>04-04-2018</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="tab-pane fade" id="communciations" role="tabpanel" aria-labelledby="communciations-tab">
-                            <h1>Communciations</h1>
-                            <div className="test">
-
-                            </div>
-                        </div>
-                        <div className="tab-pane fade" id="notes" role="tabpanel" aria-labelledby="notes-tab">
-                            <h1>Notes</h1>
-                        </div>
-                    </div>
-                </div>
+            <div className="card text-center detail-piece">
+            <div className="card-header">
+                <ul className="nav nav-tabs card-header-tabs">
+                <li className="nav-item">
+                    <a href="#table" className={"nav-link " + this.checkIsActive('table')} onClick={(e) => {this.setState({table: true, communications: false, notes: false})}}>Recall Table</a>
+                </li>
+                <li className="nav-item">
+                    <a href="#comms" className={"nav-link " + this.checkIsActive('communications')} onClick={(e) => {this.setState({communications: true, table: false, notes: false})}}>Communications</a>
+                </li>
+                <li className="nav-item">
+                    <a href="#notes" className={"nav-link " + this.checkIsActive('notes')} onClick={(e) => {this.setState({notes: true, table: false, communications: false})}}>Notes</a>
+                </li>
+                </ul>
             </div>
-        );
+            <div className="card-body">
+                {this.tileToRender()}
+            </div>
+            </div>
+        )
     }
 }
 
