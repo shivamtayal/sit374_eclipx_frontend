@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 
 //const mock = require('./');
 
+//Constructer to initialise our keys to store data.
 class View extends Component {
     constructor(props) {
         super(props);
@@ -29,10 +30,15 @@ class View extends Component {
         }
     }
 
+    //This starts when the page is loaded. It clears the keys and then runs the initialise data function.
     componentDidMount(){
+    //This will refresh data into the keys to enable data to be persistant. As most keys are removed beforehand this will just load the
+    //list[] array with stored data.
         this.initialiseData();
       }
 
+    //This function is called when the page is opened. it will read through the keys in this state and check local storage.
+    //if it finds matching keys it will check the data and update the state from local storage.  
     initialiseData() {
         for (let key in this.state) {
           if (localStorage.hasOwnProperty(key)) {
@@ -47,79 +53,6 @@ class View extends Component {
             }
           }
         }
-      }
-
-    updateInput(key, value) {
-        this.setState({ [key]: value });
-        localStorage.setItem(key, value);
-    }
-    
-    addItem(idEdit) {
-        const editID = idEdit
-        const list = [...this.state.list];
-        const updatedList = list.filter(item => item.id !== editID);
-    
-        this.setState({ list: updatedList });
-    
-        localStorage.setItem("list", JSON.stringify(updatedList));
-    
-        const newRecall = {
-          id: 1 + Math.random(),
-          manufacturer: this.state.manufacturer,
-          model: this.state.model,
-          year: this.state.year,
-          vin: this.state.vin
-        };
-    
-        updatedList.push(newRecall);
-    
-        this.setState({
-          list,
-          newRecall: "",
-          manufacturer: "",
-          model: "",
-          year: "",
-          vin: ""
-        });
-        
-        localStorage.setItem("list", JSON.stringify(updatedList));
-        localStorage.setItem("manufacturer", "");
-        localStorage.setItem("model", "");
-        localStorage.setItem("year", "");
-        localStorage.setItem("vin", "");
-      }
-
-      editRecall(id,manuf,mod,yr,vin,reg,vid,des,nm,cnum,em,org,orgc,orge,orgn) {
-        const editID = id;
-        const manufacturer = manuf;
-        const model = mod;
-        const year = yr;
-        const vinNumber = vin;
-        const rego = reg;
-        const vehid = vid;
-        const desc = des;
-        const nme = nm;
-        const connum = cnum;
-        const ema = em;
-        const organ = org;
-        const orgcon = orgc;
-        const orgem = orge;
-        const orgnum = orgn
-        localStorage.setItem("editID", editID);
-        localStorage.setItem("manufacturer", manufacturer);
-        localStorage.setItem("model", model);
-        localStorage.setItem("year", year);
-        localStorage.setItem("vin", vinNumber);
-        localStorage.setItem("registration", rego)
-        localStorage.setItem("vehicleId", vehid)
-        localStorage.setItem("description", desc)
-        localStorage.setItem("name", nme)
-        localStorage.setItem("contactNumber", connum)
-        localStorage.setItem("email", ema)
-        localStorage.setItem("organisation", organ)
-        localStorage.setItem("orgContact", orgcon)
-        localStorage.setItem("orgEmail", orgem)
-        localStorage.setItem("orgNumber", orgnum)
       }
 
     render() {

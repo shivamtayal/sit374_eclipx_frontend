@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './addRecall.css';
 import {Link} from 'react-router-dom';
 
+//Constructer to initialise our keys to store data.
 class addRecall extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +26,7 @@ class addRecall extends Component {
     };
   }
 
+  //This starts when the page is loaded. It clears the keys and then runs the initialise data function.
   componentDidMount(){
     localStorage.removeItem("manufacturer")
     localStorage.removeItem("model")
@@ -41,20 +43,26 @@ class addRecall extends Component {
     localStorage.removeItem("orgEmail")
     localStorage.removeItem("orgNumber")
     localStorage.removeItem("editID")
+    
+    //This will refresh data into the keys to enable data to be persistant. As most keys are removed beforehand this will just load the
+    //list[] array with stored data.
     this.initialiseData();
   }
 
+  //This function tracks input in the fields and stores them in our keys.
   updateInput(key, value) {
     this.setState({ [key]: value });
-
     localStorage.setItem(key, value);
   }
 
+  //This function will create a constant called newRecall, it contains our keys and data to be inputted into our array as an element.
+  //It will add the element to the array and generate a unique ID.
   addItem() {
+    //The array element containing vehicle and customer details.
     const newRecall = {
       id: Math.floor(100000 + Math.random() * 900000),
-      manufacturer: this.state.manufacturer,
-      model: this.state.model,
+      manufacturer: this.state.manufacturer.toUpperCase(),
+      model: this.state.model.toUpperCase(),
       year: this.state.year,
       vin: this.state.vin,
       registration: this.state.registration,
@@ -69,10 +77,13 @@ class addRecall extends Component {
       orgNumber: this.state.orgNumber
     };
 
+    //This copies the current list to a new list for updating.
     const list = [...this.state.list];
 
+    //This adds to new element to the list array.
     list.push(newRecall);
 
+    //This resets the keys after data has been stored.
     this.setState({
       list,
       newRecall: "",
@@ -92,6 +103,7 @@ class addRecall extends Component {
       orgNumber: ""
     });
     
+    //JSON file needs to be stored as a string, we can later convert it back into an array. All keys are stored for initialisaton.
     localStorage.setItem("list", JSON.stringify(list));
     localStorage.setItem("manufacturer", "");
     localStorage.setItem("model", "");
@@ -109,6 +121,7 @@ class addRecall extends Component {
     localStorage.setItem("orgNumber", "")
   }
 
+  //to delete an item from the array we use the .filter to remove the element. then update our list with the updated version.
   deleteItem(id) {
     const list = [...this.state.list];
     const updatedList = list.filter(item => item.id !== id);
@@ -118,6 +131,8 @@ class addRecall extends Component {
     localStorage.setItem("list", JSON.stringify(updatedList));
   }
 
+  //This function is called when the page is opened. it will read through the keys in this state and check local storage.
+  //if it finds matching keys it will check the data and update the state from local storage.
   initialiseData() {
     for (let key in this.state) {
       if (localStorage.hasOwnProperty(key)) {

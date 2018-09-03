@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './search.css';
 import {Link} from 'react-router-dom';
 
-
+//Constructer to initialise our keys to store data.
 class Search extends Component {
     constructor(props) {
         super(props);
@@ -28,6 +28,7 @@ class Search extends Component {
         }
     }
 
+  //This starts when the page is loaded. It clears the keys and then runs the initialise data function.  
   componentDidMount(){
     localStorage.removeItem("manufacturer")
     localStorage.removeItem("model")
@@ -48,6 +49,8 @@ class Search extends Component {
     this.initialiseData();
   }
 
+  //This function is called when the page is opened. it will read through the keys in this state and check local storage.
+  //if it finds matching keys it will check the data and update the state from local storage.
   initialiseData() {
     for (let key in this.state) {
       if (localStorage.hasOwnProperty(key)) {
@@ -62,6 +65,8 @@ class Search extends Component {
     }
   }
 
+  //This function takes all the keys used in our array and sets them into the current keys.
+  //this way the data is passed onto the next page and can autofill the fields for editing.
   editRecall(id,manuf,mod,yr,vin,reg,vid,des,nm,cnum,em,org,orgc,orge,orgn) {
     const editID = id;
     const manufacturer = manuf;
@@ -95,13 +100,18 @@ class Search extends Component {
     localStorage.setItem("orgNumber", orgnum)
   }
 
+  //This function will create a new array that sorts the list of recalls alphabetically
+  //by manufacturer.
   sortbyAlphabet() {
       var arraySort = require('array-sort')
       this.state.alphabetList = arraySort(this.state.list, 'manufacturer')      
   }
 
+  //This function will generate the entry for each recall. It will check if there are any current
+  //recalls stored and then display. Else it will display a message indicating no current recalls.
   generateRecalls(){
       if(this.state.list.length >= 1){
+          //call the sorting method if there are recalls.
           this.sortbyAlphabet();
         return this.state.alphabetList.map(item => {
             return (                       
