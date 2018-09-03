@@ -65,7 +65,7 @@ class addRecall extends Component {
       model: this.state.model.toUpperCase(),
       year: this.state.year,
       vin: this.state.vin,
-      registration: this.state.registration,
+      registration: this.state.registration.toUpperCase(),
       vehicleId: this.state.vehicleId,
       description: this.state.description,
       name: this.state.name,

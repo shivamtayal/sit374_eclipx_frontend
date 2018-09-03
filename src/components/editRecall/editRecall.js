@@ -54,12 +54,12 @@ class editRecall extends Component {
 
     //The array element containing vehicle and customer details.
     const newRecall = {
-      id: 1 + Math.random(),
+      id: this.state.editID,
       manufacturer: this.state.manufacturer.toUpperCase(),
       model: this.state.model.toUpperCase(),
       year: this.state.year,
       vin: this.state.vin,
-      registration: this.state.registration,
+      registration: this.state.registration.toUpperCase(),
       vehicleId: this.state.vehicleId,
       description: this.state.description,
       name: this.state.name,
