@@ -41,6 +41,9 @@ class Nav extends Component {
                     <li className={"nav-item" + this.checkIfActive('/search')} onClick={e => {this.setState({search: true})}}>
                         <Link to='/search' className="nav-link">Search Recalls</Link>
                     </li>
+                    <li className="nav-item">
+				        <Link to='/addCampaign' className="nav-link">Add Campaign</Link>
+                    </li>
                     </ul>
                 </div>
                 </nav>
