@@ -22,7 +22,10 @@ class Nav extends Component {
                     <Link to='/recalls' className="nav-link">Recalls</Link>
                 </li>
                 <li className="nav-item">
-                    <Link to='/search' className="nav-link">Search</Link>
+                    <Link to='/search' className="nav-link">Search Recalls</Link>
+                </li>
+                <li className="nav-item">
+                    <Link to='/detail' className="nav-link">Detail</Link>
                 </li>
                 </ul>
             </div>

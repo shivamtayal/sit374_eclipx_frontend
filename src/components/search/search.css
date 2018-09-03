@@ -1,6 +1,6 @@
 .search {
-    width: 40%;
-    margin: 100px auto 2em;
+    width: 80%;
+    margin: 35px auto 2em;
 }
 
 .search-results {
@@ -10,14 +10,18 @@
     border-radius: 5px;
 }
 
-.search-results h3{
+.search-results a {
+    padding: 0;
+}
+
+.search-results  h3, h4{
     text-align: left;
 }
 
 
 .search-results .list-group-item .col-4  span{
     text-align: center;
-    width: 100%;
+    width: 10%;
 }
 
 .search-results .list-group-item .col-4  p{

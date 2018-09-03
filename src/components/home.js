@@ -76,7 +76,8 @@ class Home extends Component {
   render() {
     return (
         <div className="home">
-            <h1>SIT374</h1>
+            <h1>Eclipx Recall Manager</h1>
+            <p>Welcome to the Eclipx Recall Manager.</p>
         </div>
     );
   }

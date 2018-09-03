@@ -1,0 +1,29 @@
+.editRecall {
+    margin-top: 50px;
+    text-align: center;
+  }
+  
+  .editRecall-logo {
+    animation: editRecall-logo-spin infinite 20s linear;
+    height: 80px;
+  }
+  
+  .editRecall-header {
+    background-color: #222;
+    height: 150px;
+    padding: 20px;
+    color: white;
+  }
+  
+  .editRecall-title {
+    font-size: 1.5em;
+  }
+  
+  .editRecall-intro {
+    font-size: large;
+  }
+  
+  @keyframes editRecall-logo-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
