@@ -65,16 +65,6 @@ class Recalls extends Component {
                     </div>
                 )
             });
-        } else {
-            let tryAgain = '';
-            if(this.state.tryAgain){
-                tryAgain = <div className="alert alert-warning">Failed To Initiate Automatic Recall Finder</div> 
-            }
-            result = <div className="jumbotron">
-            {tryAgain}
-            <p>Automatic Recall Finder Did Not Find Any Recalls</p><br/>
-            <button className="btn btn-outline-dark" to="/addrecall" onClick={(e) => {this.setState({tryAgain:true})}}>Try Again</button>
-            </div>
         }
         
         let recalls = localStorage.getItem('list');
@@ -90,11 +80,23 @@ class Recalls extends Component {
             <div className="app-fleet">
                 <div className="recalled-vehicles">
                     <h1>Recalls</h1>
-                    {recallCountString}<br/><br/>
-                    <Link className="route-linker btn btn-outline-dark" to="/addrecall">Manually Add Recall</Link>
-                    {result}
-                    <div className="seperator"></div>
-                    
+                    <h3>{recallCountString}</h3>
+                    <br/>
+                    <div className="row jumbotron">
+                        <div className="col-6">
+                            <div className="automatic-recall-group">
+                                <h4>Automatic Recall Finder</h4><br/>
+                                {this.state.tryAgain ? <div className="alert alert-warning">Failed To Initiate Automatic Recall Finder</div> : false} 
+                                <button className="btn btn-outline-dark" to="/addrecall" onClick={(e) => {this.setState({tryAgain:true})}}>Try Again</button>
+                            </div>
+                        </div>
+                        <div className="col-6">
+                            <div className="manual-recall-group">
+                                <h4>Manually Add Recall</h4><br/>
+                                <Link className="route-linker btn btn-outline-dark" to="/addrecall">Manually Add Recall</Link>                    
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

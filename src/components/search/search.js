@@ -138,11 +138,8 @@ class Search extends Component {
                     <span className="badge badge-light">{item.registration}</span>
                     </div>
                     <div className="col-2 result-group">
-                    <span className="badge badge-secondary">VIN</span>
-                    <Link to='/detail' className="nav-link" onClick={() => this.editRecall(item.id, item.manufacturer,item.model,item.year,item.vin,item.registration,item.vehicleId,item.description,item.name,item.contactNumber,item.email,item.organisation,item.orgContact,item.orgEmail,item.orgNumber)}>{item.vin}</Link>
-                    <Link to='/detail'>
-                    <button onClick={() => this.editRecall(item.id, item.manufacturer,item.model,item.year,item.vin,item.registration,item.vehicleId,item.description,item.name,item.contactNumber,item.email,item.organisation,item.orgContact,item.orgEmail,item.orgNumber)}>temp</button>
-                    </Link>
+                    <span className="badge badge-secondary">VIN</span><br/>
+                    <Link to='/detail' className="nav-link btn btn-outline-primary" onClick={() => this.editRecall(item.id, item.manufacturer,item.model,item.year,item.vin,item.registration,item.vehicleId,item.description,item.name,item.contactNumber,item.email,item.organisation,item.orgContact,item.orgEmail,item.orgNumber)}>{item.vin}</Link>
                     </div>
                 </div>
             </li>
@@ -160,7 +157,7 @@ class Search extends Component {
         <div className="search">
             <div className="search-bar">
                 <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder="Search Functionality Will Be Available In The Future" aria-p="Recall Search Input" aria-describedby="Eclipx" disabled/>
+                    <input type="text" className="form-control" placeholder="Search Functionality Will Be Available In The Future" aria-describedby="Eclipx" disabled/>
                     <div className="input-group-append">
                         <button className="btn btn-primary" type="button">Search</button>
                     </div>
