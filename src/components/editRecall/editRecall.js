@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './editRecall.css'
 import {Link} from 'react-router-dom';
 
+//Constructer to initialise our keys to store data.
 class editRecall extends Component {
   constructor(props) {
     super(props);
@@ -26,16 +27,23 @@ class editRecall extends Component {
     };
   }
 
+  //This starts when the page is loaded. It clears the keys and then runs the initialise data function.
   componentDidMount(){
     this.initialiseData();
   }
 
+  //This function tracks input in the fields and stores them in our keys.
   updateInput(key, value) {
     this.setState({ [key]: value });
     localStorage.setItem(key, value);
   }
 
+  //This function will remove the recall entry from the array and then store a new entry which is the
+  //edited version.
+  //This function will create a constant called newRecall, it contains our keys and data to be inputted into our array as an element.
+  //It will add the element to the array and generate a unique ID.
   addItem(idEdit) {
+    //this section removes the entry from the array
     const editID = idEdit
     const list = [...this.state.list];
     const updatedList = list.filter(item => item.id !== editID);
@@ -44,13 +52,14 @@ class editRecall extends Component {
 
     localStorage.setItem("list", JSON.stringify(updatedList));
 
+    //The array element containing vehicle and customer details.
     const newRecall = {
-      id: 1 + Math.random(),
-      manufacturer: this.state.manufacturer,
-      model: this.state.model,
+      id: this.state.editID,
+      manufacturer: this.state.manufacturer.toUpperCase(),
+      model: this.state.model.toUpperCase(),
       year: this.state.year,
       vin: this.state.vin,
-      registration: this.state.registration,
+      registration: this.state.registration.toUpperCase(),
       vehicleId: this.state.vehicleId,
       description: this.state.description,
       name: this.state.name,
@@ -62,8 +71,10 @@ class editRecall extends Component {
       orgNumber: this.state.orgNumber
     };
 
+    //This adds to new element to the list array.
     updatedList.push(newRecall);
 
+    //This resets the keys after data has been stored.
     this.setState({
       list,
       newRecall: "",
@@ -83,6 +94,7 @@ class editRecall extends Component {
       orgNumber: ""
     });
     
+    //JSON file needs to be stored as a string, we can later convert it back into an array. All keys are stored for initialisaton.
     localStorage.setItem("list", JSON.stringify(updatedList));
     localStorage.setItem("manufacturer", "");
     localStorage.setItem("model", "");
@@ -100,6 +112,7 @@ class editRecall extends Component {
     localStorage.setItem("orgNumber", "");
   }
 
+  //to delete an item from the array we use the .filter to remove the element. then update our list with the updated version.
   deleteRecall(id) {
     const editID = id
     const list = [...this.state.list];
@@ -110,7 +123,8 @@ class editRecall extends Component {
     localStorage.setItem("list", JSON.stringify(updatedList));
   } 
 
-
+  //This function is called when the page is opened. it will read through the keys in this state and check local storage.
+  //if it finds matching keys it will check the data and update the state from local storage.
   initialiseData() {
     for (let key in this.state) {
       if (localStorage.hasOwnProperty(key)) {
@@ -131,7 +145,7 @@ class editRecall extends Component {
     return (
       <form className="w-50 m-auto">
       <div className="form-group addRecall">
-      <h1 className="addRecall-title">Vehicle</h1>
+      <h4 className="addRecall-title">Vehicle</h4>
       <input
             className="form-control"
             id="manufacturer"
@@ -201,7 +215,7 @@ class editRecall extends Component {
             onChange={e => this.updateInput("description", e.target.value)}
           />
       </div>
-      <h1 className="addRecall-title">Custodian</h1>
+      <h4 className="addRecall-title">Custodian</h4>
       <div className="form-group">
       <input
             className="form-control"  
@@ -273,14 +287,14 @@ class editRecall extends Component {
           />
       </div>
       <Link to="/search">
-          <button
+          <button className="btn btn-outline-primary"
             onClick={() => this.addItem(this.state.editID)}
           >
-          Edit
+          Save
           </button>
-      </Link>
+      </Link>&nbsp;
       <Link to="/search">
-          <button
+          <button className="btn btn-outline-primary"
             onClick={() => this.deleteRecall(this.state.editID)}
           >
           Delete

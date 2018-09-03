@@ -1,9 +1,15 @@
 .detail {
-    width: 80%;
-    margin: 100px auto 2em;
+    width: 90%;
+    margin: 0 auto 2em;
 }
+
+.detail-piece{
+    width: 90%;
+    margin: auto;
+}
+
 .detail-header {
-    width: 70%;
+    
     margin-bottom: 50px;
 }
 .detail-header table {

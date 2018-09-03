@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import {Route} from 'react-router-dom';
-import logo from './logo.svg';
 import './App.css';
 
 import Nav from './components/navigation/navigation';
 import Home from './components/home';
-import Recalls from './components/fleet/recalls';
-import FleetDrill from './components/fleet/drill_fleet';
+import Recalls from './components/recalls/recalls';
+import FleetDrill from './components/recalls/drill_fleet';
 import Search from './components/search/search';
 import Detail from './components/detail/detail';
-import addRecall from './components/addRecall/addRecall';
+import addRecall from './components/recalls/addRecall';
 import editRecall from './components/editRecall/editRecall';
 
 
@@ -18,13 +17,15 @@ class App extends Component {
     return (
       <div className="App">
           <Nav/>
+          <div className="app-components">
           <Route exact path='/' component={Home} />
           <Route path='/recall/:fleet_id' component={FleetDrill} />
           <Route path='/recalls' component={Recalls} />
           <Route path='/search' component={Search} />
           <Route path='/detail' component={Detail} />
-          <Route path='/addRecall' component={addRecall} />
+          <Route path='/addrecall' component={addRecall} />
           <Route path='/editRecall' component={editRecall} />
+          </div>
       </div>
     );
   }
