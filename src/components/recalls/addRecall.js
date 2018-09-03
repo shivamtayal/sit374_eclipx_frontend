@@ -154,11 +154,7 @@ class addRecall extends Component {
         <Link className="route-linker btn btn-outline-dark" to='/recalls'>Back To Recalls</Link>
       <form className="w-50 m-auto">
       <div className="form-group addRecall">
-<<<<<<< HEAD:src/components/addRecall/addRecall.js
-      <h1 className="addRecall-title">Vehicle</h1>
-=======
       <h4 className="addRecall-title">Vehicle</h4>
->>>>>>> origin:src/components/recalls/addRecall.js
       <input
             className="form-control"
             id="manufacturer"
@@ -228,9 +224,8 @@ class addRecall extends Component {
             onChange={e => this.updateInput("description", e.target.value)}
           />
       </div>
-      <h1 className="addRecall-title">Custodian</h1>
-      <div className="form-group">
       <h4 className="addRecall-title">Custodian</h4>
+      <div className="form-group">
       <input
             className="form-control"  
             id="name"
