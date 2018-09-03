@@ -10,7 +10,11 @@
     border-radius: 5px;
 }
 
-.search-results  h3{
+.search-results a {
+    padding: 0;
+}
+
+.search-results  h3, h4{
     text-align: left;
 }
 

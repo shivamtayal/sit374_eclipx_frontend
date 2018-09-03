@@ -1,0 +1,17 @@
+.jumbotron{
+    padding: 10px 0 20px !important;
+    width: 90%;
+    margin: auto !important;
+}
+
+.jumbotron p {
+    margin: auto 0 auto;
+}
+
+.seperator{
+    height: 5px;
+    width: 90%;
+    background-color: rgba(128,128,128, 0.9);
+    margin: 0 auto 25px;
+    border-radius: 10px;
+}

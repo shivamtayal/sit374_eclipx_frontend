@@ -98,46 +98,63 @@ class Search extends Component {
 
   }
 
+  generateRecalls(){
+      if(this.state.list.length >= 1){
+        return this.state.list.map(item => {
+            return (                       
+            <li className="list-group-item" key={item.id}>
+                <div className="row">
+                    <div className="col-2 result-group">
+                    <span className="badge badge-secondary">Identifier</span><br/>
+                    <span className="badge badge-light">{item.id}</span>
+                    </div>
+                    <div className="col-2 result-group">
+                    <span className="badge badge-secondary">Manufacturer</span><br/>
+                    <span className="badge badge-light">{item.manufacturer}</span>
+                    </div>
+                    <div className="col-2 result-group">
+                    <span className="badge badge-secondary">Model</span><br/>
+                    <span className="badge badge-light">{item.model}</span>
+                    </div>
+                    <div className="col-2 result-group">
+                    <span className="badge badge-secondary">Year of Model</span><br/>
+                    <span className="badge badge-light">{item.year}</span>
+                    </div>
+                    <div className="col-2 result-group">
+                    <span className="badge badge-secondary">Registration</span><br/>
+                    <span className="badge badge-light">{item.registration}</span>
+                    </div>
+                    <div className="col-2 result-group">
+                    <span className="badge badge-secondary">VIN</span>
+                    <Link to='/detail' className="nav-link" onClick={() => this.editRecall(item.id, item.manufacturer,item.model,item.year,item.vin,item.registration,item.vehicleId,item.description,item.name,item.contactNumber,item.email,item.organisation,item.orgContact,item.orgEmail,item.orgNumber)}>{item.vin}</Link>
+                    </div>
+                </div>
+            </li>
+                );
+            })
+      } else {
+          return (
+              <h4>No Recalls Found</h4>
+          )
+      }
+  }
+
   render() {
     return (
         <div className="search">
             <div className="search-bar">
                 <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder="Search Recalls" aria-p="Recall Search Input" aria-describedby="Eclipx" />
+                    <input type="text" className="form-control" placeholder="Search Functionality Will Be Available In The Future" aria-p="Recall Search Input" aria-describedby="Eclipx" disabled/>
                     <div className="input-group-append">
                         <button className="btn btn-primary" type="button">Search</button>
                     </div>
                 </div>
             </div>
             <div className="search-results">
-                <h3>Results:</h3>
+                <h3>Results</h3>
                 <ul className="list-group">
-                    {this.state.list.map(item => {
-                    return (                       
-                    <li key={item.id}>
-                        <div className="row">
-                            <div className="col-4 result-group">
-                            <span class="badge badge-secondary">Manufacturer</span>
-                            <span class="badge badge-light">{item.manufacturer}</span>
-                            </div>
-                            <div className="col-4 result-group">
-                            <span class="badge badge-secondary">Model</span>
-                            <span class="badge badge-light">{item.model}</span>
-                            </div>
-                            <div className="col-4 result-group">
-                            <span class="badge badge-secondary">Year of Model</span>
-                            <span class="badge badge-light">{item.year}</span>
-                            </div>
-                            <div className="col-4 result-group">
-                            <span class="badge badge-secondary">VIN</span>
-                            <Link to='/detail' className="nav-link" onClick={() => this.editRecall(item.id, item.manufacturer,item.model,item.year,item.vin,item.registration,item.vehicleId,item.description,item.name,item.contactNumber,item.email,item.organisation,item.orgContact,item.orgEmail,item.orgNumber)}>{item.vin}</Link>
-                            </div>
-                        </div>
-                    </li>
-                        );
-                    })}
+                    {this.generateRecalls()}
                 </ul>
-                <button>Sort by alphabet</button>
             </div>
         </div>       
     );

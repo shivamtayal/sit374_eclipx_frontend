@@ -52,7 +52,7 @@ class addRecall extends Component {
 
   addItem() {
     const newRecall = {
-      id: 1 + Math.round(Math.random()),
+      id: Math.floor(100000 + Math.random() * 900000),
       manufacturer: this.state.manufacturer,
       model: this.state.model,
       year: this.state.year,
@@ -135,9 +135,10 @@ class addRecall extends Component {
 
   render() {
     return (
+        <React.Fragment>
+        <Link className="route-linker btn btn-outline-dark" to='/recalls'>Back To Recalls</Link>
       <form className="w-50 m-auto">
       <div className="form-group addRecall">
-      <h1 className="addRecall-title">Add Recall</h1>
       <input
             className="form-control"
             id="manufacturer"
@@ -277,8 +278,9 @@ class addRecall extends Component {
             onChange={e => this.updateInput("orgNumber", e.target.value)}
           />
       </div>
-      <button type="submit" className="btn btn-primary" onClick={() => this.addItem()}>Submit</button>
+      <button type="submit" className="btn btn-primary" onClick={() => this.addItem()}>New Recall</button>
     </form>
+    </React.Fragment>
     );
   }
 }
