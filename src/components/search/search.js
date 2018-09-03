@@ -24,8 +24,8 @@ class Search extends Component {
             orgNumber: "",
             editID: "",
             list: [],
-            alphabetList: []
-        }
+            sortList: []
+        };
     }
 
   componentDidMount(){
@@ -45,6 +45,7 @@ class Search extends Component {
     localStorage.removeItem("orgNumber")
     localStorage.removeItem("editID")
     this.initialiseData();
+    this.sortbyAlphabet();
   }
 
   initialiseData() {
@@ -59,6 +60,7 @@ class Search extends Component {
         }
       }
     }
+
   }
 
   editRecall(id,manuf,mod,yr,vin,reg,vid,des,nm,cnum,em,org,orgc,orge,orgn) {
@@ -95,7 +97,11 @@ class Search extends Component {
   }
 
   sortbyAlphabet() {
-    const sortList = [...this.state.contacts];
+    const sortList = [...this.state.list];
+    
+    var arraySort = require('array-sort');
+
+    arraySort(this.state.list, 'manufacturer');
   }
 
   render() {
@@ -112,7 +118,6 @@ class Search extends Component {
             <div className="search-results">
                 <h3>Results:</h3>
                 <button>Sort by alphabet</button>
-
                 <ul className="list-group">
                     {this.state.list.map(item => {
                     return (          
