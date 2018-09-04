@@ -10,7 +10,7 @@ import Search from './components/search/search';
 import Detail from './components/detail/detail';
 import addRecall from './components/recalls/addRecall';
 import editRecall from './components/editRecall/editRecall';
-
+import addCampaign from './components/addCampaign/addCampaign';
 
 class App extends Component {
   render() {
@@ -25,6 +25,7 @@ class App extends Component {
           <Route path='/detail' component={Detail} />
           <Route path='/addrecall' component={addRecall} />
           <Route path='/editRecall' component={editRecall} />
+          <Route path='/addCampaign' component={addCampaign} />      
           </div>
       </div>
     );
