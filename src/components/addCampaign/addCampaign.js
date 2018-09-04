@@ -134,16 +134,7 @@ class addCampaign extends Component {
 			  <option value="medium">Medium</option>
 			</select>
       </div>
-      <div className="form-group">
-      <input
-            className="form-control"
-            id="activeRecall"
-            type="checkbox"
-            checked={this.state.activeRecall}
-            onChange={e => this.updateInput("activeRecall", e.target.checked)}
-          />
-      </div>
-
+     
       <button type="submit" className="btn btn-primary" onClick={() => this.addItem()}>Submit</button>
     </form>
     );
