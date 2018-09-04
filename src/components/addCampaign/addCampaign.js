@@ -12,7 +12,7 @@ class addCampaign extends Component {
       datePublished: "",
       priority: "",
       activeRecall: "",
-      list: []
+      campaigns: []
     };
   }
 
@@ -33,7 +33,6 @@ class addCampaign extends Component {
 
   addItem() {
     const newCampaign = {
-      id: 1 + Math.random(),
       campaignNumber: this.state.campaignNumber,
       PRANumber: this.state.PRANumber,
       datePublished: this.state.datePublished,
@@ -41,12 +40,12 @@ class addCampaign extends Component {
       activeRecall: this.state.activeRecall
     };
 
-    const list = [...this.state.list];
+    const campaigns = [...this.state.campaigns];
 
-    list.push(newCampaign);
+    campaigns.push(newCampaign);
 
     this.setState({
-      list,
+      campaigns,
       newCampaign: "",
       campaignNumber: "",
       PRANumber: "",
@@ -55,7 +54,7 @@ class addCampaign extends Component {
       activeRecall: ""
     });
 
-    localStorage.setItem("list", JSON.stringify(list));
+    localStorage.setItem("campaigns", JSON.stringify(campaigns));
     localStorage.setItem("campaignNumber", "");
     localStorage.setItem("PRANumber", "");
     localStorage.setItem("datePublished", "");
@@ -64,12 +63,12 @@ class addCampaign extends Component {
   }
 
   deleteItem(id) {
-    const list = [...this.state.list];
-    const updatedList = list.filter(item => item.id !== id);
+    const campaigns = [...this.state.campaigns];
+    const updatedcampaigns = campaigns.filter(item => item.id !== id);
 
-    this.setState({ list: updatedList });
+    this.setState({ campaigns: updatedcampaigns });
 
-    localStorage.setItem("list", JSON.stringify(updatedList));
+    localStorage.setItem("campaigns", JSON.stringify(updatedcampaigns));
   }
 
   initialiseData() {
@@ -96,8 +95,8 @@ class addCampaign extends Component {
             className="form-control"
             id="campaignNumber"
             type="text"
-            placeholder="campaignNumber"
-            value={this.state.PRANumber}
+            placeholder="Campaign Number"
+            value={this.state.campaignNumber}
             onChange={e => this.updateInput("campaignNumber", e.target.value)}
           />
       </div>
@@ -106,7 +105,7 @@ class addCampaign extends Component {
             className="form-control"
             id="PRANumber"
             type="text"
-            placeholder="PRANumber"
+            placeholder="PRA Number"
             value={this.state.PRANumber}
             onChange={e => this.updateInput("PRANumber", e.target.value)}
           />
@@ -116,7 +115,7 @@ class addCampaign extends Component {
             className="form-control"
             id="datePublished"
             type="date"
-            placeholder="DatePublished"
+            placeholder="Date Published"
             value={this.state.datePublished}
             onChange={e => this.updateInput("datePublished", e.target.value)}
           />
