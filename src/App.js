@@ -11,6 +11,7 @@ import Detail from './components/detail/detail';
 import addRecall from './components/recalls/addRecall';
 import editRecall from './components/editRecall/editRecall';
 import addCampaign from './components/addCampaign/addCampaign';
+import searchVehicle from './components/searchVehicle/searchVehicle';
 
 class App extends Component {
   render() {
@@ -25,7 +26,8 @@ class App extends Component {
           <Route path='/detail' component={Detail} />
           <Route path='/addrecall' component={addRecall} />
           <Route path='/editRecall' component={editRecall} />
-          <Route path='/addCampaign' component={addCampaign} />      
+          <Route path='/addCampaign' component={addCampaign} />
+          <Route path='/searchVehicle' component={searchVehicle} />
           </div>
       </div>
     );
