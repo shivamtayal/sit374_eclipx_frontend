@@ -12,11 +12,7 @@ class addCampaign extends Component {
       datePublished: "",
       priority: "",
       activeRecall: "",
-<<<<<<< HEAD
-      campaigns: []
-=======
       campaignList: []
->>>>>>> origin
     };
   }
 
@@ -44,21 +40,12 @@ class addCampaign extends Component {
       activeRecall: this.state.activeRecall
     };
 
-<<<<<<< HEAD
-    const campaigns = [...this.state.campaigns];
-
-    campaigns.push(newCampaign);
-
-    this.setState({
-      campaigns,
-=======
     const campaignList = [...this.state.campaignList];
 
     campaignList.push(newCampaign);
 
     this.setState({
       campaignList,
->>>>>>> origin
       newCampaign: "",
       campaignNumber: "",
       PRANumber: "",
@@ -67,11 +54,7 @@ class addCampaign extends Component {
       activeRecall: ""
     });
 
-<<<<<<< HEAD
-    localStorage.setItem("campaigns", JSON.stringify(campaigns));
-=======
     localStorage.setItem("campaignList", JSON.stringify(campaignList));
->>>>>>> origin
     localStorage.setItem("campaignNumber", "");
     localStorage.setItem("PRANumber", "");
     localStorage.setItem("datePublished", "");
@@ -80,21 +63,12 @@ class addCampaign extends Component {
   }
 
   deleteItem(id) {
-<<<<<<< HEAD
-    const campaigns = [...this.state.campaigns];
-    const updatedcampaigns = campaigns.filter(item => item.id !== id);
-
-    this.setState({ campaigns: updatedcampaigns });
-
-    localStorage.setItem("campaigns", JSON.stringify(updatedcampaigns));
-=======
     const campaignList = [...this.state.campaignList];
     const updatedcampaignList = campaignList.filter(item => item.id !== id);
 
     this.setState({ campaignList: updatedcampaignList });
 
     localStorage.setItem("campaignList", JSON.stringify(updatedcampaignList));
->>>>>>> origin
   }
 
   initialiseData() {
