@@ -157,12 +157,12 @@ class addRecall extends Component {
       ...this.state,
       errors
     });
-    
+    isError = false;
     return isError;
   }
 
  
-  //This function will create a constant called newRecall, it contains our keys and data to be inputted into our array as an element.
+  //This function will create a constant called newRecall, it contains our keys and data which is input into our array as an element.
   //It will add the element to the array and generate a unique ID.
   addItem() {
     const err = this.validate();

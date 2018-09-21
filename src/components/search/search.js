@@ -178,12 +178,15 @@ class Search extends Component {
                 </div>
             </div>
             <div className="search-results">
-                <h3>Results</h3>
+                <h3>Vehicles:</h3>
                 <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('manufacturer')}>Sort by Manufacturer</button>
                 <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('model')}>Sort by Model</button>
                 <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('year')}>Sort by Year</button>
                 <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('registration')}>Sort by Registration</button>
                 <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('id')}>Sort by ID</button>
+                <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('id')}>Vehicles</button>
+                <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('id')}>Recalls</button>
+                <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('id')}>Fleet</button>
                 <ul className="list-group">
                     {this.generateRecalls()}
                 </ul>

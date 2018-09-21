@@ -6,22 +6,24 @@ class addCampaign extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      manufacturer: "",
       newCampaign: "",
       campaignNumber: "",
       PRANumber: "",
       datePublished: "",
       priority: "",
-      activeRecall: "",
+      description: "",
       campaignList: []
     };
   }
 
   componentDidMount(){
+    localStorage.removeItem("manufacturer")
     localStorage.removeItem("campaignNumber")
     localStorage.removeItem("PRANumber")
     localStorage.removeItem("datePublished")
     localStorage.removeItem("priority")
-    localStorage.removeItem("activeRecall")
+    localStorage.removeItem("description")
     this.initialiseData();
   }
 
@@ -33,11 +35,12 @@ class addCampaign extends Component {
 
   addItem() {
     const newCampaign = {
+      manufacturer: this.state.manufacturer,
       campaignNumber: this.state.campaignNumber,
       PRANumber: this.state.PRANumber,
       datePublished: this.state.datePublished,
       priority: this.state.priority,
-      activeRecall: this.state.activeRecall
+      description: this.state.description
     };
 
     const campaignList = [...this.state.campaignList];
@@ -46,20 +49,22 @@ class addCampaign extends Component {
 
     this.setState({
       campaignList,
+      manufacturer: "",
       newCampaign: "",
       campaignNumber: "",
       PRANumber: "",
       datePublished: "",
       priority: "",
-      activeRecall: ""
+      description: ""
     });
 
     localStorage.setItem("campaignList", JSON.stringify(campaignList));
+    localStorage.setItem("manufacturer", "");
     localStorage.setItem("campaignNumber", "");
     localStorage.setItem("PRANumber", "");
     localStorage.setItem("datePublished", "");
     localStorage.setItem("priority", "");
-    localStorage.setItem("activeRecall", "")
+    localStorage.setItem("description", "")
   }
 
   deleteItem(id) {
@@ -90,12 +95,12 @@ class addCampaign extends Component {
     return (
       <form className="w-50 m-auto">
       <div className="form-group addCampaign">
-      <h1 className="addCampaign-title">Add Campaign</h1>
+      <h1 className="addCampaign-title">Add Recall Campaign</h1>
       <input
             className="form-control"
             id="campaignNumber"
             type="text"
-            placeholder="Campaign Number"
+            placeholder="Campaign number"
             value={this.state.campaignNumber}
             onChange={e => this.updateInput("campaignNumber", e.target.value)}
           />
@@ -103,9 +108,19 @@ class addCampaign extends Component {
       <div className="form-group">
         <input
             className="form-control"
+            id="manufacturer"
+            type="text"
+            placeholder="Manufacturer"
+            value={this.state.manufacturer}
+            onChange={e => this.updateInput("manufacturer", e.target.value)}
+          />
+      </div>
+      <div className="form-group">
+        <input
+            className="form-control"
             id="PRANumber"
             type="text"
-            placeholder="PRA Number"
+            placeholder="PRA No."
             value={this.state.PRANumber}
             onChange={e => this.updateInput("PRANumber", e.target.value)}
           />
@@ -121,6 +136,16 @@ class addCampaign extends Component {
           />
       </div>
       <div className="form-group">
+        <input
+            className="form-control"
+            id="description"
+            type="text"
+            placeholder="Recall description"
+            value={this.state.description}
+            onChange={e => this.updateInput("description", e.target.value)}
+          />
+      </div>
+      <div className="form-group">
       <select
             className="form-control"
             id="priority"
@@ -133,7 +158,6 @@ class addCampaign extends Component {
 			  <option value="medium">Medium</option>
 			</select>
       </div>
-     
       <button type="submit" className="btn btn-primary" onClick={() => this.addItem()}>Submit</button>
     </form>
     );
