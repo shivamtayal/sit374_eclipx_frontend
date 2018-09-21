@@ -24,7 +24,8 @@ class Search extends Component {
             orgNumber: "",
             editID: "",
             list: [],
-            sortList: []
+            sortList: [],
+            oldKeyWord: ""
         };
     }
 
@@ -107,7 +108,16 @@ class Search extends Component {
   sortbyAlphabet(key) {
       var keyword = key;
       var arraySort = require('array-sort')
-      this.state.alphabetList = arraySort(this.state.list, keyword)
+      
+      if(keyword == this.state.oldKeyWord){
+      this.state.alphabetList = arraySort(this.state.list, keyword, {reverse: true})
+      this.state.oldKeyWord = "";
+      }
+      else{
+        this.state.alphabetList = arraySort(this.state.list, keyword)
+        this.state.oldKeyWord = key;
+      }
+
       this.setState({list: this.state.alphabetList})
   }
 
