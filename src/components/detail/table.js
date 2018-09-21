@@ -60,7 +60,7 @@ export default function Table(props) {
                         </tbody>
                     </table>
                     <br/>
-                    <Link to='/editRecall' className="btn btn-outline-primary nav-link" >Edit Recall</Link>
+                    <Link to='/editRecall' className="btn btn-outline-primary nav-link">Edit Vehicle</Link>
                     <br/>
                 </div>
             </div>
