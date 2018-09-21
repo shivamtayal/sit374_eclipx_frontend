@@ -161,7 +161,7 @@ class Search extends Component {
             })
       } else {
           return (
-              <h4>No Recalls Found</h4>
+              <h4>No Vehicles Found</h4>
           )
       }
   }
@@ -184,9 +184,9 @@ class Search extends Component {
                 <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('year')}>Sort by Year</button>
                 <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('registration')}>Sort by Registration</button>
                 <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('id')}>Sort by ID</button>
-                <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('id')}>Vehicles</button>
-                <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('id')}>Recalls</button>
-                <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('id')}>Fleet</button>
+                <Link to='/search'>Vehicles</Link>
+                <Link to='/recallCampaigns'>Recalls</Link>
+                <Link to='/recallCampaigns'>Fleet</Link>
                 <ul className="list-group">
                     {this.generateRecalls()}
                 </ul>

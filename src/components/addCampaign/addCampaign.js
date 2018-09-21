@@ -24,6 +24,7 @@ class addCampaign extends Component {
     localStorage.removeItem("datePublished")
     localStorage.removeItem("priority")
     localStorage.removeItem("description")
+    localStorage.setItem("priority", "Medium")
     this.initialiseData();
   }
 
@@ -126,6 +127,7 @@ class addCampaign extends Component {
           />
       </div>
       <div className="form-group">
+      <h6>Date</h6>
       <input
             className="form-control"
             id="datePublished"
@@ -136,26 +138,28 @@ class addCampaign extends Component {
           />
       </div>
       <div className="form-group">
-        <input
+      <h6>Recall description</h6>
+        <textarea
             className="form-control"
             id="description"
             type="text"
-            placeholder="Recall description"
             value={this.state.description}
             onChange={e => this.updateInput("description", e.target.value)}
           />
       </div>
       <div className="form-group">
+      <h6>Priority</h6>
       <select
             className="form-control"
             id="priority"
-            type="selet"
+            type="select"
+            placeholder="Priority"
             value={this.state.priority}
             onChange={e => this.updateInput("priority", e.target.value)}
           >
-			  <option value="high">High</option>
-			  <option value="low">Low</option>
-			  <option value="medium">Medium</option>
+			  <option value="High">High</option>
+        <option value="Medium">Medium</option>
+			  <option value="Low">Low</option>
 			</select>
       </div>
       <button type="submit" className="btn btn-primary" onClick={() => this.addItem()}>Submit</button>
