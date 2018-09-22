@@ -117,10 +117,7 @@ class recallCampaigns extends Component {
                 </div>
             </div>
             <div className="search-results">
-                <h3>Results</h3>
-                <Link to='/search'>Vehicles</Link>
-                <Link to='/recallCampaigns'>Recalls</Link>
-                <Link to='/recallCampaigns'>Fleet</Link>
+                <h3>Recall Campaigns:</h3>
                 <ul className="list-group">
                     {this.generateRecalls()}
                 </ul>

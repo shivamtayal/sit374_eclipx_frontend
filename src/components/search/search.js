@@ -25,7 +25,12 @@ class Search extends Component {
             editID: "",
             list: [],
             sortList: [],
-            oldKeyWord: ""
+            oldKeyWord: "",
+            campaignList: [],
+            vinKey: "",
+            newVinKey: "",
+            activeRecall: "",
+            recallAmount: ""
         };
     }
 
@@ -46,9 +51,10 @@ class Search extends Component {
     localStorage.removeItem("orgEmail")
     localStorage.removeItem("orgNumber")
     localStorage.removeItem("editID")
-    //this.sortbyAlphabet();
+    localStorage.setItem("recallAmount", "0")
+    //this.sortByKey();
     this.initialiseData();
-    //this.sortbyAlphabet();
+    //this.sortByKey();
   }
 
   //This function is called when the page is opened. it will read through the keys in this state and check local storage.
@@ -65,7 +71,6 @@ class Search extends Component {
         }
       }
     }
-
   }
 
   //This function takes all the keys used in our array and sets them into the current keys.
@@ -105,7 +110,7 @@ class Search extends Component {
 
   //This function will create a new array that sorts the list of recalls alphabetically
   //by manufacturer.
-  sortbyAlphabet(key) {
+  sortByKey(key) {
       var keyword = key;
       var arraySort = require('array-sort')
       
@@ -121,22 +126,42 @@ class Search extends Component {
       this.setState({list: this.state.alphabetList})
   }
 
+  checkRecalls(key){
+      this.state.vinKey = key;
+      this.state.recallAmount = 0;
+
+     return this.state.campaignList.map(item => {
+        this.state.newVinKey = item.vin
+        if(this.state.newVinKey == this.state.vinKey){
+            this.state.activeRecall = item.active;
+            this.state.recallAmount++
+        }
+        else{
+            this.state.activeRecall = "No"
+        }
+      })
+
+  }
+
   //This function will generate the entry for each recall. It will check if there are any current
   //recalls stored and then display. Else it will display a message indicating no current recalls.
   generateRecalls(){
       if(this.state.list.length >= 1){
-          //call the sorting method if there are recalls.
-          //this.sortbyAlphabet();
         return this.state.list.map(item => {
+            this.checkRecalls(item.vin);
             return (                       
             <li className="list-group-item" key={item.id}>
                 <div className="row">
                     <div className="col-2 result-group">
-                    <span className="badge badge-secondary">Identifier</span><br/>
-                    <span className="badge badge-light">{item.id}</span>
+                    <span className="badge badge-secondary">VIN</span><br/>
+                    <Link to='/detail' className="nav-link btn btn-outline-primary" onClick={() => this.editRecall(item.id, item.manufacturer,item.model,item.year,item.vin,item.registration,item.vehicleId,item.description,item.name,item.contactNumber,item.email,item.organisation,item.orgContact,item.orgEmail,item.orgNumber)}>{item.vin}</Link>
                     </div>
                     <div className="col-2 result-group">
-                    <span className="badge badge-secondary">Manufacturer</span><br/>
+                    <span className="badge badge-secondary">Registration</span><br/>
+                    <span className="badge badge-light">{item.registration}</span>
+                    </div>
+                    <div className="col-2 result-group">
+                    <span className="badge badge-secondary">Make</span><br/>
                     <span className="badge badge-light">{item.manufacturer}</span>
                     </div>
                     <div className="col-2 result-group">
@@ -144,16 +169,20 @@ class Search extends Component {
                     <span className="badge badge-light">{item.model}</span>
                     </div>
                     <div className="col-2 result-group">
-                    <span className="badge badge-secondary">Year of Model</span><br/>
+                    <span className="badge badge-secondary">Model Year</span><br/>
                     <span className="badge badge-light">{item.year}</span>
                     </div>
                     <div className="col-2 result-group">
-                    <span className="badge badge-secondary">Registration</span><br/>
-                    <span className="badge badge-light">{item.registration}</span>
+                    <span className="badge badge-secondary">Manufacturer</span><br/>
+                    <span className="badge badge-light">{item.manufacturer}</span>
                     </div>
                     <div className="col-2 result-group">
-                    <span className="badge badge-secondary">VIN</span><br/>
-                    <Link to='/detail' className="nav-link btn btn-outline-primary" onClick={() => this.editRecall(item.id, item.manufacturer,item.model,item.year,item.vin,item.registration,item.vehicleId,item.description,item.name,item.contactNumber,item.email,item.organisation,item.orgContact,item.orgEmail,item.orgNumber)}>{item.vin}</Link>
+                    <span className="badge badge-secondary">Active Recalls?</span><br/>
+                    <span className="badge badge-light">{this.state.activeRecall}</span>
+                    </div>
+                    <div className="col-2 result-group">
+                    <span className="badge badge-secondary">No of Recalls Linked</span><br/>
+                    <span className="badge badge-light">{this.state.recallAmount}</span>
                     </div>
                 </div>
             </li>
@@ -179,14 +208,11 @@ class Search extends Component {
             </div>
             <div className="search-results">
                 <h3>Vehicles:</h3>
-                <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('manufacturer')}>Sort by Manufacturer</button>
-                <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('model')}>Sort by Model</button>
-                <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('year')}>Sort by Year</button>
-                <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('registration')}>Sort by Registration</button>
-                <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('id')}>Sort by ID</button>
-                <Link to='/search'>Vehicles</Link>
-                <Link to='/recallCampaigns'>Recalls</Link>
-                <Link to='/recallCampaigns'>Fleet</Link>
+                <button className="btn btn-primary" type="button" onClick={() => this.sortByKey('manufacturer')}>Sort by Manufacturer</button>
+                <button className="btn btn-primary" type="button" onClick={() => this.sortByKey('model')}>Sort by Model</button>
+                <button className="btn btn-primary" type="button" onClick={() => this.sortByKey('year')}>Sort by Year</button>
+                <button className="btn btn-primary" type="button" onClick={() => this.sortByKey('registration')}>Sort by Registration</button>
+                <button className="btn btn-primary" type="button" onClick={() => this.sortByKey('id')}>Sort by ID</button>
                 <ul className="list-group">
                     {this.generateRecalls()}
                 </ul>
