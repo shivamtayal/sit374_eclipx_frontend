@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './detail.css';
 import {Link} from 'react-router-dom';
 
-import DetailTable from './table';
+import DetailTable from './detail-table';
+import RecallTable from './recall-table';
 import Communications from './communications';
 import Notes from './notes';
 
@@ -11,7 +12,7 @@ class View extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            table: true,
+            recall: true,
             communications: false,
             notes: false,
             newRecall: "",
@@ -70,8 +71,8 @@ class View extends Component {
     }
 
     tileToRender(){
-        if(this.state.table){
-            return <DetailTable state={this.state}/>
+        if(this.state.recall){
+            return <RecallTable state={this.state}/>
         } else if (this.state.communications){
             return <Communications/>
         } else if (this.state.notes){
@@ -82,23 +83,28 @@ class View extends Component {
 
     render() {
         return (
-            <div className="card text-center detail-piece">
-            <div className="card-header">
-                <ul className="nav nav-tabs card-header-tabs">
-                <li className="nav-item">
-                    <a href="#table" className={"nav-link " + this.checkIsActive('table')} onClick={(e) => {this.setState({table: true, communications: false, notes: false})}}>Recall Table</a>
-                </li>
-                <li className="nav-item">
-                    <a href="#comms" className={"nav-link " + this.checkIsActive('communications')} onClick={(e) => {this.setState({communications: true, table: false, notes: false})}}>Communications</a>
-                </li>
-                <li className="nav-item">
-                    <a href="#notes" className={"nav-link " + this.checkIsActive('notes')} onClick={(e) => {this.setState({notes: true, table: false, communications: false})}}>Notes</a>
-                </li>
-                </ul>
-            </div>
-            <div className="card-body">
-                {this.tileToRender()}
-            </div>
+            <div className="detail">
+                <div className="detail-header">
+                    <DetailTable state={this.state}/>
+                </div>
+                <div className="card text-center detail-piece">
+                    <div className="card-header">
+                        <ul className="nav nav-tabs card-header-tabs">
+                        <li className="nav-item">
+                            <a href="#recall" className={"nav-link " + this.checkIsActive('recall')} onClick={(e) => {this.setState({recall: true, communications: false, notes: false})}}>Recall Table</a>
+                        </li>
+                        <li className="nav-item">
+                            <a href="#comms" className={"nav-link " + this.checkIsActive('communications')} onClick={(e) => {this.setState({communications: true, recall: false, notes: false})}}>Communications</a>
+                        </li>
+                        <li className="nav-item">
+                            <a href="#notes" className={"nav-link " + this.checkIsActive('notes')} onClick={(e) => {this.setState({notes: true, recall: false, communications: false})}}>Notes</a>
+                        </li>
+                        </ul>
+                    </div>
+                    <div className="card-body">
+                        {this.tileToRender()}
+                    </div>
+                </div>
             </div>
         )
     }
