@@ -32,7 +32,8 @@ class View extends Component {
             orgNumber: "",
             editID: "",
             list: [],
-            alphabetList: []
+            campaignList: []
+
         }
     }
 

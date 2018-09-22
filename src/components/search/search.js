@@ -129,15 +129,13 @@ class Search extends Component {
   checkRecalls(key){
       this.state.vinKey = key;
       this.state.recallAmount = 0;
+      this.state.activeRecall = "No"
 
      return this.state.campaignList.map(item => {
         this.state.newVinKey = item.vin
         if(this.state.newVinKey == this.state.vinKey){
             this.state.activeRecall = item.active;
             this.state.recallAmount++
-        }
-        else{
-            this.state.activeRecall = "No"
         }
       })
 

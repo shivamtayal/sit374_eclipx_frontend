@@ -36,7 +36,9 @@ class addRecall extends Component {
       orgContactErr:"",
       orgEmailErr:"",
       orgNmuberErr:"",
-      list: []
+      list: [],
+      rectified: "",
+      rectifyDate: ""
     };
   }
 
@@ -57,6 +59,8 @@ class addRecall extends Component {
     localStorage.removeItem("orgEmail")
     localStorage.removeItem("orgNumber")
     localStorage.removeItem("editID")
+    localStorage.setItem("rectified", "No")
+    localStorage.removeItem("list")
     
     //This will refresh data into the keys to enable data to be persistant. As most keys are removed beforehand this will just load the
     //list[] array with stored data.

@@ -15,7 +15,7 @@ class addCampaign extends Component {
       description: "",
       vin: "",
       campaignList: [],
-      active: ""
+      active: "",
     };
   }
 
@@ -28,6 +28,7 @@ class addCampaign extends Component {
     localStorage.removeItem("vin")
     localStorage.setItem("priority", "Medium")
     localStorage.setItem("active", "Yes")
+    localStorage.setItem("rectified", "No")
     this.initialiseData();
   }
 

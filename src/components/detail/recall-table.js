@@ -1,32 +1,134 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-export default function recallTable(props) {
-    return (
-            <table className="table recalls-table">
-                <thead>
-                    <tr>
-                        <th scope="col">Edit</th>
-                        <th scope="col">Active Recall?</th>
-                        <th scope="col">Recall Priority</th>
-                        <th scope="col">Recall No</th>
-                        <th scope="col">PRA No</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Rectified?</th>
-                        <th scope="col">Rectification Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Save / Delete</td>
-                        <td>YES</td>
-                        <td>Alpha</td>
-                        <td>00 26 3701 00</td>
-                        <td>00 26 3701 00</td>
-                        <td>Replace front driveshaft</td>
-                        <td>No</td>
-                        <td>05-01-2018</td>
-                    </tr>
-                </tbody>
-            </table>
-    );
+class recallTable extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            manufacturer: "",
+            newCampaign: "",
+            campaignNumber: "",
+            PRANumber: "",
+            datePublished: "",
+            priority: "",
+            description: "",
+            campaignList: [],
+            campaignKey: "",
+            relatedRecall: "",
+            vin: "",
+            list: []
+        };
+    }
+
+    componentDidMount(){
+        localStorage.removeItem("manufacturer")
+        localStorage.removeItem("campaignNumber")
+        localStorage.removeItem("PRANumber")
+        localStorage.removeItem("datePublished")
+        localStorage.removeItem("priority")
+        localStorage.removeItem("description")
+        this.initialiseData();
+      }
+
+      initialiseData() {
+        for (let key in this.state) {
+          if (localStorage.hasOwnProperty(key)) {
+            let value = localStorage.getItem(key);
+            try {
+              value = JSON.parse(value);
+              this.setState({ [key]: value });
+            } catch (e) {
+              this.setState({ [key]: value });
+            }
+          }
+        }
+      }
+
+      checkRecalls(key){
+          this.state.relatedRecall = false;
+          this.state.campaignKey = key;
+
+            if(this.state.campaignKey == this.state.vin){
+                this.state.relatedRecall = true;
+            }
+
+      }
+
+      generateRecalls(){
+        if(this.state.campaignList.length >= 1){
+          return this.state.campaignList.map(item => {
+              this.checkRecalls(item.vin)
+            if(this.state.relatedRecall == true){
+              return (                       
+              <li className="list-group-item" key={item.campaignNumber}>
+                  <div className="row">
+                      <div className="col-2 result-group">
+                      <span className="badge badge-secondary">Save / Cancel</span><br/>
+                      <span className="badge badge-light">temp</span>
+                      </div>
+                      <div className="col-2 result-group">
+                      <span className="badge badge-secondary">Recall Priority</span><br/>
+                      <span className="badge badge-light">{item.priority}</span>
+                      </div>
+                      <div className="col-2 result-group">
+                      <span className="badge badge-secondary">PRA No.</span><br/>
+                      <span className="badge badge-light">{item.PRANumber}</span>
+                      </div>
+                      <div className="col-2 result-group">
+                      <span className="badge badge-secondary">Description</span><br/>
+                      <span className="badge badge-light">{item.description}</span>
+                      </div>
+                      <div className="col-2 result-group">
+                      <span className="badge badge-secondary">Rectified?</span><br/>
+                      <span className="badge badge-light">{item.description}</span>
+                      </div>
+                      <div className="col-2 result-group">
+                      <span className="badge badge-secondary">Rectification date</span><br/>
+                      <span className="badge badge-light">{item.description}</span>
+                      </div>
+                  </div>
+              </li>
+                  );}
+              })
+        } else {
+            return (
+                <h4>No Current Recalls</h4>
+            )
+        }
+    }
+
+    render(){
+        return(
+            <div className="search-results">
+                <ul className="list-group">
+                    {this.generateRecalls()}
+                </ul>
+            </div>
+        );
+    }
+
 }
+
+export default recallTable;
+
+
+
+
+
+
+
+
+/*export default function recallTable(props) {
+    props = props.state;  
+    return (
+
+            <div className="search-results">
+                <ul className="list-group">
+                <div className="col-2 result-group">
+                    <span className="badge badge-secondary">Campaign number</span><br/>
+                    <span className="badge badge-light">{}</span>
+                    </div>
+                </ul>
+            </div>      
+    );
+}*/
+

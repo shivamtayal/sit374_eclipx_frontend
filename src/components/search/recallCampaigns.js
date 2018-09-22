@@ -43,7 +43,6 @@ class recallCampaigns extends Component {
         }
       }
     }
-
   }
 
   //This function will create a new array that sorts the list of recalls alphabetically
