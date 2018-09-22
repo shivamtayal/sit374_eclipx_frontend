@@ -2,20 +2,21 @@ import React from 'react';
 
 export default function recallTable(props) {
     return (
+        <div className="detail-recalls">
             <table className="table recalls-table">
-                <thead>
+                <thead id="thead">
                     <tr>
                         <th scope="col"> </th>
                         <th scope="col">Active Recall?</th>
                         <th scope="col">Recall Priority</th>
-                        <th scope="col">Recall No</th>
-                        <th scope="col">PRA No</th>
+                        <th scope="col">Recall No<button className="indicator-sort" onClick={props.sortBy} name="Recall NO">^</button></th>
+                        <th scope="col">PRA No<button className="indicator-sort" onClick={props.sortBy} name="PRA">^</button></th>
                         <th scope="col">Description</th>
-                        <th scope="col">Rectified?</th>
-                        <th scope="col">Rectification Date</th>
+                        <th scope="col">Rectified?<button className="indicator-sort" onClick={props.sortBy} name="Rectified">^</button></th>
+                        <th scope="col">Rectification Date<button className="indicator-sort" onClick={props.sortBy} name="Date">^</button></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tbody">
                     <tr>
                         <td>save delete</td>
                         <td>YES</td>
@@ -48,5 +49,6 @@ export default function recallTable(props) {
                     </tr>
                 </tbody>
             </table>
+        </div>
     );
 }

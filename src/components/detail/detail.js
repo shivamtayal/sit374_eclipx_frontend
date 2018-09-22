@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './detail.css';
 import {Link} from 'react-router-dom';
 
-import DetailTable from './table';
+import DetailTable from './detail-table';
+import RecallTable from './recall-table';
 import Communications from './communications';
 import Notes from './notes';
 
@@ -11,7 +12,7 @@ class View extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            table: true,
+            recall: true,
             communications: false,
             notes: false,
             newRecall: "",
@@ -31,7 +32,8 @@ class View extends Component {
             orgNumber: "",
             editID: "",
             list: [],
-            alphabetList: []
+            alphabetList: [],
+            oldTh: ""
         }
     }
 
@@ -70,35 +72,88 @@ class View extends Component {
     }
 
     tileToRender(){
-        if(this.state.table){
-            return <DetailTable state={this.state}/>
+        if(this.state.recall){
+            return <RecallTable sortBy={(e) => this.sortBy(e)}/>
         } else if (this.state.communications){
-            return <Communications/>
+            return <Communications sortBy={(e) => this.sortBy(e)}/>
         } else if (this.state.notes){
             return <Notes/>
         }
     }
 
+    sortBy = (e) => {
+        //change table nodes to list for sorting 
+        var th = e.target;
+        var thArr = document.getElementById("thead").getElementsByTagName("th");
+        var trArr = document.getElementById("tbody").getElementsByTagName("tr");
+
+        var thList = [];
+        for (var i = 0; i < thArr.length; i++)
+            thList.push(thArr[i].innerHTML);
+
+        var trList = [];
+        for (var i = 0; i < trArr.length; i++) {
+            var tdArr = trArr[i].getElementsByTagName("td");
+            var tdList = [];
+            for (var j = 0; j < tdArr.length; j++) {
+                tdList[thList[j]] = tdArr[j].innerHTML;
+            }
+            trList.push(tdList);            
+        }
+
+        //sorting
+        var arraySort = require('array-sort')
+        for (var i = 0; i < thList.length; i++) {
+            if (thList[i].indexOf(th.name) != -1) {
+                if (th.name == this.state.oldTh) {
+                    trList = arraySort(trList, thList[i]);
+                    this.state.oldTh = "";
+                }
+                else {
+                    trList = arraySort(trList, thList[i], {reverse: true});
+                    this.state.oldTh = th.name;
+                }
+                break;
+            }
+        }
+
+        //display list in table
+        var tableContent = "";
+        for (var i = 0; i < trList.length; i++) {
+            tableContent += "<tr>";
+            for (var j = 0; j < thList.length; j++) {
+                tableContent += "<td>" + trList[i][thList[j]] + "</td>";
+            }
+            tableContent += "</tr>"
+        } 
+        document.getElementById("tbody").innerHTML = tableContent;
+    }
+
 
     render() {
         return (
-            <div className="card text-center detail-piece">
-            <div className="card-header">
-                <ul className="nav nav-tabs card-header-tabs">
-                <li className="nav-item">
-                    <a href="#table" className={"nav-link " + this.checkIsActive('table')} onClick={(e) => {this.setState({table: true, communications: false, notes: false})}}>Recall Table</a>
-                </li>
-                <li className="nav-item">
-                    <a href="#comms" className={"nav-link " + this.checkIsActive('communications')} onClick={(e) => {this.setState({communications: true, table: false, notes: false})}}>Communications</a>
-                </li>
-                <li className="nav-item">
-                    <a href="#notes" className={"nav-link " + this.checkIsActive('notes')} onClick={(e) => {this.setState({notes: true, table: false, communications: false})}}>Notes</a>
-                </li>
-                </ul>
-            </div>
-            <div className="card-body">
-                {this.tileToRender()}
-            </div>
+            <div className="detail">
+                <div className="detail-header">
+                    <DetailTable state={this.state}/>
+                </div>
+                <div className="card text-center detail-piece">
+                    <div className="card-header">
+                        <ul className="nav nav-tabs card-header-tabs">
+                        <li className="nav-item">
+                            <a href="#recall" className={"nav-link " + this.checkIsActive('recall')} onClick={(e) => {this.setState({recall: true, communications: false, notes: false})}}>Recalls</a>
+                        </li>
+                        <li className="nav-item">
+                            <a href="#comms" className={"nav-link " + this.checkIsActive('communications')} onClick={(e) => {this.setState({communications: true, recall: false, notes: false})}}>Communications</a>
+                        </li>
+                        <li className="nav-item">
+                            <a href="#notes" className={"nav-link " + this.checkIsActive('notes')} onClick={(e) => {this.setState({notes: true, recall: false, communications: false})}}>Notes</a>
+                        </li>
+                        </ul>
+                    </div>
+                    <div className="card-body">
+                        {this.tileToRender()}
+                    </div>
+                </div>
             </div>
         )
     }
