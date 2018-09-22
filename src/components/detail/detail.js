@@ -91,7 +91,7 @@ class View extends Component {
                     <div className="card-header">
                         <ul className="nav nav-tabs card-header-tabs">
                         <li className="nav-item">
-                            <a href="#recall" className={"nav-link " + this.checkIsActive('recall')} onClick={(e) => {this.setState({recall: true, communications: false, notes: false})}}>Recall Table</a>
+                            <a href="#recall" className={"nav-link " + this.checkIsActive('recall')} onClick={(e) => {this.setState({recall: true, communications: false, notes: false})}}>Recalls</a>
                         </li>
                         <li className="nav-item">
                             <a href="#comms" className={"nav-link " + this.checkIsActive('communications')} onClick={(e) => {this.setState({communications: true, recall: false, notes: false})}}>Communications</a>
