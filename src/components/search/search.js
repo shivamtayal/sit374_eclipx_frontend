@@ -30,7 +30,9 @@ class Search extends Component {
             vinKey: "",
             newVinKey: "",
             activeRecall: "",
-            recallAmount: ""
+            recallAmount: "",
+            rectified: "",
+            rectifyDate: ""
         };
     }
 
@@ -75,7 +77,7 @@ class Search extends Component {
 
   //This function takes all the keys used in our array and sets them into the current keys.
   //this way the data is passed onto the next page and can autofill the fields for editing.
-  editRecall(id,manuf,mod,yr,vin,reg,vid,des,nm,cnum,em,org,orgc,orge,orgn) {
+  editRecall(id,manuf,mod,yr,vin,reg,vid,des,nm,cnum,em,org,orgc,orge,orgn,rec,recd) {
     const editID = id;
     const manufacturer = manuf;
     const model = mod;
@@ -90,7 +92,9 @@ class Search extends Component {
     const organ = org;
     const orgcon = orgc;
     const orgem = orge;
-    const orgnum = orgn
+    const orgnum = orgn;
+    const rect = rec;
+    const rectDate = recd
     localStorage.setItem("editID", editID);
     localStorage.setItem("manufacturer", manufacturer);
     localStorage.setItem("model", model);
@@ -106,6 +110,8 @@ class Search extends Component {
     localStorage.setItem("orgContact", orgcon)
     localStorage.setItem("orgEmail", orgem)
     localStorage.setItem("orgNumber", orgnum)
+    localStorage.setItem("rectified", rect)
+    localStorage.setItem("rectifyDate", rectDate)
   }
 
   //This function will create a new array that sorts the list of recalls alphabetically
@@ -152,7 +158,7 @@ class Search extends Component {
                 <div className="row">
                     <div className="col-2 result-group">
                     <span className="badge badge-secondary">VIN</span><br/>
-                    <Link to='/detail' className="nav-link btn btn-outline-primary" onClick={() => this.editRecall(item.id, item.manufacturer,item.model,item.year,item.vin,item.registration,item.vehicleId,item.description,item.name,item.contactNumber,item.email,item.organisation,item.orgContact,item.orgEmail,item.orgNumber)}>{item.vin}</Link>
+                    <Link to='/detail' className="nav-link btn btn-outline-primary" onClick={() => this.editRecall(item.id, item.manufacturer,item.model,item.year,item.vin,item.registration,item.vehicleId,item.description,item.name,item.contactNumber,item.email,item.organisation,item.orgContact,item.orgEmail,item.orgNumber,item.rectified,item.rectifyDate)}>{item.vin}</Link>
                     </div>
                     <div className="col-2 result-group">
                     <span className="badge badge-secondary">Registration</span><br/>

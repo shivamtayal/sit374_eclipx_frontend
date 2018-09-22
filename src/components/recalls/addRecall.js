@@ -60,7 +60,7 @@ class addRecall extends Component {
     localStorage.removeItem("orgNumber")
     localStorage.removeItem("editID")
     localStorage.setItem("rectified", "No")
-    localStorage.removeItem("list")
+    localStorage.setItem("rectifyDate", "")
     
     //This will refresh data into the keys to enable data to be persistant. As most keys are removed beforehand this will just load the
     //list[] array with stored data.
@@ -187,7 +187,9 @@ class addRecall extends Component {
       organisation: this.state.organisation,
       orgContact: this.state.orgContact,
       orgEmail: this.state.orgEmail,
-      orgNumber: this.state.orgNumber
+      orgNumber: this.state.orgNumber,
+      rectified: this.state.rectified,
+      rectifyDate: this.state.rectifyDate
     };
 
     //This copies the current list to a new list for updating.
@@ -232,6 +234,7 @@ class addRecall extends Component {
     localStorage.setItem("orgContact", "")
     localStorage.setItem("orgEmail", "")
     localStorage.setItem("orgNumber", "")
+    localStorage.setItem("rectified", "No")
   } else {
     alert("There are some wrong informations");
     

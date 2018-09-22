@@ -4,7 +4,6 @@ class recallTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            manufacturer: "",
             newCampaign: "",
             campaignNumber: "",
             PRANumber: "",
@@ -15,17 +14,29 @@ class recallTable extends Component {
             campaignKey: "",
             relatedRecall: "",
             vin: "",
-            list: []
+            list: [],
+            rectified: "",
+            rectifyDate: "",
+
+            manufacturer: "",
+            model: "",
+            year: "",
+            vin: "",
+            registration: "",
+            vehicleId: "",
+            description: "",
+            name: "",
+            contactNumber: "",
+            email: "",
+            organisation: "",
+            orgContact: "",
+            orgEmail: "",
+            orgNumber: "",
+            editID: ""
         };
     }
 
     componentDidMount(){
-        localStorage.removeItem("manufacturer")
-        localStorage.removeItem("campaignNumber")
-        localStorage.removeItem("PRANumber")
-        localStorage.removeItem("datePublished")
-        localStorage.removeItem("priority")
-        localStorage.removeItem("description")
         this.initialiseData();
       }
 
@@ -43,6 +54,12 @@ class recallTable extends Component {
         }
       }
 
+      updateInput(key, value) {
+        this.setState({ [key]: value });
+    
+        localStorage.setItem(key, value);
+      }
+
       checkRecalls(key){
           this.state.relatedRecall = false;
           this.state.campaignKey = key;
@@ -50,6 +67,48 @@ class recallTable extends Component {
             if(this.state.campaignKey == this.state.vin){
                 this.state.relatedRecall = true;
             }
+
+      }
+
+      addItem(idEdit) {
+        //this section removes the entry from the array
+        const editID = idEdit
+        const list = [...this.state.list];
+        const updatedList = list.filter(item => item.id !== editID);
+    
+        this.setState({ list: updatedList });
+    
+        localStorage.setItem("list", JSON.stringify(updatedList));
+    
+        //The array element containing vehicle and customer details.
+        const newRecall = {
+          id: this.state.editID,
+          manufacturer: this.state.manufacturer.toUpperCase(),
+          model: this.state.model.toUpperCase(),
+          year: this.state.year,
+          vin: this.state.vin,
+          registration: this.state.registration.toUpperCase(),
+          vehicleId: this.state.vehicleId,
+          description: this.state.description,
+          name: this.state.name,
+          contactNumber: this.state.contactNumber,
+          email: this.state.email,
+          organisation: this.state.organisation,
+          orgContact: this.state.orgContact,
+          orgEmail: this.state.orgEmail,
+          orgNumber: this.state.orgNumber,
+          rectified: this.state.rectified,
+          rectifyDate: this.state.rectifyDate
+        };
+    
+        //This adds to new element to the list array.
+        updatedList.push(newRecall);
+    
+        //This resets the keys after data has been stored.
+        this.setState({list});
+        
+        //JSON file needs to be stored as a string, we can later convert it back into an array. All keys are stored for initialisaton.
+        localStorage.setItem("list", JSON.stringify(updatedList));
 
       }
 
@@ -63,7 +122,7 @@ class recallTable extends Component {
                   <div className="row">
                       <div className="col-2 result-group">
                       <span className="badge badge-secondary">Save / Cancel</span><br/>
-                      <span className="badge badge-light">temp</span>
+                      <button onClick={() => this.addItem(this.state.editID)}>Save</button>
                       </div>
                       <div className="col-2 result-group">
                       <span className="badge badge-secondary">Recall Priority</span><br/>
@@ -79,11 +138,30 @@ class recallTable extends Component {
                       </div>
                       <div className="col-2 result-group">
                       <span className="badge badge-secondary">Rectified?</span><br/>
-                      <span className="badge badge-light">{item.description}</span>
+                      <span className="badge badge-light">{this.state.rectified}</span>
+                      <select
+                      className="form-control"
+                      id="rectified"
+                      type="select"
+                      placeholder="Rectified?"
+                      value={this.state.rectified}
+                      onChange={e => this.updateInput("rectified", e.target.value)}
+                      >
+			          <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+			          </select>
                       </div>
                       <div className="col-2 result-group">
                       <span className="badge badge-secondary">Rectification date</span><br/>
-                      <span className="badge badge-light">{item.description}</span>
+                      <span className="badge badge-light">{this.state.rectifyDate}</span>
+                      <input
+                      className="form-control"
+                      id="rectifyDate"
+                      type="date"
+                      placeholder="Rectified Date"
+                      value={this.state.rectifyDate}
+                      onChange={e => this.updateInput("rectifyDate", e.target.value)}
+                      />
                       </div>
                   </div>
               </li>
