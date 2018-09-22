@@ -24,8 +24,9 @@ class Search extends Component {
             orgNumber: "",
             editID: "",
             list: [],
-            alphabetList: []
-        }
+            sortList: [],
+            oldKeyWord: ""
+        };
     }
 
   //This starts when the page is loaded. It clears the keys and then runs the initialise data function.  
@@ -45,8 +46,9 @@ class Search extends Component {
     localStorage.removeItem("orgEmail")
     localStorage.removeItem("orgNumber")
     localStorage.removeItem("editID")
-    this.sortbyAlphabet();
+    //this.sortbyAlphabet();
     this.initialiseData();
+    //this.sortbyAlphabet();
   }
 
   //This function is called when the page is opened. it will read through the keys in this state and check local storage.
@@ -102,9 +104,20 @@ class Search extends Component {
 
   //This function will create a new array that sorts the list of recalls alphabetically
   //by manufacturer.
-  sortbyAlphabet() {
+  sortbyAlphabet(key) {
+      var keyword = key;
       var arraySort = require('array-sort')
-      this.state.alphabetList = arraySort(this.state.list, 'manufacturer')      
+      
+      if(keyword == this.state.oldKeyWord){
+      this.state.alphabetList = arraySort(this.state.list, keyword, {reverse: true})
+      this.state.oldKeyWord = "";
+      }
+      else{
+        this.state.alphabetList = arraySort(this.state.list, keyword)
+        this.state.oldKeyWord = key;
+      }
+
+      this.setState({list: this.state.alphabetList})
   }
 
   //This function will generate the entry for each recall. It will check if there are any current
@@ -112,8 +125,8 @@ class Search extends Component {
   generateRecalls(){
       if(this.state.list.length >= 1){
           //call the sorting method if there are recalls.
-          this.sortbyAlphabet();
-        return this.state.alphabetList.map(item => {
+          //this.sortbyAlphabet();
+        return this.state.list.map(item => {
             return (                       
             <li className="list-group-item" key={item.id}>
                 <div className="row">
@@ -147,7 +160,7 @@ class Search extends Component {
             })
       } else {
           return (
-              <h4>No Recalls Found</h4>
+              <h4>No Vehicles Found</h4>
           )
       }
   }
@@ -164,7 +177,15 @@ class Search extends Component {
                 </div>
             </div>
             <div className="search-results">
-                <h3>Results</h3>
+                <h3>Vehicles:</h3>
+                <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('manufacturer')}>Sort by Manufacturer</button>
+                <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('model')}>Sort by Model</button>
+                <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('year')}>Sort by Year</button>
+                <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('registration')}>Sort by Registration</button>
+                <button className="btn btn-primary" type="button" onClick={() => this.sortbyAlphabet('id')}>Sort by ID</button>
+                <Link to='/search'>Vehicles</Link>
+                <Link to='/recallCampaigns'>Recalls</Link>
+                <Link to='/recallCampaigns'>Fleet</Link>
                 <ul className="list-group">
                     {this.generateRecalls()}
                 </ul>

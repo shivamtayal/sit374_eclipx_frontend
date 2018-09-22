@@ -93,7 +93,9 @@ class Recalls extends Component {
                         <div className="col-6">
                             <div className="manual-recall-group">
                                 <h4>Manually Add Recall</h4><br/>
-                                <Link className="route-linker btn btn-outline-dark" to="/addrecall">Manually Add Recall</Link>                    
+                                <Link className="route-linker btn btn-outline-dark" to="/addrecall">Add Vehicle</Link>
+                                <br/>
+                                <Link className="route-linker btn btn-outline-dark" to="/addCampaign">Add campaign</Link>                    
                             </div>
                         </div>
                     </div>

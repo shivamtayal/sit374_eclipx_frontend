@@ -22,6 +22,20 @@ class addRecall extends Component {
       orgContact: "",
       orgEmail: "",
       orgNumber: "",
+      manuErr:"",
+      modelErr:"",     
+      yearErr:"",     
+      vinErr:"",    
+      regErr:"",  
+      vehErr:"",    
+      descErr:"",    
+      nameErr:"",   
+      contactErr:"", 
+      emailErr:"",
+      orgErr:"",
+      orgContactErr:"",
+      orgEmailErr:"",
+      orgNmuberErr:"",
       list: []
     };
   }
@@ -48,6 +62,8 @@ class addRecall extends Component {
     //list[] array with stored data.
     this.initialiseData();
   }
+ 
+  
 
   //This function tracks input in the fields and stores them in our keys.
   updateInput(key, value) {
@@ -55,9 +71,102 @@ class addRecall extends Component {
     localStorage.setItem(key, value);
   }
 
-  //This function will create a constant called newRecall, it contains our keys and data to be inputted into our array as an element.
+   
+  //Validate the value of input
+  validate () {
+   
+
+    let isError = false;
+    const errors = {
+      manuErr:"",
+      modelErr:"",     
+      yearErr:"",     
+      vinErr:"",    
+      regErr:"",  
+      vehErr:"",    
+      descErr:"",    
+      nameErr:"",   
+      contactErr:"", 
+      emailErr:"",
+      orgErr:"",
+      orgContactErr:"",
+      orgEmailErr:"",
+      orgNmuberErr:"",
+    };
+    if(this.state.manufacturer.length<5){
+      isError = true;
+      errors.manuErr = "The value cannot be null ! ";
+    }  
+    if(this.state.model.length<=0) {
+      isError = true;
+      errors.modelErr = "The value cannot be null ! ";
+    }
+    if(this.state.year.match(/^[0-9]/gi)) {
+      isError = true;
+      errors.yearErr = "The value must be integer  ! ";
+    }
+    if(this.state.vin.match(/^[0-9]/gi)) {
+      isError = true;
+      errors.vinErr = "The value cannot be null ! ";
+    }
+    if(this.state.registration.length<=0) {
+      isError = true;
+      errors.regErr = "The value cannot be null ! ";
+    }
+    if(this.state.vehicleId.length<=0) {
+      isError = true;
+      errors.vehErr = "The value cannot be null ! ";
+    }
+    if(this.state.description.length<=0) {
+      isError = true;
+      errors.descErr = "The value cannot be null ! ";
+    }
+    if(this.state.name.length<=0) {
+      isError = true;
+      errors.nameErr = "The value cannot be null ! ";
+    }
+    if(this.state.contactNumber.match(/^[0-9]/gi)) {
+      isError = true;
+      errors.contactErr = "The value must be integer ! ";
+    }
+    if(this.state.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+      isError = true;
+      errors.emailErr = "The email is invalid ! ";
+    }
+    if(this.state.organisation.length<=0) {
+      isError = true;
+      errors.orgErr = "The value cannot be null ! ";
+    }
+    if(this.state.orgContact.match(/^[0-9]/gi)) {
+      isError = true;
+      errors.orgContactErr = "The value must be integer ! ";
+    }
+    if(this.state.orgEmail.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+      isError = true;
+      errors.orgEmailErr = "The email is invalid ! ";
+    }
+    if(this.state.orgNumber.match(/^[0-9]/gi)) {
+      isError = true;
+      errors.orgNmuberErr = "The value must be integer ! ";
+    }
+
+
+
+  
+    this.setState({
+      ...this.state,
+      errors
+    });
+    isError = false;
+    return isError;
+  }
+
+ 
+  //This function will create a constant called newRecall, it contains our keys and data which is input into our array as an element.
   //It will add the element to the array and generate a unique ID.
   addItem() {
+    const err = this.validate();
+    if (!err) {
     //The array element containing vehicle and customer details.
     const newRecall = {
       id: Math.floor(100000 + Math.random() * 900000),
@@ -65,7 +174,7 @@ class addRecall extends Component {
       model: this.state.model.toUpperCase(),
       year: this.state.year,
       vin: this.state.vin,
-      registration: this.state.registration,
+      registration: this.state.registration.toUpperCase(),
       vehicleId: this.state.vehicleId,
       description: this.state.description,
       name: this.state.name,
@@ -119,7 +228,15 @@ class addRecall extends Component {
     localStorage.setItem("orgContact", "")
     localStorage.setItem("orgEmail", "")
     localStorage.setItem("orgNumber", "")
+  } else {
+    alert("There are some wrong informations");
+    
   }
+ 
+}
+  
+    
+  
 
   //to delete an item from the array we use the .filter to remove the element. then update our list with the updated version.
   deleteItem(id) {
