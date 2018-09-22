@@ -1,0 +1,24 @@
+{
+  "name": "sit374_eclipx_frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "array-sort": "^1.0.0",
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "match-sorter": "^2.3.0",
+    "namor": "^1.1.1",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.4",
+    "react-table": "^6.8.6"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
