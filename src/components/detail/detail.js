@@ -32,8 +32,10 @@ class View extends Component {
             orgNumber: "",
             editID: "",
             list: [],
-            campaignList: []
+            campaignList: [],
 
+            alphabetList: [],
+            oldTh: ""
         }
     }
 
@@ -73,12 +75,60 @@ class View extends Component {
 
     tileToRender(){
         if(this.state.recall){
-            return <RecallTable state={this.state}/>
+            return <RecallTable sortBy={(e) => this.sortBy(e)}/>
         } else if (this.state.communications){
-            return <Communications/>
+            return <Communications sortBy={(e) => this.sortBy(e)}/>
         } else if (this.state.notes){
             return <Notes/>
         }
+    }
+
+    sortBy = (e) => {
+        //change table nodes to list for sorting 
+        var th = e.target;
+        var thArr = document.getElementById("thead").getElementsByTagName("th");
+        var trArr = document.getElementById("tbody").getElementsByTagName("tr");
+
+        var thList = [];
+        for (var i = 0; i < thArr.length; i++)
+            thList.push(thArr[i].innerHTML);
+
+        var trList = [];
+        for (var i = 0; i < trArr.length; i++) {
+            var tdArr = trArr[i].getElementsByTagName("td");
+            var tdList = [];
+            for (var j = 0; j < tdArr.length; j++) {
+                tdList[thList[j]] = tdArr[j].innerHTML;
+            }
+            trList.push(tdList);            
+        }
+
+        //sorting
+        var arraySort = require('array-sort')
+        for (var i = 0; i < thList.length; i++) {
+            if (thList[i].indexOf(th.name) != -1) {
+                if (th.name == this.state.oldTh) {
+                    trList = arraySort(trList, thList[i]);
+                    this.state.oldTh = "";
+                }
+                else {
+                    trList = arraySort(trList, thList[i], {reverse: true});
+                    this.state.oldTh = th.name;
+                }
+                break;
+            }
+        }
+
+        //display list in table
+        var tableContent = "";
+        for (var i = 0; i < trList.length; i++) {
+            tableContent += "<tr>";
+            for (var j = 0; j < thList.length; j++) {
+                tableContent += "<td>" + trList[i][thList[j]] + "</td>";
+            }
+            tableContent += "</tr>"
+        } 
+        document.getElementById("tbody").innerHTML = tableContent;
     }
 
 
