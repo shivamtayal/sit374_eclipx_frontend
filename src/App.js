@@ -13,6 +13,7 @@ import editRecall from './components/editRecall/editRecall';
 import addCampaign from './components/addCampaign/addCampaign';
 import searchVehicle from './components/searchVehicle/searchVehicle';
 import recallCampaigns from './components/search/recallCampaigns';
+import customerVehicles from './components/customerVehicles/customerVehicles';
 
 class App extends Component {
   render() {
@@ -30,6 +31,7 @@ class App extends Component {
           <Route path='/addCampaign' component={addCampaign} />
           <Route path='/searchVehicle' component={searchVehicle} />
           <Route path='/recallCampaigns' component={recallCampaigns} />
+          <Route path='/customerVehicles' component={customerVehicles} />     
           </div>
       </div>
     );
