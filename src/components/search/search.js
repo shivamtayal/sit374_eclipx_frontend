@@ -32,7 +32,8 @@ class Search extends Component {
             activeRecall: "",
             recallAmount: "",
             rectified: "",
-            rectifyDate: ""
+            rectifyDate: "",
+            active: ""
         };
     }
 
@@ -140,7 +141,10 @@ class Search extends Component {
      return this.state.campaignList.map(item => {
         this.state.newVinKey = item.vin
         if(this.state.newVinKey == this.state.vinKey){
-            this.state.activeRecall = item.active;
+            if(item.active == "Yes"){
+            //this.state.activeRecall = item.active;
+            this.state.activeRecall = "Yes"
+            }
             this.state.recallAmount++
         }
       })

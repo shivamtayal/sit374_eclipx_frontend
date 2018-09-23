@@ -15,7 +15,7 @@ class addCampaign extends Component {
       description: "",
       vin: "",
       campaignList: [],
-      active: "",
+      active: ""
     };
   }
 
@@ -179,7 +179,7 @@ class addCampaign extends Component {
             type="select"
             placeholder="Active Recall?"
             value={this.state.active}
-            onChange={e => this.updateInput("priority", e.target.value)}
+            onChange={e => this.updateInput("active", e.target.value)}
           >
 			  <option value="Yes">Yes</option>
         <option value="No">No</option>
