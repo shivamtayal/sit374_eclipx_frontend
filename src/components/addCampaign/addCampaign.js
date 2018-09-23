@@ -13,7 +13,9 @@ class addCampaign extends Component {
       datePublished: "",
       priority: "",
       description: "",
-      campaignList: []
+      vin: "",
+      campaignList: [],
+      active: ""
     };
   }
 
@@ -22,9 +24,11 @@ class addCampaign extends Component {
     localStorage.removeItem("campaignNumber")
     localStorage.removeItem("PRANumber")
     localStorage.removeItem("datePublished")
-    localStorage.removeItem("priority")
     localStorage.removeItem("description")
+    localStorage.removeItem("vin")
     localStorage.setItem("priority", "Medium")
+    localStorage.setItem("active", "Yes")
+    localStorage.setItem("rectified", "No")
     this.initialiseData();
   }
 
@@ -41,7 +45,9 @@ class addCampaign extends Component {
       PRANumber: this.state.PRANumber,
       datePublished: this.state.datePublished,
       priority: this.state.priority,
-      description: this.state.description
+      description: this.state.description,
+      vin: this.state.vin,
+      active: this.state.active
     };
 
     const campaignList = [...this.state.campaignList];
@@ -55,8 +61,10 @@ class addCampaign extends Component {
       campaignNumber: "",
       PRANumber: "",
       datePublished: "",
-      priority: "",
-      description: ""
+      priority: "Medium",
+      description: "",
+      vin: "",
+      active: ""
     });
 
     localStorage.setItem("campaignList", JSON.stringify(campaignList));
@@ -66,6 +74,8 @@ class addCampaign extends Component {
     localStorage.setItem("datePublished", "");
     localStorage.setItem("priority", "");
     localStorage.setItem("description", "")
+    localStorage.setItem("vin", "")
+    localStorage.setItem("active", "")
   }
 
   deleteItem(id) {
@@ -127,7 +137,6 @@ class addCampaign extends Component {
           />
       </div>
       <div className="form-group">
-      <h6>Date</h6>
       <input
             className="form-control"
             id="datePublished"
@@ -161,6 +170,30 @@ class addCampaign extends Component {
         <option value="Medium">Medium</option>
 			  <option value="Low">Low</option>
 			</select>
+      </div>
+      <div className="form-group">
+      <h6>Active Recall?</h6>
+      <select
+            className="form-control"
+            id="active"
+            type="select"
+            placeholder="Active Recall?"
+            value={this.state.active}
+            onChange={e => this.updateInput("active", e.target.value)}
+          >
+			  <option value="Yes">Yes</option>
+        <option value="No">No</option>
+			</select>
+      </div>
+      <div className="form-group">
+        <input
+            className="form-control"
+            id="vin"
+            type="text"
+            placeholder="Temporary VIN (For testing)"
+            value={this.state.vin}
+            onChange={e => this.updateInput("vin", e.target.value)}
+          />
       </div>
       <button type="submit" className="btn btn-primary" onClick={() => this.addItem()}>Submit</button>
     </form>

@@ -39,7 +39,13 @@ class Nav extends Component {
                         <Link to='/recalls' className="nav-link">Recall Manager</Link>
                     </li>
                     <li className={"nav-item" + this.checkIfActive('/search')} onClick={e => {this.setState({search: true})}}>
-                        <Link to='/search' className="nav-link">Search</Link>
+                        <Link to='/search' className="nav-link">Vechicles</Link>
+                    </li>
+                    <li className={"nav-item" + this.checkIfActive('/search')} onClick={e => {this.setState({search: true})}}>
+                        <Link to='/recallCampaigns' className="nav-link">Recalls</Link>
+                    </li>
+                    <li className={"nav-item" + this.checkIfActive('/search')} onClick={e => {this.setState({search: true})}}>
+                        <Link to='/search' className="nav-link">Fleet</Link>
                     </li>
                     </ul>
                 </div>
