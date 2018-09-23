@@ -7,10 +7,12 @@ const mock = require('./mock');
 const cheerio = require('cheerio');
 
 class Recalls extends Component {
+
     constructor(props){
         super(props);
         this.state = {
-            tryAgain: false,
+            findingRecalls: false,
+            foundRecalls: false,
             data: [
                 {
                     manufacturer: '',
@@ -18,6 +20,12 @@ class Recalls extends Component {
                 }
             ]
         }
+
+        this.automaticRecalls = {
+            data: []
+        }
+
+        this.getRecallsAutomatically = this.getRecallsAutomatically.bind(this);
     }
 
     componentDidMount(){
@@ -26,6 +34,49 @@ class Recalls extends Component {
                 data: [JSON.parse(res.data)]
             });
         });
+    }
+
+    getRecallsAutomatically(){
+        this.automaticRecalls.data = [];
+        this.setState({findingRecalls: true});
+        axios.get('https://www.productsafety.gov.au/recalls/compulsory-takata-airbag-recall/takata-airbag-recalls-list').then(res => {
+            let $ = cheerio.load(res.data);
+            
+            $('.table-takata-recalls tbody tr').each((i, e) => {
+                let newItem = {
+                    manufacturer: '',
+                    recalls: []
+                }
+                let recallItem = {
+                    make: '',
+                    year: '',
+                    pra: ''
+                }
+
+                if($(e).hasClass('table-header') && $(e).text()){
+                    newItem.manufacturer = $(e).text().trim();
+                    this.automaticRecalls.data.push(newItem);
+                    $(e).nextUntil('.table-header').each((i, e) => {
+                        if(e.type == 'tag'){
+                            $(e.children).each((i, e) => {
+                                if(e.type == 'tag'){
+                                    if (i == 1){
+                                        recallItem.make = $(e).text().trim();
+                                    } else if (i == 3) {
+                                        recallItem.year = $(e).text().trim();
+                                    } else if (i == 5){
+                                        recallItem.pra = $(e).text().trim();
+                                        newItem.recalls.push(recallItem);
+                                    }
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+            this.setState({findingRecalls: false, foundRecalls: true});
+            localStorage.setItem('automatic_recalls', JSON.stringify(this.automaticRecalls));
+        })
     }
 
     render() {
@@ -68,13 +119,21 @@ class Recalls extends Component {
         }
         
         let recalls = localStorage.getItem('list');
-        let recallCountString;
+        recalls = JSON.parse(recalls);
+        let automaticRecalls = localStorage.getItem('automatic_recalls');
+        automaticRecalls = JSON.parse(automaticRecalls);
+
+        let recallCount = 0;
+
         if(recalls){
-            recalls = JSON.parse(recalls);
-            recallCountString = `Currently ${recalls.length} Recalls`;
-        } else {
-            recallCountString = `Currently No Recalls`;
+            recallCount = recalls.length;
         }
+
+        if(automaticRecalls.data){
+            recallCount = recallCount + automaticRecalls.data.length;
+        }
+
+        let recallCountString = `Found ${recallCount} recalls`;
 
         return (
             <div className="app-fleet">
@@ -86,8 +145,8 @@ class Recalls extends Component {
                         <div className="col-6">
                             <div className="automatic-recall-group">
                                 <h4>Automatic Recall Finder</h4><br/>
-                                {this.state.tryAgain ? <div className="alert alert-warning">Failed To Initiate Automatic Recall Finder</div> : false} 
-                                <button className="btn btn-outline-dark" to="/addrecall" onClick={(e) => {this.setState({tryAgain:true})}}>Try Again</button>
+                                {this.state.findingRecalls ? <div className="alert alert-primary">Loading...</div> : <button className="btn btn-outline-dark" onClick={this.getRecallsAutomatically}>Get Recalls</button>}
+                                {this.state.foundRecalls ? <div className="alert alert-succes">Found {this.automaticRecalls.data.length} recalls</div> : false}
                             </div>
                         </div>
                         <div className="col-6">
