@@ -9,14 +9,29 @@ const cheerio = require('cheerio');
 class Recalls extends Component {
     constructor(props){
         super(props);
+
         this.state = {
-            tryAgain: false,
-            data: [
-                {
-                    manufacturer: '',
-                    recalls: []
-                }
-            ]
+            recalls: true,
+            campaigns: false,
+            notes: false
+        }
+    }
+
+    tileToRender(){
+        if(this.state.recalls){
+            
+        } else if (this.state.campaigns){
+            return <addCampaign/>
+        } else if (this.state.notes){
+            
+        }
+    }
+
+    checkIsActive(type){
+        if(this.state[type]){
+            return 'active';
+        } else {
+            return '';
         }
     }
 
@@ -77,25 +92,23 @@ class Recalls extends Component {
         }
 
         return (
-            <div className="app-fleet">
-                <div className="recalled-vehicles">
-                    <h1>Recalls</h1>
-                    <h3>{recallCountString}</h3>
-                    <br/>
-                    <div className="row jumbotron">
-                        <div className="col-6">
-                            <div className="automatic-recall-group">
-                                <h4>Automatic Recall Finder</h4><br/>
-                                {this.state.tryAgain ? <div className="alert alert-warning">Failed To Initiate Automatic Recall Finder</div> : false} 
-                                <button className="btn btn-outline-dark" to="/addrecall" onClick={(e) => {this.setState({tryAgain:true})}}>Try Again</button>
-                            </div>
-                        </div>
-                        <div className="col-6">
-                            <div className="manual-recall-group">
-                                <h4>Manually Add Recall</h4><br/>
-                                <Link className="route-linker btn btn-outline-dark" to="/addrecall">Manually Add Recall</Link>                    
-                            </div>
-                        </div>
+            <div className="recall-main">
+                <div className="card text-center detail-piece">
+                    <div className="card-header">
+                        <ul className="nav nav-tabs card-header-tabs">
+                        <li className="nav-item">
+                            <a href="#recalls" className={"nav-link " + this.checkIsActive('recall')} onClick={(e) => {this.setState({recall: true, communications: false, notes: false})}}>Recalls</a>
+                        </li>
+                        <li className="nav-item">
+                            <a href="#campaigns" className={"nav-link " + this.checkIsActive('communications')} onClick={(e) => {this.setState({communications: true, recall: false, notes: false})}}>Campaigns</a>
+                        </li>
+                        <li className="nav-item">
+                            <a href="#notes" className={"nav-link " + this.checkIsActive('notes')} onClick={(e) => {this.setState({notes: true, recall: false, communications: false})}}>Notes</a>
+                        </li>
+                        </ul>
+                    </div>
+                    <div className="card-body">
+                        
                     </div>
                 </div>
             </div>
