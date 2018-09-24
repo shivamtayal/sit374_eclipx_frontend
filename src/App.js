@@ -6,15 +6,12 @@ import Nav from './components/navigation/navigation';
 import Home from './components/home';
 import RecallManager from './components/recallManager/recallManager';
 import Recalls from './components/recalls/recalls';
-import FleetDrill from './components/recallManager/drill_fleet';
-import Search from './components/search/search';
-import Detail from './components/detail/detail';
-import addRecall from './components/recallManager/addRecall';
-import editRecall from './components/editRecall/editRecall';
-import addCampaign from './components/addCampaign/addCampaign';
-import searchVehicle from './components/searchVehicle/searchVehicle';
-import recallCampaigns from './components/search/recallCampaigns';
-import customerVehicles from './components/customerVehicles/customerVehicles';
+import RecallSingle from './components/recallManager/recallDrilled';
+import AddRecall from './components/recallManager/addRecall';
+import AddCampaign from './components/addCampaign/addCampaign';
+import Campaigns from './components/campaigns/campaigns';
+import Vehicles from './components/vehicles/vehicles';
+import RecallEdit from './components/recalls/recallEdit';
 
 class App extends Component {
   render() {
@@ -23,17 +20,14 @@ class App extends Component {
           <Nav/>
           <div className="app-components">
           <Route exact path='/' component={Home} />
-          <Route path='/recall/:fleet_id' component={FleetDrill} />
-          <Route path='/recall-manager' component={RecallManager} />
           <Route path='/recalls' component={Recalls} />
-          <Route path='/search' component={Search} />
-          <Route path='/detail' component={Detail} />
-          <Route path='/add-recall' component={addRecall} />
-          <Route path='/add-campaign' component={addCampaign} />
-          <Route path='/editRecall' component={editRecall} />
-          <Route path='/searchVehicle' component={searchVehicle} />
-          <Route path='/recallCampaigns' component={recallCampaigns} />
-          <Route path='/customerVehicles' component={customerVehicles} />     
+          <Route path='/recall/:id' component={RecallSingle} />
+          <Route path='/edit/recall/:id' component={RecallEdit}/>
+          <Route path='/recall-manager' component={RecallManager} />
+          <Route path='/add-recall' component={AddRecall} />
+          <Route path='/add-campaign' component={AddCampaign} />
+          <Route path='/campaigns' component={Campaigns} />
+          <Route path='/vehicles' component={Vehicles} />
           </div>
       </div>
     );

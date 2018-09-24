@@ -7,19 +7,6 @@ import './navigation.css';
 class Nav extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            home: true,
-            recalls: false,
-            search: false
-        }
-    }
-
-    checkIfActive(path){
-        if(this.state[path]){
-            return 'active';
-        } else {
-            return '';
-        }
     }
 
     render() {
@@ -32,17 +19,20 @@ class Nav extends Component {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
-                    <li className={"nav-item" + this.checkIfActive('/')} onClick={e => {this.setState({home: true})}}>
+                    <li className={"nav-item"}>
                         <Link to='/' className="nav-link">Home</Link>
                     </li>
-                    <li className={"nav-item" + this.checkIfActive('/recalls')} onClick={e => {this.setState({recalls: true})}}>
+                    <li className={"nav-item"}>
                         <Link to='/recall-manager' className="nav-link">Recall Manager</Link>
                     </li>
-                    <li className={"nav-item" + this.checkIfActive('/search')} onClick={e => {this.setState({search: true})}}>
+                    <li className={"nav-item"}>
                         <Link to='/recalls' className="nav-link">Recalls</Link>
                     </li>
-                    <li className={"nav-item" + this.checkIfActive('/search')} onClick={e => {this.setState({search: true})}}>
-                        <Link to='/search' className="nav-link">Search</Link>
+                    <li className={"nav-item"}>
+                        <Link to='/campaigns' className="nav-link">Campaigns</Link>
+                    </li>
+                    <li className={"nav-item"}>
+                        <Link to='/vehicles' className="nav-link">Vehicles</Link>
                     </li>
                     </ul>
                 </div>

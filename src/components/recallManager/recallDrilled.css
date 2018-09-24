@@ -1,0 +1,16 @@
+.recall-single {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.list-group p {
+    text-align: left;
+}
+
+.list-group h5{
+    font-weight: bolder;
+}
+
+.btn {
+    margin: 0 0.5em 0 0.5em;
+}
