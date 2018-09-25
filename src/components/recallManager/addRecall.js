@@ -22,7 +22,8 @@ class addRecall extends Component {
             organization: '',
             organizationContact: '',
             organizationEmail: '',
-            organizationPhone: ''
+            organizationPhone: '',
+            added: false
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -40,6 +41,7 @@ class addRecall extends Component {
 
     handleSubmit(e){
         e.preventDefault();
+        this.setState({added: true});
         let recallItem =  {
             id: Persistor.generateId(),
             meta:
@@ -63,16 +65,25 @@ class addRecall extends Component {
                     organizationEmail: this.state.organizationEmail,
                     organizationPhone: this.state.organizationPhone
                 }
-            }
+            },
+            communications: [
+            ],
+            notes: [
+            ],
         };
 
         Persistor.addRecall(recallItem);
+        setTimeout(() => {
+            window.location.replace('/recalls');
+        }, 1000);
     }
 
     render() {
         return (
             <div className="add-recall">
                 <Link className="route-linker btn btn-outline-dark" to='/recalls'>Back To Recalls</Link>
+                {this.state.added ? <div className="alert alert-success">New Recall Added! Redirecting...</div> : null}
+                <br/>
                 <form className="w-50 m-auto" onSubmit={this.handleSubmit}>
                     <div className="form-group addRecall">
                         <h4 className="addRecall-title">Vehicle</h4>
@@ -227,7 +238,7 @@ class addRecall extends Component {
                             onChange={this.handleChange}
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary">New Recall</button>
+                    <button type="submit" className="btn btn-primary" disabled={this.state.added}>New Recall</button>
                 </form>
             </div>
         );

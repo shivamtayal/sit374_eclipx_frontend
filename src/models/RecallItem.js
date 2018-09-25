@@ -23,18 +23,7 @@ export const RecallItem =  {
         }
     },
     communications: [
-        {
-            from: '',
-            to: '',
-            body: '',
-            medium: '',
-            date_created: ''
-        }
     ],
     notes: [
-        {
-            content: '',
-            date_created: ''
-        }
     ],
 };

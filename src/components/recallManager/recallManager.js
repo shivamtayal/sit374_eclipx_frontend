@@ -73,6 +73,7 @@ class RecallManager extends Component {
                 <div className="recall-manager">
                     <h1>Recall Manager</h1>
                     <h3>{`Found ${Persistor.getRecallCount()} recalls`}</h3>
+                    <hr/>
                     <br/>
                     <div className="row">
                         <div className="col">

@@ -76,6 +76,39 @@ class Persistor {
         }
     }
 
+    static addNote(id, noteItem){
+        let recalls = localStorage.getItem('recalls');
+        if(recalls){
+            let parsedRecalls = JSON.parse(recalls);
+            parsedRecalls.data.forEach(e => {
+                console.log(e);
+                if(e.id == id){
+                    e.notes.push(noteItem);
+                }
+            });
+
+            localStorage.setItem('recalls', JSON.stringify(parsedRecalls));
+        } else {
+            return false;
+        }
+    }
+
+    static addCommunication(id, communicationItem){
+        let recalls = localStorage.getItem('recalls');
+        if(recalls){
+            let parsedRecalls = JSON.parse(recalls);
+            parsedRecalls.data.forEach(e => {
+                if(e.id == id){
+                    e.communications.push(communicationItem);
+                }
+            });
+
+            localStorage.setItem('recalls', JSON.stringify(parsedRecalls));
+        } else {
+            return false;
+        }
+    }
+
     static getRecallCount(){
         let recalls = localStorage.getItem('recalls');
         if(recalls){

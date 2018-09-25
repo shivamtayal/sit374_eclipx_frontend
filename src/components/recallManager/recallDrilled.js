@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import Persistor from '../../util/persistor';
 
+import {Modal, Button, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
+
 import './recallDrilled.css';
 
 class RecallDrilled extends Component {
@@ -10,32 +12,131 @@ class RecallDrilled extends Component {
 
         this.state = {
             id: props.match.params.id,
-            recallItem: Persistor.getRecallById(props.match.params.id)
+            recallItem: Persistor.getRecallById(props.match.params.id),
+            removed: false,
+            showNoteModal: false,
+            showCommunicationModal: false,
+            note: '',
+            to: '',
+            from: '',
+            medium: '',
+            body: ''
         };
 
         this.deleteRecall = this.deleteRecall.bind(this);
+        this.toggleCommunication = this.toggleCommunication.bind(this);
+        this.toggleNote = this.toggleNote.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.addNote = this.addNote.bind(this);
+        this.addCommunication = this.addCommunication.bind(this);
+    }
+
+    handleChange(e) {
+        const {value, name} = e.target;
+        this.setState({[name]: value});
     }
 
     generateNotes(){
         const data = this.state.recallItem[0].notes;
-        if(data){
-
+        if(data.length >= 1){
+            return (
+              data.map((e, i) => {
+                  return (
+                    <li key={i} className="list-group-item list-group-item-action list-group-item-info">
+                        <div className="row">
+                            <div className="col">
+                                <span className="badge badge-dark">Note</span><br/>
+                                {e.content}
+                            </div>
+                            <div className="col">
+                                <span className="badge badge-dark">Created</span><br/>
+                                {new Date(e.date_created).toDateString()}
+                            </div>
+                        </div>
+                    </li>
+                  );
+              })
+            );
         } else {
             return <div className="alert alert-warning">No Notes Found</div>
         }
+        window.location.reload();
     }
 
     generateCommunications(){
         const data = this.state.recallItem[0].communications;
-        if(data){
-
+        if(data.length >= 1){
+            return (
+                data.map((e, i) => {
+                    return (
+                        <li key={i} className="list-group-item list-group-item-action list-group-item-info">
+                            <div className="row">
+                                <div className="col">
+                                    <span className="badge badge-dark">Primary</span><br/>
+                                    From: {e.from}<br/>
+                                    To: {e.to}
+                                </div>
+                                <div className="col">
+                                    <span className="badge badge-dark">Content</span><br/>
+                                    {e.body}
+                                </div>
+                                <div className="col">
+                                    <span className="badge badge-dark">Date</span><br/>
+                                    {new Date(e.date_created).toDateString()}
+                                </div>
+                            </div>
+                        </li>
+                    );
+                })
+            );
         } else {
             return <div className="alert alert-warning">No Communications Found</div>
         }
     }
 
     deleteRecall(){
+        this.setState({removed: true});
         Persistor.removeRecall(this.state.id);
+        setTimeout(() => {
+            window.location.replace('/recalls');
+        }, 1000);
+    }
+
+    toggleCommunication() {
+        this.setState({
+            showCommunicationModal: !this.state.showCommunicationModal
+        });
+    }
+
+    toggleNote() {
+        this.setState({
+            showNoteModal: !this.state.showNoteModal
+        });
+    }
+
+    addNote(e){
+        e.preventDefault();
+        let noteItem = {
+            content: this.state.note,
+            date_created: new Date()
+        };
+
+        Persistor.addNote(this.state.id, noteItem);
+        this.toggleNote();
+    }
+
+    addCommunication(e){
+        e.preventDefault();
+        let communicationItem = {
+            from: this.state.from,
+            to: this.state.to,
+            body: this.state.body,
+            medium: this.state.medium,
+            date_created: new Date()
+        };
+
+        Persistor.addCommunication(this.state.id, communicationItem);
+        this.toggleCommunication();
     }
 
     render() {
@@ -44,13 +145,64 @@ class RecallDrilled extends Component {
 
         return (
             <React.Fragment>
+                <div>
+                    <Modal isOpen={this.state.showNoteModal} toggle={this.toggleNote}>
+                        <form onSubmit={this.addNote}>
+                        <ModalHeader toggle={this.toggleNote}>New Note</ModalHeader>
+                        <ModalBody>
+                            <div className="form-group">
+                                <textarea className="form-control" id="noteContent" rows="3" name="note" onChange={this.handleChange}></textarea>
+                            </div>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button type="submit" color="primary">Save</Button>{' '}
+                            <Button color="secondary" onClick={this.toggleNote}>Cancel</Button>
+                        </ModalFooter>
+                        </form>
+                    </Modal>
+                </div>
+
+                <div>
+                    <Modal isOpen={this.state.showCommunicationModal} toggle={this.toggleCommunication} className={this.props.className}>
+                        <form onSubmit={this.addCommunication}>
+                        <ModalHeader toggle={this.toggleCommunication}>New Communication</ModalHeader>
+                        <ModalBody>
+                            <div className="form-group">
+                                <select id="medium" className="custom-select" name="medium" onChange={this.handleChange}>
+                                    <option defaultValue={true}>Pick Medium</option>
+                                    <option value="email">SMS</option>
+                                    <option value="sms">Email</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <select id="sender" className="custom-select" name="from" onChange={this.handleChange}>
+                                    <option defaultValue={true}>Pick Sender</option>
+                                    <option value="exclipx">Eclipx</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <input type="text" className="form-control" id="recipient" placeholder="Enter Recipient" name="to" onChange={this.handleChange}/>
+                            </div>
+                            <div className="form-group">
+                                <textarea className="form-control" id="noteContent" rows="3" name="body" placeholder="Message Content" onChange={this.handleChange}></textarea>
+                            </div>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color="primary" type="submit">Save</Button>{' '}
+                            <Button color="secondary" onClick={this.toggleCommunication}>Cancel</Button>
+                        </ModalFooter>
+                        </form>
+                    </Modal>
+                </div>
+
                 {automatic ? <div className="alert alert-danger">This Recall Was Automatically Identified. <br/>Automatically Identified Recalls Might Manifest Malformed Data.</div> : null }<br/>
+                {this.state.removed ? <div className="alert alert-success">Successfully Deleted</div> : null }<br/>
                 <h1>Recall #{this.state.id}</h1>
                 <div className="recall-single">
-                    <button className="btn btn-dark" disabled>Add Note</button>
-                    <button className="btn btn-dark" disabled>Add Communication</button>
+                    <button className="btn btn-default" data-toggle="modal" data-target="addNote" onClick={this.toggleNote}>Add Note</button>
+                    <button className="btn btn-default" data-toggle="modal" data-target="addCommunication" onClick={this.toggleCommunication}>Add Communication</button>
                     <Link className="btn btn-dark" to={`/edit/recall/${this.state.id}`}>Edit Recall</Link>
-                    <button className="btn btn-danger" onClick={this.deleteRecall}>Delete Recall</button>
+                    <button className="btn btn-danger" onClick={this.deleteRecall} disabled={this.state.removed}>Delete Recall</button>
                     <hr/>
                     <div className="row">
                     <div className="col custodian-information">
