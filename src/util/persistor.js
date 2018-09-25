@@ -8,6 +8,15 @@ class Persistor {
         }
     }
 
+    static getCampaigns(){
+        let campaigns = localStorage.getItem('campaigns');
+        if(campaigns){
+            return JSON.parse(campaigns);
+        } else {
+            return false;
+        }
+    }
+
     static getRecallById(id){
         let recalls = localStorage.getItem('recalls');
         if(recalls){
@@ -73,6 +82,17 @@ class Persistor {
             localStorage.setItem('recalls', JSON.stringify({data: newRecalls}));
         } else {
             return false;
+        }
+    }
+
+    static addCampaign(campaignItem){
+        let campaigns = localStorage.getItem('campaigns');
+        if(campaigns){
+            let parsedCampaigns = JSON.parse(campaigns);
+            parsedCampaigns.data.push(campaignItem);
+            localStorage.setItem('campaigns', JSON.stringify(parsedCampaigns));
+        } else {
+            localStorage.setItem('campaigns', JSON.stringify({data: [campaignItem]}));
         }
     }
 

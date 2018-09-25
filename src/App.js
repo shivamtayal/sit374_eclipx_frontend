@@ -12,6 +12,7 @@ import AddCampaign from './components/addCampaign/addCampaign';
 import Campaigns from './components/campaigns/campaigns';
 import Vehicles from './components/vehicles/vehicles';
 import RecallEdit from './components/recalls/recallEdit';
+import CampaignSingle from "./components/campaigns/campaignSingle";
 
 class App extends Component {
   render() {
@@ -27,6 +28,7 @@ class App extends Component {
           <Route path='/add-recall' component={AddRecall} />
           <Route path='/add-campaign' component={AddCampaign} />
           <Route path='/campaigns' component={Campaigns} />
+          <Route path='/campaign/:id' component={CampaignSingle} />
           <Route path='/vehicles' component={Vehicles} />
           </div>
       </div>

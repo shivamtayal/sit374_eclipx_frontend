@@ -60,7 +60,6 @@ class RecallDrilled extends Component {
         } else {
             return <div className="alert alert-warning">No Notes Found</div>
         }
-        window.location.reload();
     }
 
     generateCommunications(){
@@ -123,6 +122,7 @@ class RecallDrilled extends Component {
 
         Persistor.addNote(this.state.id, noteItem);
         this.toggleNote();
+        window.location.reload();
     }
 
     addCommunication(e){
@@ -137,6 +137,7 @@ class RecallDrilled extends Component {
 
         Persistor.addCommunication(this.state.id, communicationItem);
         this.toggleCommunication();
+        window.location.reload();
     }
 
     render() {

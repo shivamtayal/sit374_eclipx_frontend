@@ -1,11 +1,36 @@
 import React, { Component } from 'react';
+import CampaignSlim from './campaignSlim';
+import Persistor from "../../util/persistor";
 
 const axios = require('axios');
 const cheerio = require('cheerio');
 
 class Campaigns extends Component {
-    componentDidMount(){
+    constructor(props) {
+        super(props);
 
+        this.state = {
+            campaigns: []
+        };
+
+        this.getCampaigns = this.getCampaigns.bind(this);
+    }
+
+    componentDidMount(){
+        let campaigns = Persistor.getCampaigns();
+        this.setState({campaigns: campaigns.data});
+    }
+
+
+    getCampaigns() {
+        const {campaigns} = this.state;
+        if (campaigns) {
+            return this.state.campaigns.map((e, i) => {
+                return <CampaignSlim key={i} id={e.id} manufacturer={e.meta.manufacturer} campaignNo={e.meta.campaignNumber} pra={e.meta.PRANumber} priority={e.meta.priority} date={e.meta.datePublished}/>
+            });
+        } else {
+            return <div className="alert alert-warning">No Recalls Found</div>
+        }
     }
 
     render() {
@@ -27,7 +52,7 @@ class Campaigns extends Component {
                     <div className="search-results">
                         <hr/>
                         <ul className="list-group">
-
+                            {this.getCampaigns()}
                         </ul>
                     </div>
                 </div>

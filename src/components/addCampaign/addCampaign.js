@@ -1,204 +1,156 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import Persistor from '../../util/persistor';
+
 import './addCampaign.css';
 import {Link} from 'react-router-dom';
 
 class addCampaign extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      manufacturer: "",
-      newCampaign: "",
-      campaignNumber: "",
-      PRANumber: "",
-      datePublished: "",
-      priority: "",
-      description: "",
-      vin: "",
-      campaignList: [],
-      active: ""
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            manufacturer: '',
+            newCampaign: '',
+            campaignNumber: '',
+            PRANumber: '',
+            datePublished: '',
+            priority: '',
+            description: '',
+            vin: '',
+            active: '',
+            submitted: false
+        };
 
-  componentDidMount(){
-    localStorage.removeItem("manufacturer")
-    localStorage.removeItem("campaignNumber")
-    localStorage.removeItem("PRANumber")
-    localStorage.removeItem("datePublished")
-    localStorage.removeItem("description")
-    localStorage.removeItem("vin")
-    localStorage.setItem("priority", "Medium")
-    localStorage.setItem("active", "Yes")
-    localStorage.setItem("rectified", "No")
-    this.initialiseData();
-  }
-
-  updateInput(key, value) {
-    this.setState({ [key]: value });
-
-    localStorage.setItem(key, value);
-  }
-
-  addItem() {
-    const newCampaign = {
-      manufacturer: this.state.manufacturer,
-      campaignNumber: this.state.campaignNumber,
-      PRANumber: this.state.PRANumber,
-      datePublished: this.state.datePublished,
-      priority: this.state.priority,
-      description: this.state.description,
-      vin: this.state.vin,
-      active: this.state.active
-    };
-
-    const campaignList = [...this.state.campaignList];
-
-    campaignList.push(newCampaign);
-
-    this.setState({
-      campaignList,
-      manufacturer: "",
-      newCampaign: "",
-      campaignNumber: "",
-      PRANumber: "",
-      datePublished: "",
-      priority: "Medium",
-      description: "",
-      vin: "",
-      active: ""
-    });
-
-    localStorage.setItem("campaignList", JSON.stringify(campaignList));
-    localStorage.setItem("manufacturer", "");
-    localStorage.setItem("campaignNumber", "");
-    localStorage.setItem("PRANumber", "");
-    localStorage.setItem("datePublished", "");
-    localStorage.setItem("priority", "");
-    localStorage.setItem("description", "")
-    localStorage.setItem("vin", "")
-    localStorage.setItem("active", "")
-  }
-
-  deleteItem(id) {
-    const campaignList = [...this.state.campaignList];
-    const updatedcampaignList = campaignList.filter(item => item.id !== id);
-
-    this.setState({ campaignList: updatedcampaignList });
-
-    localStorage.setItem("campaignList", JSON.stringify(updatedcampaignList));
-  }
-
-  initialiseData() {
-    for (let key in this.state) {
-      if (localStorage.hasOwnProperty(key)) {
-        let value = localStorage.getItem(key);
-
-        try {
-          value = JSON.parse(value);
-          this.setState({ [key]: value });
-        } catch (e) {
-          this.setState({ [key]: value });
-        }
-      }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-  }
 
-  render() {
-    return (
-      <form className="w-50 m-auto">
-      <div className="form-group addCampaign">
-      <h1 className="addCampaign-title">Add Recall Campaign</h1>
-      <input
-            className="form-control"
-            id="campaignNumber"
-            type="text"
-            placeholder="Campaign number"
-            value={this.state.campaignNumber}
-            onChange={e => this.updateInput("campaignNumber", e.target.value)}
-          />
-      </div>
-      <div className="form-group">
-        <input
-            className="form-control"
-            id="manufacturer"
-            type="text"
-            placeholder="Manufacturer"
-            value={this.state.manufacturer}
-            onChange={e => this.updateInput("manufacturer", e.target.value)}
-          />
-      </div>
-      <div className="form-group">
-        <input
-            className="form-control"
-            id="PRANumber"
-            type="text"
-            placeholder="PRA No."
-            value={this.state.PRANumber}
-            onChange={e => this.updateInput("PRANumber", e.target.value)}
-          />
-      </div>
-      <div className="form-group">
-      <input
-            className="form-control"
-            id="datePublished"
-            type="date"
-            placeholder="Date Published"
-            value={this.state.datePublished}
-            onChange={e => this.updateInput("datePublished", e.target.value)}
-          />
-      </div>
-      <div className="form-group">
-      <h6>Recall description</h6>
-        <textarea
-            className="form-control"
-            id="description"
-            type="text"
-            value={this.state.description}
-            onChange={e => this.updateInput("description", e.target.value)}
-          />
-      </div>
-      <div className="form-group">
-      <h6>Priority</h6>
-      <select
-            className="form-control"
-            id="priority"
-            type="select"
-            placeholder="Priority"
-            value={this.state.priority}
-            onChange={e => this.updateInput("priority", e.target.value)}
-          >
-			  <option value="High">High</option>
-        <option value="Medium">Medium</option>
-			  <option value="Low">Low</option>
-			</select>
-      </div>
-      <div className="form-group">
-      <h6>Active Recall?</h6>
-      <select
-            className="form-control"
-            id="active"
-            type="select"
-            placeholder="Active Recall?"
-            value={this.state.active}
-            onChange={e => this.updateInput("active", e.target.value)}
-          >
-			  <option value="Yes">Yes</option>
-        <option value="No">No</option>
-			</select>
-      </div>
-      <div className="form-group">
-        <input
-            className="form-control"
-            id="vin"
-            type="text"
-            placeholder="Temporary VIN (For testing)"
-            value={this.state.vin}
-            onChange={e => this.updateInput("vin", e.target.value)}
-          />
-      </div>
-      <button type="submit" className="btn btn-primary" onClick={() => this.addItem()}>Submit</button>
-    </form>
-    );
-  }
+    handleChange(e) {
+        const {value, name} = e.target;
+        console.log(name);
+        console.log(value);
+        this.setState({[name]: value});
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        const newCampaign = {
+            id: Persistor.generateId(),
+            meta:
+                {
+                    manufacturer: this.state.manufacturer,
+                    campaignNumber: this.state.campaignNumber,
+                    PRANumber: this.state.PRANumber,
+                    datePublished: this.state.datePublished,
+                    priority: this.state.priority,
+                    description: this.state.description,
+                    vin: this.state.vin,
+                    active: this.state.active
+                }
+        };
+
+        Persistor.addCampaign(newCampaign);
+        this.setState({submitted: true});
+        setTimeout(() => {
+            window.location.replace('/campaigns');
+        }, 1000);
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                {this.state.submitted ? <div className="alert alert-success">Successfully Added Campaign. Redirecting...</div> : null }
+                <Link className="route-linker btn btn-outline-dark" to='/recall-manager'>Back To Manager</Link>
+            <form className="w-50 m-auto" onSubmit={this.handleSubmit}>
+                <div className="form-group addCampaign">
+                    <h4 className="addRecall-title">Campaign Details</h4>
+                    <input
+                        className="form-control"
+                        id="campaignNumber"
+                        type="text"
+                        placeholder="Campaign number"
+                        name="campaignNumber"
+                        onChange={this.handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <input
+                        className="form-control"
+                        id="manufacturer"
+                        type="text"
+                        placeholder="Manufacturer"
+                        name="manufacturer"
+                        onChange={this.handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <input
+                        className="form-control"
+                        id="PRANumber"
+                        type="text"
+                        placeholder="PRA No."
+                        name="PRANumber"
+                        onChange={this.handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <input
+                        className="form-control"
+                        id="datePublished"
+                        type="date"
+                        placeholder="Date Published"
+                        name="datePublished"
+                        onChange={this.handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <textarea
+                        className="form-control"
+                        id="description"
+                        placeholder="Recall Description"
+                        name="description"
+                        onChange={this.handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <input
+                        className="form-control"
+                        id="vin"
+                        type="text"
+                        placeholder="Temporary VIN (For testing)"
+                        name="vin"
+                        onChange={this.handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <select
+                        className="form-control"
+                        id="priority"
+                        name="priority"
+                        onChange={this.handleChange}
+                    >
+                        <option defaultValue={true}>Priority</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                </div>
+                <div className="form-group">
+                    <select
+                        className="form-control"
+                        id="active"
+                        name="active"
+                        onChange={this.handleChange}
+                    >
+                        <option defaultValue={true}>Active Recall?</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <button type="submit" className="btn btn-primary">Submit</button>
+            </form>
+            </React.Fragment>
+        );
+    }
 }
 
 export default addCampaign;

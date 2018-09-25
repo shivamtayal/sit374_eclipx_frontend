@@ -14,10 +14,20 @@ class RecallManager extends Component {
         super(props);
         this.state = {
             findingRecalls: false,
-            foundRecalls: null
+            foundRecalls: null,
+            ran: false,
+            error: null
         };
 
         this.getRecallsAutomatically = this.getRecallsAutomatically.bind(this);
+    }
+
+    componentDidMount(){
+        let ran = localStorage.getItem('ran_automatic');
+        if(ran){
+            this.setState({ran: true});
+            return true;
+        }
     }
 
     getRecallsAutomatically(){
@@ -57,7 +67,7 @@ class RecallManager extends Component {
 
             this.setState({findingRecalls: false, foundRecalls: true});
         }).catch(err => {
-            this.setState({findingRecalls: false, foundRecalls: false});
+            this.setState({findingRecalls: false, foundRecalls: false, error: err});
         })
     }
 
@@ -65,7 +75,7 @@ class RecallManager extends Component {
         if(this.state.foundRecalls === true){
             var alert = <div className="alert alert-success">Found Recalls</div>
         } else if (this.state.foundRecalls === false){
-            var alert = <div className="alert alert-danger">An Error Occurred :(</div>
+            var alert = <div className="alert alert-danger">{this.state.error.message}</div>
         }
 
         return (
@@ -73,13 +83,15 @@ class RecallManager extends Component {
                 <div className="recall-manager">
                     <h1>Recall Manager</h1>
                     <h3>{`Found ${Persistor.getRecallCount()} recalls`}</h3>
+                    <br/>
+                    {alert}
                     <hr/>
                     <br/>
                     <div className="row">
                         <div className="col">
                             <div className="manager-group">
                             <h5>Automatic Recall Finder</h5>
-                            <button className="btn btn-outline-dark" onClick={this.getRecallsAutomatically}>Get Recalls</button>
+                            <button className="btn btn-outline-dark" onClick={this.getRecallsAutomatically} disabled={this.state.ran}>Get Recalls</button>
                             </div>
                         </div>
                         <div className="col">

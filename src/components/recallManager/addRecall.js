@@ -81,7 +81,7 @@ class addRecall extends Component {
     render() {
         return (
             <div className="add-recall">
-                <Link className="route-linker btn btn-outline-dark" to='/recalls'>Back To Recalls</Link>
+                <Link className="route-linker btn btn-outline-dark" to='/recall-manager'>Back To Manager</Link>
                 {this.state.added ? <div className="alert alert-success">New Recall Added! Redirecting...</div> : null}
                 <br/>
                 <form className="w-50 m-auto" onSubmit={this.handleSubmit}>
