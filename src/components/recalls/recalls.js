@@ -43,7 +43,8 @@ class Recalls extends Component {
     filterResults(){
         //let pattern = `/.*(${this.state.search.toLowerCase()}).*/`;
         let filtered = this.state.recalls.filter(e => {
-            if(e.meta.vehicle.manufacturer.toLowerCase().includes(this.state.search.toLowerCase()) || e.meta.vehicle.make.toLowerCase().includes(this.state.search.toLowerCase())){
+            if(e.meta.vehicle.manufacturer.toLowerCase().includes(this.state.search.toLowerCase()) || e.meta.vehicle.make.toLowerCase().includes(this.state.search.toLowerCase())
+                || e.meta.vehicle.year.toLowerCase().includes(this.state.search.toLowerCase()) || e.meta.custodian.name.toLowerCase().includes(this.state.search.toLowerCase())){
                 return true;
             }
         });
