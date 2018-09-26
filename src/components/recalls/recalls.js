@@ -60,11 +60,11 @@ class Recalls extends Component {
         
         if(sortWord == this.state.orderSort){
         filtered = arraySort(this.state.recalls, sortWord, {reverse: true})
-        this.state.oldKeyWord = "";
+        this.state.orderSort = '';
         }
         else{
           filtered = arraySort(this.state.recalls, sortWord)
-          this.state.oldKeyWord = key;
+          this.state.orderSort = key;
         }
   
         this.setState({recalls: filtered})
@@ -78,7 +78,7 @@ class Recalls extends Component {
                 <div className="search">
                     {                        
                         <div className="search-actions">
-                            <button className="btn btn-primary">Sort By Manufacturer</button>
+                            <button className="btn btn-primary" onClick={() => this.sortResults('sortManufacturer')}>Sort By Manufacturer</button>
                             <button className="btn btn-primary">Sort By Make</button>
                             <button className="btn btn-primary">Sort By Year</button>
                             <button className="btn btn-primary">Active?</button>

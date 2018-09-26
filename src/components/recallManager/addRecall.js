@@ -23,7 +23,8 @@ class addRecall extends Component {
             organizationContact: '',
             organizationEmail: '',
             organizationPhone: '',
-            added: false
+            added: false,
+            sortManufacturer:''
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -72,6 +73,7 @@ class addRecall extends Component {
             ],
             recall: [
             ],
+            sortManufacturer : this.state.manufacturer
         };
 
         Persistor.addRecall(recallItem);
