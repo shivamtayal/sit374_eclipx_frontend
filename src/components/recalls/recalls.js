@@ -11,7 +11,8 @@ class Recalls extends Component {
 
         this.state = {
             search: '',
-            recalls: []
+            recalls: [],
+            orderSort: ''
         };
 
         this.getRecalls = this.getRecalls.bind(this);
@@ -51,21 +52,37 @@ class Recalls extends Component {
         this.setState({recalls: filtered});
     }
 
+    sortResults(key) {
+        var arraySort = require('array-sort')
+        let sortWord = key;
+        let filtered = this.state.recalls;
+
+        
+        if(sortWord == this.state.orderSort){
+        filtered = arraySort(this.state.recalls, sortWord, {reverse: true})
+        this.state.oldKeyWord = "";
+        }
+        else{
+          filtered = arraySort(this.state.recalls, sortWord)
+          this.state.oldKeyWord = key;
+        }
+  
+        this.setState({recalls: filtered})
+    }
+
     render() {
         return (
             <div className="recalls">
                 <h1>Vehicles</h1>
                 <p>Recall Board</p>
                 <div className="search">
-                    {
-                        
+                    {                        
                         <div className="search-actions">
                             <button className="btn btn-primary">Sort By Manufacturer</button>
                             <button className="btn btn-primary">Sort By Make</button>
                             <button className="btn btn-primary">Sort By Year</button>
                             <button className="btn btn-primary">Active?</button>
-                        </div>
-                        
+                        </div>                       
                     }
                     <div className="search-results">
                         <div className="search-bar">
