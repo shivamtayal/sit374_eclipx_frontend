@@ -29,4 +29,6 @@ export const RecallItem =  {
     recall: [
     ],
     sortManufacturer: '',
+    sortMake: '',
+    sortYear: '',
 };

@@ -79,8 +79,8 @@ class Recalls extends Component {
                     {                        
                         <div className="search-actions">
                             <button className="btn btn-primary" onClick={() => this.sortResults('sortManufacturer')}>Sort By Manufacturer</button>
-                            <button className="btn btn-primary">Sort By Make</button>
-                            <button className="btn btn-primary">Sort By Year</button>
+                            <button className="btn btn-primary" onClick={() => this.sortResults('sortMake')}>Sort By Make</button>
+                            <button className="btn btn-primary" onClick={() => this.sortResults('sortYear')}>Sort By Year</button>
                             <button className="btn btn-primary">Active?</button>
                         </div>                       
                     }
