@@ -70,6 +70,8 @@ class addRecall extends Component {
             ],
             notes: [
             ],
+            recall: [
+            ],
         };
 
         Persistor.addRecall(recallItem);

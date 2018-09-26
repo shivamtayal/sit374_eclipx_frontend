@@ -134,7 +134,7 @@ class Persistor {
         if(recalls){
             let parsedRecalls = JSON.parse(recalls);
             parsedRecalls.data.forEach(e => {
-                if(e.id == id){
+                if(e.meta.vehicle.vin == id){
                     e.recall.push(recallItem);
                 }
             });

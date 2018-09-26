@@ -17,11 +17,19 @@ class addCampaign extends Component {
             description: '',
             vin: '',
             active: '',
-            submitted: false
+            submitted: false,
+            recalls: [],
+            rectified: '',
+            rectifiedDate: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount(){
+        let recalls = Persistor.getRecalls();
+        this.setState({recalls: recalls.data});
     }
 
     handleChange(e) {
@@ -44,11 +52,14 @@ class addCampaign extends Component {
                     priority: this.state.priority,
                     description: this.state.description,
                     vin: this.state.vin,
-                    active: this.state.active
+                    active: this.state.active,
+                    rectified: '',
+                    rectifiedDate: ''
                 }
-        };
+        };       
 
         Persistor.addCampaign(newCampaign);
+        Persistor.linkRecalls(this.state.vin, newCampaign)
         this.setState({submitted: true});
         setTimeout(() => {
             window.location.replace('/campaigns');
