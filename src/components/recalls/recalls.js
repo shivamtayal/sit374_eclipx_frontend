@@ -53,18 +53,18 @@ class Recalls extends Component {
     render() {
         return (
             <div className="recalls">
-                <h1>Recalls</h1>
+                <h1>Vehicles</h1>
                 <p>Recall Board</p>
                 <div className="search">
                     {
-                        /*
+                        
                         <div className="search-actions">
                             <button className="btn btn-primary">Sort By Manufacturer</button>
                             <button className="btn btn-primary">Sort By Make</button>
-                            <button className="btn btn-primary">Sort By Model</button>
                             <button className="btn btn-primary">Sort By Year</button>
+                            <button className="btn btn-primary">Active?</button>
                         </div>
-                        */
+                        
                     }
                     <div className="search-results">
                         <div className="search-bar">

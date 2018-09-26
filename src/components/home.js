@@ -5,7 +5,7 @@ const cheerio = require('cheerio');
 
 class Home extends Component {
   componentDidMount(){
-
+    //localStorage.clear();
   }
 
   render() {

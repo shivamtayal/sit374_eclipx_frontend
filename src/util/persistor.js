@@ -129,6 +129,22 @@ class Persistor {
         }
     }
 
+    static linkRecalls(id, recallItem){
+        let recalls = localStorage.getItem('recalls');
+        if(recalls){
+            let parsedRecalls = JSON.parse(recalls);
+            parsedRecalls.data.forEach(e => {
+                if(e.id == id){
+                    e.recall.push(recallItem);
+                }
+            });
+
+            localStorage.setItem('recalls', JSON.stringify(parsedRecalls));
+        } else {
+            return false;
+        }
+    }
+
     static getRecallCount(){
         let recalls = localStorage.getItem('recalls');
         if(recalls){
