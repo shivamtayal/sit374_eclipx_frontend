@@ -12,7 +12,8 @@ class Recalls extends Component {
         this.state = {
             search: '',
             recalls: [],
-            orderSort: ''
+            orderSort: '',
+            activeFilter: 0
         };
 
         this.getRecalls = this.getRecalls.bind(this);
@@ -56,7 +57,24 @@ class Recalls extends Component {
     }
 
     filterActive(){
+        let activeFilter = this.state.activeFilter;
+        this.resetRecalls();
 
+        let filtered = this.state.recalls.filter(e => {
+            if(activeFilter == 0){
+                if(e.meta.vehicle.active == 'Yes'){
+                    this.state.activeFilter = 1;
+                    return true;
+                }
+            }
+            else if(activeFilter == 1){
+                if(e.meta.vehicle.active == 'No'){
+                    this.state.activeFilter = 0;
+                    return true;
+                }
+            }      
+        });
+        this.setState({recalls: filtered});
     }
 
     sortResults(key){
@@ -88,7 +106,7 @@ class Recalls extends Component {
                             <button className="btn btn-primary" onClick={() => this.sortResults('sortManufacturer')}>Sort By Manufacturer</button>
                             <button className="btn btn-primary" onClick={() => this.sortResults('sortMake')}>Sort By Make</button>
                             <button className="btn btn-primary" onClick={() => this.sortResults('sortYear')}>Sort By Year</button>
-                            <button className="btn btn-primary">Active?</button>
+                            <button className="btn btn-primary" onClick={() => this.filterActive()}>Active?</button>
                         </div>                       
                     }
                     <div className="search-results">
