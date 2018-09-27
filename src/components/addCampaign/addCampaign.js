@@ -60,6 +60,7 @@ class addCampaign extends Component {
 
         Persistor.addCampaign(newCampaign);
         Persistor.linkRecalls(this.state.vin, newCampaign)
+        Persistor.checkActiveRecalls();
         this.setState({submitted: true});
         setTimeout(() => {
             window.location.replace('/campaigns');

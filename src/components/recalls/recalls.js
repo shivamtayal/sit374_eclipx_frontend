@@ -13,7 +13,7 @@ class Recalls extends Component {
             search: '',
             recalls: [],
             orderSort: '',
-            activeFilter: 0
+            activeFilter: true
         };
 
         this.getRecalls = this.getRecalls.bind(this);
@@ -38,7 +38,7 @@ class Recalls extends Component {
             return this.state.recalls.map((e, i) => {
                 return <RecallSlim key={i} id={e.id} automatic={e.automatic} vin={e.meta.vehicle.vin} manufacturer={e.meta.vehicle.manufacturer} make={e.meta.vehicle.make}
                  model={e.meta.vehicle.model} year={e.meta.vehicle.year} organization={e.meta.custodian.organization} registration={e.meta.vehicle.registration}
-                 recallCount={e.meta.vehicle.recallCount} activeRecall={e.meta.vehicle.active}/>
+                 recallCount={e.meta.vehicle.recallCount} activeRecall={e.sortActive}/>
             });
         } else {
             return <div className="alert alert-warning">No Recalls Found</div>
@@ -57,9 +57,11 @@ class Recalls extends Component {
     }
 
     filterActive(){
+        var arraySort = require('array-sort')
         let activeFilter = this.state.activeFilter;
+        let filtered = this.state.recalls;
 
-        let filtered = this.state.recalls.filter(e => {
+        /*let filtered = this.state.recalls.filter(e => {
             if(activeFilter == 0){
                 if(e.meta.vehicle.active == 'Yes'){
                     this.state.activeFilter = 1;
@@ -73,6 +75,17 @@ class Recalls extends Component {
                 }
             }      
         });
+        this.setState({recalls: filtered});*/
+
+        if(activeFilter == true){
+            filtered = arraySort(this.state.recalls, 'sortActive');
+            this.state.activeFilter = false;
+        }
+        if(activeFilter == false){
+            filtered = arraySort(this.state.recalls, 'sortActive', {reverse: true});
+            this.state.activeFilter = true;
+        }
+
         this.setState({recalls: filtered});
     }
 

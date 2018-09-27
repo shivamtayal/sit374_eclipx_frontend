@@ -162,10 +162,10 @@ class Persistor {
             parsedRecalls.data.forEach(e => {
                 e.recall.forEach(i =>{
                     if(i.meta.active == 'Yes'){
-                        e.meta.vehicle.active = 'Yes';
+                        e.sortActive = 'Yes';
                     }
                     else{
-                        e.meta.vehicle.active = 'No';
+                        e.sortActive = 'No';
                     }
                 })
             });
