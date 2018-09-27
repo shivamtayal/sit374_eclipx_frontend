@@ -14,7 +14,7 @@ class RecallSlim extends Component {
                 <div className="row">
                     {/*this.props.automatic ? <i className="fas fa-exclamation-circle fa-1x automatic"></i> : null */}
                     <div className="col result-group">
-                        Vehicle Identifier:<br/>
+                        VIN:<br/>
                         <span className="badge badge-dark">{this.props.vin ? this.props.vin : 'N/A'}</span>
                     </div>
                     <div className="col result-group">
@@ -22,12 +22,24 @@ class RecallSlim extends Component {
                         <span className="badge badge-dark">{this.props.manufacturer ? this.props.manufacturer : 'N/A'}</span>
                     </div>
                     <div className="col result-group">
-                        Vehicle Make:<br/>
+                        Make:<br/>
                         <span className="badge badge-dark">{this.props.make ? this.props.make : 'N/A'}</span>
                     </div>
                     <div className="col result-group">
-                        Vehicle Year:<br/>
+                        Year:<br/>
                         <span className="badge badge-dark">{this.props.year ? this.props.year : 'N/A'}</span>
+                    </div>
+                    <div className="col result-group">
+                        Registration:<br/>
+                        <span className="badge badge-dark">{this.props.registration ? this.props.registration : 'N/A'}</span>
+                    </div>
+                    <div className="col result-group">
+                        Recalls:<br/>
+                        <span className="badge badge-dark">{this.props.recallCount ? this.props.recallCount : '0'}</span>
+                    </div>
+                    <div className="col result-group">
+                        Active:<br/>
+                        <span className="badge badge-dark">{this.props.activeRecall ? this.props.activeRecall : 'N/A'}</span>
                     </div>
                 </div>
             </li>

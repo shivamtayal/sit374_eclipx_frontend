@@ -23,6 +23,7 @@ class Recalls extends Component {
     componentDidMount(){
         let recalls = Persistor.getRecalls();
         this.setState({recalls: recalls.data});
+        Persistor.checkActiveRecalls();
     }
 
     resetRecalls(){
@@ -34,7 +35,9 @@ class Recalls extends Component {
         const {recalls} = this.state;
         if (recalls) {
             return this.state.recalls.map((e, i) => {
-                return <RecallSlim key={i} id={e.id} automatic={e.automatic} vin={e.meta.vehicle.vin} manufacturer={e.meta.vehicle.manufacturer} make={e.meta.vehicle.make} model={e.meta.vehicle.model} year={e.meta.vehicle.year} organization={e.meta.custodian.organization}/>
+                return <RecallSlim key={i} id={e.id} automatic={e.automatic} vin={e.meta.vehicle.vin} manufacturer={e.meta.vehicle.manufacturer} make={e.meta.vehicle.make}
+                 model={e.meta.vehicle.model} year={e.meta.vehicle.year} organization={e.meta.custodian.organization} registration={e.meta.vehicle.registration}
+                 recallCount={e.meta.vehicle.recallCount} activeRecall={e.meta.vehicle.active}/>
             });
         } else {
             return <div className="alert alert-warning">No Recalls Found</div>
@@ -52,7 +55,11 @@ class Recalls extends Component {
         this.setState({recalls: filtered});
     }
 
-    sortResults(key) {
+    filterActive(){
+
+    }
+
+    sortResults(key){
         var arraySort = require('array-sort')
         let sortWord = key;
         let filtered = this.state.recalls;

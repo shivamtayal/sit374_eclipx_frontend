@@ -11,6 +11,8 @@ export const RecallItem =  {
             registration: '',
             vehicleID: '',
             description: '',
+            recallCount: '',
+            active: ''
         },
         custodian: {
             name: '',
@@ -26,7 +28,7 @@ export const RecallItem =  {
     ],
     notes: [
     ],
-    recall: [
+    recall: [   
     ],
     sortManufacturer: '',
     sortMake: '',

@@ -26,7 +26,9 @@ class addRecall extends Component {
             added: false,
             sortManufacturer:'',
             sortMake: '',
-            sortYear: ''
+            sortYear: '',
+            recallCount: '',
+            active: ''
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -57,7 +59,9 @@ class addRecall extends Component {
                     vin: this.state.vin,
                     registration: this.state.registration,
                     vehicleID: this.state.vehicleID,
-                    description: this.state.description
+                    description: this.state.description,
+                    recallCount : 0,
+                    active : ''
                 },
                 custodian: {
                     name: this.state.name,
@@ -77,7 +81,7 @@ class addRecall extends Component {
             ],
             sortManufacturer : this.state.manufacturer,
             sortMake : this.state.make,
-            sortYear : this.state.year
+            sortYear : this.state.year,
         };
 
         Persistor.addRecall(recallItem);

@@ -136,6 +136,7 @@ class Persistor {
             parsedRecalls.data.forEach(e => {
                 if(e.meta.vehicle.vin == id){
                     e.recall.push(recallItem);
+                    e.meta.vehicle.recallCount++;
                 }
             });
 
@@ -151,6 +152,26 @@ class Persistor {
             return JSON.parse(recalls).data.length;
         } else {
             return 0;
+        }
+    }
+
+    static checkActiveRecalls(){
+        let recalls = localStorage.getItem('recalls');
+        if(recalls){
+            let parsedRecalls = JSON.parse(recalls);
+            parsedRecalls.data.forEach(e => {
+                e.recall.forEach(i =>{
+                    if(i.meta.active == 'Yes'){
+                        e.meta.vehicle.active = 'Yes';
+                    }
+                    else{
+                        e.meta.vehicle.active = 'No';
+                    }
+                })
+            });
+            localStorage.setItem('recalls', JSON.stringify(parsedRecalls));
+        } else {
+            return false;
         }
     }
 }
