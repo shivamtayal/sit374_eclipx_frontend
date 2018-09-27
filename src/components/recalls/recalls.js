@@ -58,7 +58,6 @@ class Recalls extends Component {
 
     filterActive(){
         let activeFilter = this.state.activeFilter;
-        this.resetRecalls();
 
         let filtered = this.state.recalls.filter(e => {
             if(activeFilter == 0){
@@ -67,7 +66,7 @@ class Recalls extends Component {
                     return true;
                 }
             }
-            else if(activeFilter == 1){
+            if(activeFilter == 1){
                 if(e.meta.vehicle.active == 'No'){
                     this.state.activeFilter = 0;
                     return true;
