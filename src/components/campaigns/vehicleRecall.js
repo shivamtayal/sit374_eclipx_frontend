@@ -20,7 +20,7 @@ class vehicleRecall extends Component {
                   return (
                       e.recall.map((r, i) => {
                          return(
-                            <Link className="recall-item-link" to={`/campaign/${this.props.id}`}>
+                            <Link className="recall-item-link" to={`/edit/vehicle-Recall/${this.state.id}`}>
                                 <li key={i} className="list-group-item">
                                 <div className="row">
                                 <div className="col">

@@ -14,6 +14,7 @@ import Vehicles from './components/vehicles/vehicles';
 import RecallEdit from './components/recalls/recallEdit';
 import CampaignSingle from "./components/campaigns/campaignSingle";
 import vehicleRecalls from "./components/campaigns/vehicleRecall";
+import editVehicleRecall from "./components/campaigns/editVehicleRecall"
 
 class App extends Component {
   render() {
@@ -32,6 +33,7 @@ class App extends Component {
           <Route path='/campaign/:id' component={CampaignSingle} />
           <Route path='/vehicles' component={Vehicles} />
           <Route path='/view/vehicle-Recall/:id' component={vehicleRecalls}/>
+          <Route path='/edit/vehicle-Recall/:id' component={editVehicleRecall}/>
           </div>
       </div>
     );

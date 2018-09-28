@@ -31,6 +31,22 @@ class Persistor {
         }
     }
 
+    static getVehicleRecallById(id){
+        let recalls = localStorage.getItem('recalls');
+        if(recalls){
+            let parsedRecalls = JSON.parse(recalls);
+            parsedRecalls.data.map(e => {
+                return e.recall.filter(i => {
+                    if(i.id == id){
+                        return true
+                    }
+                })
+            })
+        } else {
+            return false;
+        }
+    }
+
     static generateId(){
         let id = localStorage.getItem('recall_id');
         if(id){
@@ -138,6 +154,24 @@ class Persistor {
                     e.recall.push(recallItem);
                     e.meta.vehicle.recallCount++;
                 }
+            });
+
+            localStorage.setItem('recalls', JSON.stringify(parsedRecalls));
+        } else {
+            return false;
+        }
+    }
+
+    static updateVehicleRecall(id, recallItem){
+        let recalls = localStorage.getItem('recalls');
+        if(recalls){
+            let parsedRecalls = JSON.parse(recalls);
+            parsedRecalls.data.forEach(e => {
+                e.recall.forEach(i => {
+                    if(i.id == id){
+                        i.meta = recallItem;
+                    }
+                })
             });
 
             localStorage.setItem('recalls', JSON.stringify(parsedRecalls));
