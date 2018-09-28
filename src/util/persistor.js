@@ -31,6 +31,20 @@ class Persistor {
         }
     }
 
+    static getCampaignById(id){
+        let campaigns = localStorage.getItem('campaigns');
+        if(campaigns){
+            let parsedCampaigns = JSON.parse(campaigns);
+            return parsedCampaigns.data.filter(e => {
+                if(e.id == id){
+                    return true
+                }
+            })
+        } else {
+            return false;
+        }
+    }
+
     static getVehicleRecallById(id){
         let recalls = localStorage.getItem('recalls');
         if(recalls){
@@ -113,6 +127,21 @@ class Persistor {
         }
     }
 
+    static updateCampaign(id, recallItem){
+        let campaigns = localStorage.getItem('campaigns');
+        if(campaigns){
+            let parsedCampaigns = JSON.parse(campaigns);
+            parsedCampaigns.data.forEach(e => {
+                if(e.id == id){
+                    e.meta = recallItem.meta;
+                }
+            });
+            localStorage.setItem('campaigns', JSON.stringify(parsedCampaigns));
+        } else {
+            return false;
+        }
+    }
+
     static addNote(id, noteItem){
         let recalls = localStorage.getItem('recalls');
         if(recalls){
@@ -155,6 +184,28 @@ class Persistor {
                     if(e.meta.vehicle.vin == v){
                         e.recall.push(recallItem)
                         e.meta.vehicle.recallCount++;
+                    }
+                })
+            });
+            localStorage.setItem('recalls', JSON.stringify(parsedRecalls));
+        } else {
+            return false;
+        }
+    }
+
+    static updateLinkRecalls(id, recallItem){
+        let recalls = localStorage.getItem('recalls');
+        if(recalls){
+            let parsedRecalls = JSON.parse(recalls);
+            parsedRecalls.data.forEach(e => {
+                e.recall.forEach(i => {
+                    if(i.id == id){
+                        let rectifiedStatus = i.meta.rectified;
+                        let rectifiedDateStatus = i.meta.rectifiedDate;
+
+                        i.meta = recallItem.meta;
+                        i.meta.rectifed = rectifiedStatus;
+                        i.meta.rectifiedDate = rectifiedDateStatus;
                     }
                 })
             });
