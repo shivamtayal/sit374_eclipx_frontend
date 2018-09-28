@@ -6,11 +6,11 @@ class editVehicleRecall extends Component{
     constructor(props){
         super(props);
 
-        let recall = Persistor.getVehicleRecallById(props.match.params.id)[0];
+        let recall = Persistor.getVehicleRecallById(props.match.params.id);
         
         this.state = {
-            id: props.match.params.id,
             recallItem: recall,
+            id: recall.id,
             rectified: recall.meta.rectified,
             rectifiedDate: recall.meta.rectifiedDate,
             PRANumber: recall.meta.PRANumber,
@@ -62,9 +62,7 @@ class editVehicleRecall extends Component{
         return(
             <div className="recall-edit">
             { this.state.submitted ? <div className="alert alert-success">Successfully Modified Recall</div> : null}
-            <h1>Edit Recall #{this.state.id}</h1>
             <div className="add-recall">
-                <Link className="route-linker btn btn-outline-dark" to={`/view/vehicle-Recall/${this.state.id}`}>Back To Recall</Link>
                 <form className="w-50 m-auto" onSubmit={this.handleSubmit}>
                     <div className="form-group addRecall">
                         <h4 className="addRecall-title">Rectification</h4>
@@ -79,7 +77,17 @@ class editVehicleRecall extends Component{
                         <option value="No">No</option>
                     </select>
                     </div>
-                    <button type="submit" className="btn btn-primary">Save Recall</button>
+                    <div className="form-group">
+                    <input
+                        className="form-control"
+                        id="rectifiedDate"
+                        type="date"
+                        placeholder="Date Rectified"
+                        name="rectifiedDate"
+                        onChange={this.handleChange}
+                    />
+                </div>
+                    <button type="submit" className="btn btn-primary">Update Recall</button>
                 </form>
             </div>
         </div>

@@ -36,12 +36,13 @@ class Persistor {
         if(recalls){
             let parsedRecalls = JSON.parse(recalls);
             parsedRecalls.data.map(e => {
-                return e.recall.filter(i => {
+                e.recall.map(i => {
                     if(i.id == id){
-                        return true
+                        parsedRecalls = i;
                     }
                 })
             })
+            return parsedRecalls
         } else {
             return false;
         }
@@ -169,11 +170,13 @@ class Persistor {
             parsedRecalls.data.forEach(e => {
                 e.recall.forEach(i => {
                     if(i.id == id){
-                        i.meta = recallItem;
+                        i.meta = recallItem.meta;
+                    }
+                    if(i.meta.rectified == "No"){
+                        i.meta.rectifiedDate = "N/A"
                     }
                 })
             });
-
             localStorage.setItem('recalls', JSON.stringify(parsedRecalls));
         } else {
             return false;
