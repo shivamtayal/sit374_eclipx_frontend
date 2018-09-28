@@ -53,8 +53,8 @@ class addCampaign extends Component {
                     description: this.state.description,
                     vin: this.state.vin,
                     active: this.state.active,
-                    rectified: '',
-                    rectifiedDate: ''
+                    rectified: 'No',
+                    rectifiedDate: 'N/A'
                 }
         };       
 
