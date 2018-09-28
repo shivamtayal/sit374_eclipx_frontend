@@ -61,22 +61,6 @@ class Recalls extends Component {
         let activeFilter = this.state.activeFilter;
         let filtered = this.state.recalls;
 
-        /*let filtered = this.state.recalls.filter(e => {
-            if(activeFilter == 0){
-                if(e.meta.vehicle.active == 'Yes'){
-                    this.state.activeFilter = 1;
-                    return true;
-                }
-            }
-            if(activeFilter == 1){
-                if(e.meta.vehicle.active == 'No'){
-                    this.state.activeFilter = 0;
-                    return true;
-                }
-            }      
-        });
-        this.setState({recalls: filtered});*/
-
         if(activeFilter == true){
             filtered = arraySort(this.state.recalls, 'sortActive');
             this.state.activeFilter = false;

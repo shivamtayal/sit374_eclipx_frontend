@@ -202,7 +202,7 @@ class RecallDrilled extends Component {
                 <div className="recall-single">
                     <button className="btn btn-default" data-toggle="modal" data-target="addNote" onClick={this.toggleNote}>Add Note</button>
                     <button className="btn btn-default" data-toggle="modal" data-target="addCommunication" onClick={this.toggleCommunication}>Add Communication</button>
-                    <Link className="btn btn-dark" to={`/edit/recall/${this.state.id}`}>View Recalls</Link>
+                    <Link className="btn btn-dark" to={`/view/vehicle-Recall/${this.state.id}`}>View Recalls</Link>
                     <Link className="btn btn-dark" to={`/edit/recall/${this.state.id}`}>Edit Recall</Link>
                     <button className="btn btn-danger" onClick={this.deleteRecall} disabled={this.state.removed}>Delete Recall</button>
                     <hr/>
