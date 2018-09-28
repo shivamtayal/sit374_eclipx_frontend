@@ -20,7 +20,9 @@ class addCampaign extends Component {
             submitted: false,
             recalls: [],
             rectified: '',
-            rectifiedDate: ''
+            rectifiedDate: '',
+            year: '',
+            vins: []
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -41,6 +43,8 @@ class addCampaign extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        this.state.vins = this.state.vin.split("\n")
+
         const newCampaign = {
             id: Persistor.generateId(),
             meta:
@@ -51,15 +55,16 @@ class addCampaign extends Component {
                     datePublished: this.state.datePublished,
                     priority: this.state.priority,
                     description: this.state.description,
-                    vin: this.state.vin,
+                    vin: this.state.vins,
                     active: this.state.active,
                     rectified: 'No',
-                    rectifiedDate: 'N/A'
+                    rectifiedDate: 'N/A',
+                    year: this.state.year
                 }
         };       
 
         Persistor.addCampaign(newCampaign);
-        Persistor.linkRecalls(this.state.vin, newCampaign)
+        Persistor.linkRecalls(this.state.vins, newCampaign)
         Persistor.checkActiveRecalls();
         this.setState({submitted: true});
         setTimeout(() => {
@@ -89,7 +94,7 @@ class addCampaign extends Component {
                         className="form-control"
                         id="manufacturer"
                         type="text"
-                        placeholder="Manufacturer"
+                        placeholder="Make & model"
                         name="manufacturer"
                         onChange={this.handleChange}
                     />
@@ -101,6 +106,16 @@ class addCampaign extends Component {
                         type="text"
                         placeholder="PRA No."
                         name="PRANumber"
+                        onChange={this.handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <input
+                        className="form-control"
+                        id="year"
+                        type="text"
+                        placeholder="Year Range"
+                        name="year"
                         onChange={this.handleChange}
                     />
                 </div>
@@ -124,11 +139,11 @@ class addCampaign extends Component {
                     />
                 </div>
                 <div className="form-group">
-                    <input
+                    <textarea
                         className="form-control"
                         id="vin"
                         type="text"
-                        placeholder="Temporary VIN (For testing)"
+                        placeholder="Input VIN seperated by a newline"
                         name="vin"
                         onChange={this.handleChange}
                     />

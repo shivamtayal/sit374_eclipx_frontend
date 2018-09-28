@@ -146,17 +146,18 @@ class Persistor {
         }
     }
 
-    static linkRecalls(id, recallItem){
+    static linkRecalls(vins, recallItem){
         let recalls = localStorage.getItem('recalls');
         if(recalls){
             let parsedRecalls = JSON.parse(recalls);
             parsedRecalls.data.forEach(e => {
-                if(e.meta.vehicle.vin == id){
-                    e.recall.push(recallItem);
-                    e.meta.vehicle.recallCount++;
-                }
+                vins.map(v => {
+                    if(e.meta.vehicle.vin == v){
+                        e.recall.push(recallItem)
+                        e.meta.vehicle.recallCount++;
+                    }
+                })
             });
-
             localStorage.setItem('recalls', JSON.stringify(parsedRecalls));
         } else {
             return false;
