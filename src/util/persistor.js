@@ -31,6 +31,37 @@ class Persistor {
         }
     }
 
+    static getCampaignById(id){
+        let campaigns = localStorage.getItem('campaigns');
+        if(campaigns){
+            let parsedCampaigns = JSON.parse(campaigns);
+            return parsedCampaigns.data.filter(e => {
+                if(e.id == id){
+                    return true
+                }
+            })
+        } else {
+            return false;
+        }
+    }
+
+    static getVehicleRecallById(id){
+        let recalls = localStorage.getItem('recalls');
+        if(recalls){
+            let parsedRecalls = JSON.parse(recalls);
+            parsedRecalls.data.map(e => {
+                e.recall.map(i => {
+                    if(i.id == id){
+                        parsedRecalls = i;
+                    }
+                })
+            })
+            return parsedRecalls
+        } else {
+            return false;
+        }
+    }
+
     static generateId(){
         let id = localStorage.getItem('recall_id');
         if(id){
@@ -96,6 +127,21 @@ class Persistor {
         }
     }
 
+    static updateCampaign(id, recallItem){
+        let campaigns = localStorage.getItem('campaigns');
+        if(campaigns){
+            let parsedCampaigns = JSON.parse(campaigns);
+            parsedCampaigns.data.forEach(e => {
+                if(e.id == id){
+                    e.meta = recallItem.meta;
+                }
+            });
+            localStorage.setItem('campaigns', JSON.stringify(parsedCampaigns));
+        } else {
+            return false;
+        }
+    }
+
     static addNote(id, noteItem){
         let recalls = localStorage.getItem('recalls');
         if(recalls){
@@ -129,17 +175,60 @@ class Persistor {
         }
     }
 
-    static linkRecalls(id, recallItem){
+    static linkRecalls(vins, recallItem){
         let recalls = localStorage.getItem('recalls');
         if(recalls){
             let parsedRecalls = JSON.parse(recalls);
             parsedRecalls.data.forEach(e => {
-                if(e.meta.vehicle.vin == id){
-                    e.recall.push(recallItem);
-                    e.meta.vehicle.recallCount++;
-                }
+                vins.map(v => {
+                    if(e.meta.vehicle.vin == v){
+                        e.recall.push(recallItem)
+                        e.meta.vehicle.recallCount++;
+                    }
+                })
             });
+            localStorage.setItem('recalls', JSON.stringify(parsedRecalls));
+        } else {
+            return false;
+        }
+    }
 
+    static updateLinkRecalls(id, recallItem){
+        let recalls = localStorage.getItem('recalls');
+        if(recalls){
+            let parsedRecalls = JSON.parse(recalls);
+            parsedRecalls.data.forEach(e => {
+                e.recall.forEach(i => {
+                    if(i.id == id){
+                        let rectifiedStatus = i.meta.rectified;
+                        let rectifiedDateStatus = i.meta.rectifiedDate;
+
+                        i.meta = recallItem.meta;
+                        i.meta.rectifed = rectifiedStatus;
+                        i.meta.rectifiedDate = rectifiedDateStatus;
+                    }
+                })
+            });
+            localStorage.setItem('recalls', JSON.stringify(parsedRecalls));
+        } else {
+            return false;
+        }
+    }
+
+    static updateVehicleRecall(id, recallItem){
+        let recalls = localStorage.getItem('recalls');
+        if(recalls){
+            let parsedRecalls = JSON.parse(recalls);
+            parsedRecalls.data.forEach(e => {
+                e.recall.forEach(i => {
+                    if(i.id == id){
+                        i.meta = recallItem.meta;
+                    }
+                    if(i.meta.rectified == "No"){
+                        i.meta.rectifiedDate = "N/A"
+                    }
+                })
+            });
             localStorage.setItem('recalls', JSON.stringify(parsedRecalls));
         } else {
             return false;
@@ -162,10 +251,10 @@ class Persistor {
             parsedRecalls.data.forEach(e => {
                 e.recall.forEach(i =>{
                     if(i.meta.active == 'Yes'){
-                        e.meta.vehicle.active = 'Yes';
+                        e.sortActive = 'Yes';
                     }
                     else{
-                        e.meta.vehicle.active = 'No';
+                        e.sortActive = 'No';
                     }
                 })
             });

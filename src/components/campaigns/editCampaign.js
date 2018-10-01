@@ -1,80 +1,73 @@
 import React, {Component} from 'react';
 import Persistor from '../../util/persistor';
-
-import './addCampaign.css';
 import {Link} from 'react-router-dom';
 
-class addCampaign extends Component {
+class editCampaign extends Component {
     constructor(props) {
         super(props);
+
+        let campaign = Persistor.getCampaignById(props.match.params.id)[0];
+
         this.state = {
-            manufacturer: '',
-            newCampaign: '',
-            campaignNumber: '',
-            PRANumber: '',
-            datePublished: '',
-            priority: '',
-            description: '',
-            vin: '',
-            active: '',
-            rectified: '',
-            rectifiedDate: '',
-            year: '',
-            vins: []
-        };
+            campaignItem: campaign,
+            id: campaign.id,
+            manufacturer: campaign.meta.manufacturer,
+            campaignNumber: campaign.meta.campaignNumber,
+            PRANumber: campaign.meta.PRANumber,
+            datePublished: campaign.meta.datePublished,
+            priority: campaign.meta.priority,
+            description: campaign.meta.description,
+            vin: campaign.meta.vin,
+            active: campaign.meta.active,
+            rectified: campaign.meta.rectified,
+            rectifiedDate: campaign.meta.rectifiedDate,
+            year: campaign.meta.year,
+            vins: [],
+            submitted: false
+        }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentDidMount(){
-        let recalls = Persistor.getRecalls();
-        this.setState({recalls: recalls.data});
-    }
-
     handleChange(e) {
         const {value, name} = e.target;
-        console.log(name);
-        console.log(value);
         this.setState({[name]: value});
     }
 
-    handleSubmit(e) {
+    handleSubmit(e){
         e.preventDefault();
         this.state.vins = this.state.vin.split("\n")
 
-        const newCampaign = {
-            id: Persistor.generateId(),
-            meta:
-                {
-                    manufacturer: this.state.manufacturer,
-                    campaignNumber: this.state.campaignNumber,
-                    PRANumber: this.state.PRANumber,
-                    datePublished: this.state.datePublished,
-                    priority: this.state.priority,
-                    description: this.state.description,
-                    vin: this.state.vin,
-                    vins: this.state.vins,
-                    active: this.state.active,
-                    rectified: 'No',
-                    rectifiedDate: 'N/A',
-                    year: this.state.year
-                }
-        };       
+        let campaignItem =  {
+            id: this.state.id,
+            meta : {
+                manufacturer: this.state.manufacturer,
+                campaignNumber: this.state.campaignNumber,
+                PRANumber: this.state.PRANumber,
+                datePublished: this.state.datePublished,
+                priority: this.state.priority,
+                description: this.state.description,
+                vin: this.state.vin,
+                vins: this.state.vins,
+                active: this.state.active,
+                rectified: 'No',
+                rectifiedDate: 'N/A',
+                year: this.state.year
+            }
+        };
 
-        Persistor.addCampaign(newCampaign);
-        Persistor.linkRecalls(this.state.vins, newCampaign)
-        Persistor.checkActiveRecalls();
         this.setState({submitted: true});
-        setTimeout(() => {
-            window.location.replace('/campaigns');
-        }, 1000);
+        Persistor.updateCampaign(this.state.id, campaignItem);
+        Persistor.updateLinkRecalls(this.state.id, campaignItem);
+        Persistor.checkActiveRecalls();
     }
 
-    render() {
+    render(){
+        const data = this.state.campaignItem.meta;
         return (
             <React.Fragment>
-                {this.state.submitted ? <div className="alert alert-success">Successfully Added Campaign. Redirecting...</div> : null }
+                {this.state.submitted ? <div className="alert alert-success">Successfully updated campaign</div> : null }
                 <Link className="route-linker btn btn-outline-dark" to='/recall-manager'>Back To Manager</Link>
             <form className="w-50 m-auto" onSubmit={this.handleSubmit}>
                 <div className="form-group addCampaign">
@@ -85,6 +78,7 @@ class addCampaign extends Component {
                         type="text"
                         placeholder="Campaign number"
                         name="campaignNumber"
+                        defaultValue={data.campaignNumber}
                         onChange={this.handleChange}
                     />
                 </div>
@@ -95,6 +89,7 @@ class addCampaign extends Component {
                         type="text"
                         placeholder="Make & model"
                         name="manufacturer"
+                        defaultValue={data.manufacturer}
                         onChange={this.handleChange}
                     />
                 </div>
@@ -105,6 +100,7 @@ class addCampaign extends Component {
                         type="text"
                         placeholder="PRA No."
                         name="PRANumber"
+                        defaultValue={data.PRANumber}
                         onChange={this.handleChange}
                     />
                 </div>
@@ -115,6 +111,7 @@ class addCampaign extends Component {
                         type="text"
                         placeholder="Year Range"
                         name="year"
+                        defaultValue={data.year}
                         onChange={this.handleChange}
                     />
                 </div>
@@ -125,6 +122,7 @@ class addCampaign extends Component {
                         type="date"
                         placeholder="Date Published"
                         name="datePublished"
+                        defaultValue={data.datePublished}
                         onChange={this.handleChange}
                     />
                 </div>
@@ -134,6 +132,7 @@ class addCampaign extends Component {
                         id="description"
                         placeholder="Recall Description"
                         name="description"
+                        defaultValue={data.description}
                         onChange={this.handleChange}
                     />
                 </div>
@@ -144,6 +143,7 @@ class addCampaign extends Component {
                         type="text"
                         placeholder="Input VIN seperated by a newline"
                         name="vin"
+                        defaultValue={data.vin}
                         onChange={this.handleChange}
                     />
                 </div>
@@ -172,11 +172,11 @@ class addCampaign extends Component {
                         <option value="No">No</option>
                     </select>
                 </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary">Update Recall</button>
             </form>
             </React.Fragment>
-        );
+        )
     }
-}
 
-export default addCampaign;
+}
+export default editCampaign;

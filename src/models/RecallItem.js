@@ -12,7 +12,6 @@ export const RecallItem =  {
             vehicleID: '',
             description: '',
             recallCount: '',
-            active: ''
         },
         custodian: {
             name: '',
@@ -33,4 +32,5 @@ export const RecallItem =  {
     sortManufacturer: '',
     sortMake: '',
     sortYear: '',
+    sortActive: '',
 };

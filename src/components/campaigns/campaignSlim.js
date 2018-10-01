@@ -21,7 +21,7 @@ class CampaignSlim extends Component {
 
     render(){
         return (
-            <Link className="recall-item-link" to={`/campaign/${this.props.id}`}>
+            <Link className="recall-item-link" to={`/edit/campaign/${this.props.id}`}>
                 <li className="list-group-item">
                     <div className="row">
                         <div className="col result-group">

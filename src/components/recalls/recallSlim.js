@@ -8,7 +8,7 @@ class RecallSlim extends Component {
     }
 
     render(){
-        return (
+        return (     
             <Link className="recall-item-link" to={`/recall/${this.props.id}`}>
             <li className="list-group-item">
                 <div className="row">
