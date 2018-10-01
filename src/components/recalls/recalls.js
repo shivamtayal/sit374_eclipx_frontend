@@ -24,7 +24,7 @@ class Recalls extends Component {
     componentDidMount(){
         let recalls = Persistor.getRecalls();
         this.setState({recalls: recalls.data});
-        Persistor.checkActiveRecalls();
+        //Persistor.checkActiveRecalls();
     }
 
     resetRecalls(){
@@ -97,7 +97,7 @@ class Recalls extends Component {
     render() {
         return (
             <div className="recalls">
-                <h1>Vehicles</h1>
+                <h1>Recalls</h1>
                 <p>Recall Board</p>
                 <div className="search">
                     {                        
