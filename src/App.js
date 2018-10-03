@@ -5,13 +5,12 @@ import './App.css';
 import Nav from './components/navigation/navigation';
 import Home from './components/home';
 import RecallManager from './components/recallManager/recallManager';
-import Recalls from './components/recalls/recalls';
-import RecallSingle from './components/recallManager/recallDrilled';
-import AddRecall from './components/recallManager/addRecall';
+import Vehicles from './components/vehicles/vehicles';
+import VehicleSingle from './components/vehicles/vehicleDrilled';
+import AddVehicle from './components/vehicles/addVehicle';
 import AddCampaign from './components/addCampaign/addCampaign';
 import Campaigns from './components/campaigns/campaigns';
-import Vehicles from './components/vehicles/vehicles';
-import RecallEdit from './components/recalls/recallEdit';
+import VehicleEdit from './components/vehicles/vehicleEdit';
 import CampaignSingle from "./components/campaigns/campaignSingle";
 import vehicleRecalls from "./components/campaigns/vehicleRecall";
 import editVehicleRecall from "./components/campaigns/editVehicleRecall"
@@ -24,15 +23,14 @@ class App extends Component {
           <Nav/>
           <div className="app-components">
           <Route exact path='/' component={Home} />
-          <Route path='/recalls' component={Recalls} />
-          <Route path='/recall/:id' component={RecallSingle} />
-          <Route path='/edit/recall/:id' component={RecallEdit}/>
+          <Route path='/vehicles' component={Vehicles} />
+          <Route path='/vehicle/:id' component={VehicleSingle} />
+          <Route path='/edit/vehicle/:id' component={VehicleEdit}/>
           <Route path='/recall-manager' component={RecallManager} />
-          <Route path='/add-recall' component={AddRecall} />
+          <Route path='/add-vehicle' component={AddVehicle} />
           <Route path='/add-campaign' component={AddCampaign} />
           <Route path='/campaigns' component={Campaigns} />
           <Route path='/campaign/:id' component={CampaignSingle} />
-          <Route path='/vehicles' component={Vehicles} />
           <Route path='/view/vehicle-Recall/:id' component={vehicleRecalls}/>
           <Route path='/edit/vehicle-Recall/:id' component={editVehicleRecall}/>
           <Route path='/edit/campaign/:id' component={editCampaign}/>

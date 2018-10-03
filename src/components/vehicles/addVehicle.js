@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import './addRecall.css';
+import './addVehicle.css';
 import {Link} from 'react-router-dom';
 
 import Persistor from '../../util/persistor';
 
-class addRecall extends Component {
+class addVehicle extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -61,6 +61,7 @@ class addRecall extends Component {
                     vehicleID: this.state.vehicleID,
                     description: this.state.description,
                     recallCount : 0,
+                    active: true
                 },
                 custodian: {
                     name: this.state.name,
@@ -86,7 +87,7 @@ class addRecall extends Component {
 
         Persistor.addRecall(recallItem);
         setTimeout(() => {
-            window.location.replace('/recalls');
+            window.location.replace('/vehicles');
         }, 1000);
     }
 
@@ -94,7 +95,7 @@ class addRecall extends Component {
         return (
             <div className="add-recall">
                 <Link className="route-linker btn btn-outline-dark" to='/recall-manager'>Back To Manager</Link>
-                {this.state.added ? <div className="alert alert-success">New Recall Added! Redirecting...</div> : null}
+                {this.state.added ? <div className="alert alert-success">New Vehicle Added! Redirecting...</div> : null}
                 <br/>
                 <form className="w-50 m-auto" onSubmit={this.handleSubmit}>
                     <div className="form-group addRecall">
@@ -250,11 +251,11 @@ class addRecall extends Component {
                             onChange={this.handleChange}
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary" disabled={this.state.added}>New Recall</button>
+                    <button type="submit" className="btn btn-primary" disabled={this.state.added}>New Vehicle</button>
                 </form>
             </div>
         );
     }
 }
 
-export default addRecall;
+export default addVehicle;

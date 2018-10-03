@@ -4,9 +4,9 @@ import Persistor from '../../util/persistor';
 
 import {Modal, Button, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 
-import './recallDrilled.css';
+import './vehicleDrilled.css';
 
-class RecallDrilled extends Component {
+class VehicleDrilled extends Component {
     constructor(props){
         super(props);
 
@@ -97,7 +97,7 @@ class RecallDrilled extends Component {
         this.setState({removed: true});
         Persistor.removeRecall(this.state.id);
         setTimeout(() => {
-            window.location.replace('/recalls');
+            window.location.replace('/vehicles');
         }, 1000);
     }
 
@@ -196,15 +196,18 @@ class RecallDrilled extends Component {
                     </Modal>
                 </div>
 
-                {automatic ? <div className="alert alert-danger">This Recall Was Automatically Identified. <br/>Automatically Identified Recalls Might Manifest Malformed Data.</div> : null }<br/>
+                {automatic ? <div className="alert alert-danger">This Vehicle Was Automatically Identified. <br/>Automatically Identified Vehicles Might Manifest Malformed Data.</div> : null }<br/>
                 {this.state.removed ? <div className="alert alert-success">Successfully Deleted</div> : null }<br/>
-                <h1>Recall #{this.state.id}</h1>
+                <h1>Vehicle #{this.state.id}</h1>
                 <div className="recall-single">
                     <button className="btn btn-default" data-toggle="modal" data-target="addNote" onClick={this.toggleNote}>Add Note</button>
                     <button className="btn btn-default" data-toggle="modal" data-target="addCommunication" onClick={this.toggleCommunication}>Add Communication</button>
                     <Link className="btn btn-dark" to={`/view/vehicle-Recall/${this.state.id}`}>View Recalls</Link>
-                    <Link className="btn btn-dark" to={`/edit/recall/${this.state.id}`}>Edit Recall</Link>
-                    <button className="btn btn-danger" onClick={this.deleteRecall} disabled={this.state.removed}>Delete Recall</button>
+                    <Link className="btn btn-dark" to={`/edit/vehicle/${this.state.id}`}>Edit Vehicle</Link>
+                    <button className="btn btn-danger" onClick={this.deleteRecall} disabled={this.state.removed}>Delete Vehicle</button>
+                    <hr/>
+                    {console.log(data.vehicle.active)}
+                    {data.vehicle.active ? <div className="alert alert-success alerter">Currently Active</div> : <div className="alert alert-danger alerter">Currently Inactive</div>}
                     <hr/>
                     <div className="row">
                     <div className="col custodian-information">
@@ -291,4 +294,4 @@ class RecallDrilled extends Component {
     }
 }
 
-export default RecallDrilled;
+export default VehicleDrilled;

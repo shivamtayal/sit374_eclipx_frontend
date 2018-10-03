@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import Persistor from '../../util/persistor';
-import RecallSlim from '../recalls/recallSlim';
+import VehicleSlim from '../vehicles/vehicleSlim';
 
-import './recalls.css';
+import './vehicles.css';
 
-class RecallEdit extends Component {
+class VehicleEdit extends Component {
     constructor(props) {
         super(props);
 
@@ -14,6 +14,7 @@ class RecallEdit extends Component {
         this.state = {
             id: props.match.params.id,
             recallItem: recall,
+            active: recall.meta.vehicle.active,
             manufacturer: recall.meta.vehicle.manufacturer,
             model: recall.meta.vehicle.model,
             make: recall.meta.vehicle.make,
@@ -38,7 +39,15 @@ class RecallEdit extends Component {
 
     handleChange(e) {
         const {value, name} = e.target;
-        this.setState({[name]: value});
+        if(name == 'active'){
+            if(value == 'true'){
+                this.setState({[name]: true});
+            } else {
+                this.setState({[name]: false});
+            }
+        } else {
+            this.setState({[name]: value});
+        }
     }
 
     handleSubmit(e){
@@ -48,6 +57,7 @@ class RecallEdit extends Component {
             meta:
             {
                 vehicle: {
+                    active: this.state.active,
                     manufacturer: this.state.manufacturer,
                     model: this.state.model,
                     make: this.state.make,
@@ -77,24 +87,31 @@ class RecallEdit extends Component {
         const data = this.state.recallItem.meta;
         return (
             <div className="recall-edit">
-                { this.state.submitted ? <div className="alert alert-success">Successfully Modified Recall</div> : null}
-                <h1>Edit Recall #{this.state.id}</h1>
+                { this.state.submitted ? <div className="alert alert-success">Successfully Modified Vehicle</div> : null}
+                <h1>Edit Vehicle #{this.state.id}</h1>
                 <div className="add-recall">
-                    <Link className="route-linker btn btn-outline-dark" to={`/recall/${this.state.id}`}>Back To Recall</Link>
+                    <Link className="route-linker btn btn-outline-dark" to={`/vehicle/${this.state.id}`}>Back To Vehicle</Link>
                     <form className="w-50 m-auto" onSubmit={this.handleSubmit}>
-                        <div className="form-group addRecall">
+                        <div className="addRecall">
+                            <h4 className="is-active">Active</h4>
+                            <div className="form-group">
+                                <select className="custom-select" onChange={this.handleChange} name="active">
+                                    <option value="true" selected={data.vehicle.active}>Yes</option>
+                                    <option value="false" selected={!data.vehicle.active}>No</option>
+                                </select>
+                            </div>
                             <h4 className="addRecall-title">Vehicle</h4>
-                            <input
-                                className="form-control"
-                                id="manufacturer"
-                                type="text"
-                                placeholder="Manufacturer"
-                                name='manufacturer'
-                                defaultValue={data.vehicle.manufacturer}
-                                onChange={this.handleChange}
-                            />
-
-                        </div>
+                            <div className="form-group">
+                                <input
+                                    className="form-control"
+                                    id="manufacturer"
+                                    type="text"
+                                    placeholder="Manufacturer"
+                                    name='manufacturer'
+                                    defaultValue={data.vehicle.manufacturer}
+                                    onChange={this.handleChange}
+                                />
+                            </div>
                         <div className="form-group">
                             <input
                                 className="form-control"
@@ -250,7 +267,8 @@ class RecallEdit extends Component {
                                 onChange={this.handleChange}
                             />
                         </div>
-                        <button type="submit" className="btn btn-primary">Save Recall</button>
+                        </div>
+                        <button type="submit" className="btn btn-primary">Save Vehicle</button>
                     </form>
                 </div>
             </div>
@@ -258,4 +276,4 @@ class RecallEdit extends Component {
     }
 }
 
-export default RecallEdit;
+export default VehicleEdit;
