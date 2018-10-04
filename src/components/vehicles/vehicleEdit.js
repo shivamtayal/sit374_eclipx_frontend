@@ -16,14 +16,21 @@ class VehicleEdit extends Component {
             recallItem: recall,
             active: recall.meta.vehicle.active,
             manufacturer: recall.meta.vehicle.manufacturer,
+            manuErr:'',
             model: recall.meta.vehicle.model,
+            modelErr:'',
             make: recall.meta.vehicle.make,
+            makeErr:'',
             year: recall.meta.vehicle.year,
+            yearErr:'',
             vin: recall.meta.vehicle.vin,
+            vinErr:'',
             registration: recall.meta.vehicle.registration,
+            regErr:'',
             vehicleID: recall.meta.vehicle.vehicleID,
             description: recall.meta.vehicle.description,
             name: recall.meta.custodian.name,
+            nameErr:'',
             contactNumber: recall.meta.custodian.contactNumber,
             email: recall.meta.custodian.email,
             organization: recall.meta.custodian.organization,
@@ -52,6 +59,63 @@ class VehicleEdit extends Component {
 
     handleSubmit(e){
         e.preventDefault();
+        if(this.state.manufacturer === ""||this.state.manufacturer === null){
+            this.setState({
+                manuErr: "* Please input the manufacturer!"
+            })
+        }  else if(!this.state.manufacturer.match(/^[a-zA-Z]*$/g)){
+            this.setState({
+                manuErr: "* The value must be letters !"
+            })
+        }
+        if(this.state.model === ""||this.state.model === null) {
+            this.setState({
+                modelErr: "* Please input the model!"
+            })
+        } else if(!this.state.model.match(/^[a-zA-Z]$/)){
+            this.setState({
+                modelErr: "* The value must be letters!"
+            })
+        }
+        if(this.state.make === ""||this.state.make === null) {
+            this.setState({
+                makeErr: "* Please input the make!"
+            })
+        }
+        if(this.state.year === ""||this.state.year === null) {
+            this.setState({
+                yearErr: "* Please input the year of the car!"
+            })
+        } else if(!this.state.year.match(/^[0-9]{4}$/)){
+            this.setState({
+                yearErr: "* The value must be four integers!"
+            })
+        }
+        if(this.state.vin === ""||this.state.vin === null) {
+            this.setState({
+                vinErr: "* Please input the VIN of the car!"
+            })
+        } 
+        if(this.state.registration === ""||this.state.registration === null) {
+            this.setState({
+                regErr: "* Please input the registration!"
+            })
+        } 
+        if(this.state.name === ""||this.state.name === null) {
+            this.setState({
+                nameErr: "* Please input the name!"
+            })
+        } else if(!this.state.name.match(/^[a-zA-Z]$/)){
+            this.setState({
+                nameErr: "* The value must be letters!"
+            })
+        }
+        if(this.state.email === ""||this.state.email === null) {
+            this.setState({
+                emailErr: "* Please input the email!"
+            })
+        } 
+        else {
         let recallItem =  {
             id: this.state.id,
             meta:
@@ -82,8 +146,12 @@ class VehicleEdit extends Component {
         this.setState({submitted: true});
         Persistor.updateRecall(this.state.id, recallItem);
     }
+    }
 
     render() {
+        var style ={
+            color:'red'
+        }
         const data = this.state.recallItem.meta;
         return (
             <div className="recall-edit">
@@ -111,6 +179,7 @@ class VehicleEdit extends Component {
                                     defaultValue={data.vehicle.manufacturer}
                                     onChange={this.handleChange}
                                 />
+                                <span style={style}> {this.state.manuErr}</span>
                             </div>
                         <div className="form-group">
                             <input
@@ -122,6 +191,7 @@ class VehicleEdit extends Component {
                                 defaultValue={data.vehicle.model}
                                 onChange={this.handleChange}
                             />
+                            <span style={style}> {this.state.modelErr}</span>
                         </div>
                         <div className="form-group">
                             <input
@@ -133,6 +203,7 @@ class VehicleEdit extends Component {
                                 defaultValue={data.vehicle.make}
                                 onChange={this.handleChange}
                             />
+                            <span style={style}> {this.state.makeErr}</span>
                         </div>
                         <div className="form-group">
                             <input
@@ -144,6 +215,7 @@ class VehicleEdit extends Component {
                                 defaultValue={data.vehicle.year}
                                 onChange={this.handleChange}
                             />
+                            <span style={style}> {this.state.yearErr}</span>
                         </div>
                         <div className="form-group">
                             <input
@@ -154,7 +226,7 @@ class VehicleEdit extends Component {
                                 name='vin'
                                 defaultValue={data.vehicle.vin}
                                 onChange={this.handleChange}
-                            />
+                            /><span style={style}> {this.state.vinErr}</span>
                         </div>
                         <div className="form-group">
                             <input
@@ -166,6 +238,7 @@ class VehicleEdit extends Component {
                                 defaultValue={data.vehicle.registration}
                                 onChange={this.handleChange}
                             />
+                            <span style={style}> {this.state.regErr}</span>
                         </div>
                         <div className="form-group">
                             <input
@@ -200,6 +273,7 @@ class VehicleEdit extends Component {
                                 defaultValue={data.custodian.name}
                                 onChange={this.handleChange}
                             />
+                            <span style={style}> {this.state.nameErr}</span>
                         </div>
                         <div className="form-group">
                             <input
@@ -222,6 +296,7 @@ class VehicleEdit extends Component {
                                 defaultValue={data.custodian.email}
                                 onChange={this.handleChange}
                             />
+                            <span style={style}> {this.state.emailErr}</span>
                         </div>
                         <div className="form-group">
                             <input
