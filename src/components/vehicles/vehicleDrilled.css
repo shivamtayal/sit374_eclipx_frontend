@@ -18,3 +18,8 @@
 .list-group-item .col{
     word-break: break-all;
 }
+
+.alerter {
+    width: 40% !important;
+    margin: 0 auto;
+}

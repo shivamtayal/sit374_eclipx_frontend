@@ -12,6 +12,7 @@ export const RecallItem =  {
             vehicleID: '',
             description: '',
             recallCount: '',
+            active: true
         },
         custodian: {
             name: '',

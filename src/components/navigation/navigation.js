@@ -26,13 +26,10 @@ class Nav extends Component {
                         <Link to='/recall-manager' className="nav-link">Recall Manager</Link>
                     </li>
                     <li className={"nav-item"}>
-                        <Link to='/recalls' className="nav-link">Vehicles</Link>
+                        <Link to='/vehicles' className="nav-link">Vehicles</Link>
                     </li>
                     <li className={"nav-item"}>
-                        <Link to='/campaigns' className="nav-link">Recalls</Link>
-                    </li>
-                    <li className={"nav-item"}>
-                        <Link to='/vehicles' className="nav-link">Fleet</Link>
+                        <Link to='/campaigns' className="nav-link">Campaigns</Link>
                     </li>
                     </ul>
                 </div>

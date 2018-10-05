@@ -82,22 +82,23 @@ class RecallManager extends Component {
             <div className="app-fleet">
                 <div className="recall-manager">
                     <h1>Recall Manager</h1>
-                    <h3>{`Found ${Persistor.getRecallCount()} recalls`}</h3>
+                    <h3>{`Found ${Persistor.getRecallCount()} vehicles`}</h3>
                     <br/>
                     {alert}
                     <hr/>
+                    <div className="alert alert-warning">Hint! Once you have added a new vehicle, you can navigate to the 'vehicles' tab and view all of the registered vehicles. When you navigate to a specific vehicle, you can view the specific recalls. <br/>For example, a vehicle might have its airbag, and other safety components recalled.</div>
                     <br/>
                     <div className="row">
                         <div className="col">
                             <div className="manager-group">
                             <h5>Automatic Recall Finder</h5>
-                            <button className="btn btn-outline-dark" onClick={this.getRecallsAutomatically} disabled={this.state.ran}>Get Recalls</button>
+                            <button className="btn btn-outline-dark" onClick={this.getRecallsAutomatically} disabled={this.state.ran}>Get Vehicle Recalls</button>
                             </div>
                         </div>
                         <div className="col">
                             <div className="manager-group">
-                            <h5>Manually Add Recall</h5>
-                            <Link className="route-linker btn btn-outline-dark" to="/add-recall">Add Recall</Link>
+                            <h5>Manually Add Vehicle</h5>
+                            <Link className="route-linker btn btn-outline-dark" to="/add-vehicle">Add Vehicle</Link>
                             </div>
                         </div>
                         <div className="col">

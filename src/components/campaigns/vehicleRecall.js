@@ -60,7 +60,7 @@ class vehicleRecall extends Component {
         return (
             <div className="campaigns">
                 <h1>Recalls for vehicle #{this.state.id}</h1>
-                <Link className="route-linker btn btn-outline-dark" to={`/recall/${this.state.id}`}>Back To Recall</Link>
+                <Link className="route-linker btn btn-outline-dark" to={`/vehicle/${this.state.id}`}>Back To Vehicle</Link>
                 <div className="search">
                     {
                         /*

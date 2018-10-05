@@ -29,7 +29,7 @@ class Campaigns extends Component {
                 return <CampaignSlim key={i} id={e.id} manufacturer={e.meta.manufacturer} campaignNo={e.meta.campaignNumber} pra={e.meta.PRANumber} priority={e.meta.priority} date={e.meta.datePublished}/>
             });
         } else {
-            return <div className="alert alert-warning">No Recalls Found</div>
+            return <div className="alert alert-warning">No Campaigns Found</div>
         }
     }
 

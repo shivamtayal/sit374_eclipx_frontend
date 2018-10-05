@@ -18,6 +18,10 @@
     margin: 1em 0 1em 0;
 }
 
+.result-group p{
+    text-align: center !important;
+}
+
 .search {
     position: relative;
     width: 80%;

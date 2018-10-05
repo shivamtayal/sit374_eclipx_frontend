@@ -1,24 +1,30 @@
 import React, {Component} from 'react';
-import './addRecall.css';
+import './addVehicle.css';
 import {Link} from 'react-router-dom';
 
 import Persistor from '../../util/persistor';
 
-class addRecall extends Component {
+class addVehicle extends Component {
     constructor(props) {
         super(props);
         this.state = {
             manufacturer: '',
+            manuErr:'',
             model: '',
+            modelErr:'',
             make: '',
             year: '',
+            yearErr:'',
             vin: '',
+            vinErr:'',
             registration: '',
             vehicleID: '',
             description: '',
             name: '',
+            nameErr:'',
             contactNumber: '',
             email: '',
+            emailErr:'',
             organization: '',
             organizationContact: '',
             organizationEmail: '',
@@ -44,57 +50,118 @@ class addRecall extends Component {
         this.setState({[name]: value});
     }
 
+
+      
+
     handleSubmit(e){
         e.preventDefault();
-        this.setState({added: true});
-        let recallItem =  {
-            id: Persistor.generateId(),
-            meta:
-            {
-                vehicle: {
-                    manufacturer: this.state.manufacturer,
-                    model: this.state.model,
-                    make: this.state.make,
-                    year: this.state.year,
-                    vin: this.state.vin,
-                    registration: this.state.registration,
-                    vehicleID: this.state.vehicleID,
-                    description: this.state.description,
-                    recallCount : 0,
+        
+        if(this.state.manufacturer === ""||this.state.manufacturer === null){
+            this.setState({
+                manuErr: "* Please input the manufacturer!"
+            })
+        }  else if(!this.state.manufacturer.match(/^[a-zA-Z]*$/g)){
+            this.setState({
+                manuErr: "* The value must be letters !"
+            })
+        }
+        if(this.state.model === ""||this.state.model === null) {
+            this.setState({
+                modelErr: "* Please input the model!"
+            })
+        } else if(!this.state.model.match(/^[a-zA-Z]$/)){
+            this.setState({
+                modelErr: "* The value must be letters!"
+            })
+        }
+        if(this.state.year === ""||this.state.year === null) {
+            this.setState({
+                yearErr: "* Please input the year of the car!"
+            })
+        } else if(!this.state.year.match(/^[0-9]{4}$/)){
+            this.setState({
+                yearErr: "* The value must be four integers!"
+            })
+        }
+        if(this.state.vin === ""||this.state.vin === null) {
+            this.setState({
+                vinErr: "* Please input the VIN of the car!"
+            })
+        } 
+        if(this.state.registration === ""||this.state.registration === null) {
+            this.setState({
+                regErr: "* Please input the registration!"
+            })
+        } 
+        if(this.state.name === ""||this.state.name === null) {
+            this.setState({
+                nameErr: "* Please input the name!"
+            })
+        } else if(!this.state.name.match(/^[a-zA-Z]$/)){
+            this.setState({
+                nameErr: "* The value must be letters!"
+            })
+        }
+        if(this.state.email === ""||this.state.email === null) {
+            this.setState({
+                emailErr: "* Please input the email!"
+            })
+        } 
+        else {
+            this.setState({added: true});
+            let recallItem =  {
+                id: Persistor.generateId(),
+                meta:
+                {
+                    vehicle: {
+                        manufacturer: this.state.manufacturer,
+                        model: this.state.model,
+                        make: this.state.make,
+                        year: this.state.year,
+                        vin: this.state.vin,
+                        registration: this.state.registration,
+                        vehicleID: this.state.vehicleID,
+                        description: this.state.description,
+                        recallCount : 0,
+                        active: true
+                    },
+                    custodian: {
+                        name: this.state.name,
+                        contactNumber: this.state.contactNumber,
+                        email: this.state.email,
+                        organization: this.state.organization,
+                        organizationContact: this.state.organizationContact,
+                        organizationEmail: this.state.organizationEmail,
+                        organizationPhone: this.state.organizationPhone
+                    }
                 },
-                custodian: {
-                    name: this.state.name,
-                    contactNumber: this.state.contactNumber,
-                    email: this.state.email,
-                    organization: this.state.organization,
-                    organizationContact: this.state.organizationContact,
-                    organizationEmail: this.state.organizationEmail,
-                    organizationPhone: this.state.organizationPhone
-                }
-            },
-            communications: [
-            ],
-            notes: [
-            ],
-            recall: [
-            ],
-            sortManufacturer : this.state.manufacturer,
-            sortMake : this.state.make,
-            sortYear : this.state.year,
-            sortActive: ''
-        };
+                communications: [
+                ],
+                notes: [
+                ],
+                recall: [
+                ],
+                sortManufacturer : this.state.manufacturer,
+                sortMake : this.state.make,
+                sortYear : this.state.year,
+                sortActive: ''
+            };
 
-        Persistor.addRecall(recallItem);
-        setTimeout(() => {
-            window.location.replace('/recalls');
-        }, 1000);
+            Persistor.addRecall(recallItem);
+            setTimeout(() => {
+                window.location.replace('/vehicles');
+            }, 1000);
+        }
     }
 
     render() {
+        var style ={
+            color:'red'
+        }
         return (
             <div className="add-recall">
                 <Link className="route-linker btn btn-outline-dark" to='/recall-manager'>Back To Manager</Link>
-                {this.state.added ? <div className="alert alert-success">New Recall Added! Redirecting...</div> : null}
+                {this.state.added ? <div className="alert alert-success">New Vehicle Added! Redirecting...</div> : null}
                 <br/>
                 <form className="w-50 m-auto" onSubmit={this.handleSubmit}>
                     <div className="form-group addRecall">
@@ -107,6 +174,7 @@ class addRecall extends Component {
                             name='manufacturer'
                             onChange={this.handleChange}
                         />
+                        <span style={style}> {this.state.manuErr}</span>
 
                     </div>
                     <div className="form-group">
@@ -118,6 +186,7 @@ class addRecall extends Component {
                             name='model'
                             onChange={this.handleChange}
                         />
+                        <span style={style}> {this.state.modelErr}</span>
                     </div>
                     <div className="form-group">
                         <input
@@ -138,6 +207,7 @@ class addRecall extends Component {
                             name='year'
                             onChange={this.handleChange}
                         />
+                        <span style={style}> {this.state.yearErr}</span>
                     </div>
                     <div className="form-group">
                         <input
@@ -148,6 +218,7 @@ class addRecall extends Component {
                             name='vin'
                             onChange={this.handleChange}
                         />
+                        <span style={style}> {this.state.vinErr}</span>
                     </div>
                     <div className="form-group">
                         <input
@@ -158,6 +229,7 @@ class addRecall extends Component {
                             name='registration'
                             onChange={this.handleChange}
                         />
+                        <span style={style}> {this.state.regErr}</span>
                     </div>
                     <div className="form-group">
                         <input
@@ -189,6 +261,7 @@ class addRecall extends Component {
                             name='name'
                             onChange={this.handleChange}
                         />
+                        <span style={style}> {this.state.nameErr}</span>
                     </div>
                     <div className="form-group">
                         <input
@@ -209,6 +282,7 @@ class addRecall extends Component {
                             name='email'
                             onChange={this.handleChange}
                         />
+                        <span style={style}> {this.state.emailErr}</span>
                     </div>
                     <div className="form-group">
                         <input
@@ -250,11 +324,11 @@ class addRecall extends Component {
                             onChange={this.handleChange}
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary" disabled={this.state.added}>New Recall</button>
+                    <button type="submit" className="btn btn-primary"  disabled={this.state.added}>New Vehicle</button>
                 </form>
             </div>
         );
     }
 }
 
-export default addRecall;
+export default addVehicle;
