@@ -15,24 +15,25 @@ class VehicleSlim extends Component {
                 <div className="row">
                     {/*this.props.automatic ? <i className="fas fa-exclamation-circle fa-1x automatic"></i> : null */}
                     <div className="col result-group">
-                        <h5><span className="badge badge-secondary">Manufacturer</span></h5>
-                        <p>{this.props.manufacturer ? this.props.manufacturer : 'N/A'}</p>
+                        <span className="badge badge-dark">{this.props.vin ? this.props.vin : 'N/A'}</span>
                     </div>
                     <div className="col result-group">
-                        <h5><span className="badge badge-secondary">Make</span></h5>
-                        <p>{this.props.make ? this.props.make : 'N/A'}</p>
+                        <span className="badge badge-dark">{this.props.manufacturer ? this.props.manufacturer : 'N/A'}</span>
                     </div>
                     <div className="col result-group">
-                        <h5><span className="badge badge-secondary">Year</span></h5>
-                        <p>{this.props.year ? this.props.year : 'N/A'}</p>
+                        <span className="badge badge-dark">{this.props.make ? this.props.make : 'N/A'}</span>
                     </div>
                     <div className="col result-group">
-                        <h5><span className="badge badge-secondary">Registration</span></h5>
-                        <p>{this.props.registration ? this.props.registration : 'N/A'}</p>
+                        <span className="badge badge-dark">{this.props.year ? this.props.year : 'N/A'}</span>
                     </div>
                     <div className="col result-group">
-                        <h5><span className="badge badge-secondary">Active</span></h5>
-                        <p>{this.props.active ? <span className="badge badge-success">Yes</span> : <span className="badge badge-danger">No</span>}</p>
+                        <span className="badge badge-dark">{this.props.registration ? this.props.registration : 'N/A'}</span>
+                    </div>
+                    <div className="col result-group">
+                        <span className="badge badge-dark">{this.props.recallCount ? this.props.recallCount : '0'}</span>
+                    </div>
+                    <div className="col result-group">
+                        <span className="badge badge-dark">{this.props.activeRecall ? this.props.activeRecall : 'N/A'}</span>
                     </div>
                 </div>
             </li>

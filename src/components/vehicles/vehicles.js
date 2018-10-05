@@ -117,6 +117,19 @@ class Vehicles extends Component {
                             </div>
                         </div>
                         <hr/>
+                        <div className="headings">
+                            <table colspan="7" align="center" width="60%">
+                                <tr>
+                                    <td width="15%">VIN</td>
+                                    <td width="14%">Manufacturer</td>
+                                    <td width="14%">Make</td>
+                                    <td width="15%">Year</td>
+                                    <td width="14%">registration</td>
+                                    <td width="14%">Recalls</td>
+                                    <td>Active</td>
+                                </tr>
+                            </table>
+                        </div>
                         <ul className="list-group">
                             {this.getVehicles()}
                         </ul>
