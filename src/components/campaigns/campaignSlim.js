@@ -25,23 +25,18 @@ class CampaignSlim extends Component {
                 <li className="list-group-item">
                     <div className="row">
                         <div className="col result-group">
-                            PRA No.<br/>
                             <span className="badge badge-dark">{this.props.pra ? this.props.pra : 'N/A'}</span>
                         </div>
                         <div className="col result-group">
-                            Priority:<br/>
                             <span className={`badge ` + `badge-${this.getPriorityColour(this.props.priority)}`}>{this.props.priority ? this.props.priority : 'N/A'}</span>
                         </div>
                         <div className="col result-group">
-                            Campaign No.<br/>
                             <span className="badge badge-dark">{this.props.campaignNo ? this.props.campaignNo : 'N/A'}</span>
                         </div>
                         <div className="col result-group">
-                            Manufacturer:<br/>
                             <span className="badge badge-dark">{this.props.manufacturer ? this.props.manufacturer : 'N/A'}</span>
                         </div>
                         <div className="col result-group">
-                            Date Published:<br/>
                             <span className="badge badge-dark">{this.props.date ? new Date(this.props.date).toDateString() : 'N/A'}</span>
                         </div>
                     </div>

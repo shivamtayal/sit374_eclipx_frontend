@@ -51,6 +51,17 @@ class Campaigns extends Component {
                     }
                     <div className="search-results">
                         <hr/>
+                        <div className="headings-camoaigns">
+                            <table colspan="5" align="center" width="60%">
+                                <tr>
+                                    <td width="21%">PRA No.</td>
+                                    <td width="19%">Priority:</td>
+                                    <td width="20%">Campaign No.</td>
+                                    <td width="20%">Manufacturer:</td>
+                                    <td>Date Published:</td>
+                                </tr>
+                            </table>
+                        </div>
                         <ul className="list-group">
                             {this.getCampaigns()}
                         </ul>
