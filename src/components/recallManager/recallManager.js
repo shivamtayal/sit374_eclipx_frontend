@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import Persistor from '../../util/persistor';
-import {RecallItem} from "../../models/RecallItem";
 
 import './recallManager.css';
 
@@ -43,20 +42,28 @@ class RecallManager extends Component {
             $('.table-takata-recalls tbody tr').each((i, e) => {
 
                 if($(e).hasClass('table-header') && $(e).text()){
-                    RecallItem.meta.vehicle.manufacturer = $(e).text().trim();
+                    var CampaignItem = {
+                        id: '',
+                        automatic: false,
+                        meta: {
+                            priority: 'Medium',
+                            datePublished: new Date()
+                        },
+                    };
+                    CampaignItem['meta'].manufacturer = $(e).text().trim();
                     $(e).nextUntil('.table-header').each((i, e) => {
                         if(e.type == 'tag'){
                             $(e.children).each((i, e) => {
                                 if(e.type == 'tag'){
                                     if (i == 1){
-                                        RecallItem.meta.vehicle.make = $(e).text().trim();
+                                        CampaignItem['meta'].make = $(e).text().trim();
                                     } else if (i == 3) {
-                                        RecallItem.meta.vehicle.year = $(e).text().trim();
+                                        CampaignItem['meta'].year = $(e).text().trim();
                                     } else if (i == 5){
-                                        RecallItem.meta.vehicle.vehicleID = $(e).text().trim();
-                                        RecallItem.id = Persistor.generateId();
-                                        RecallItem.automatic = true;
-                                        Persistor.addRecall(RecallItem)
+                                        CampaignItem['meta'].PRANumber = $(e).text().trim();
+                                        CampaignItem.id = Persistor.generateId();
+                                        CampaignItem.automatic = true;
+                                        Persistor.addCampaign(CampaignItem)
                                     }
                                 }
                             })

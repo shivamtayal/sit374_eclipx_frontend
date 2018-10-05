@@ -33,7 +33,7 @@ class VehicleSlim extends Component {
                         <span className="badge badge-dark">{this.props.recallCount ? this.props.recallCount : '0'}</span>
                     </div>
                     <div className="col result-group">
-                        <span className="badge badge-dark">{this.props.activeRecall ? this.props.activeRecall : 'N/A'}</span>
+                        <p>{this.props.active ? <span className="badge badge-success">Yes</span> : <span className="badge badge-danger">No</span>}</p>
                     </div>
                 </div>
             </li>

@@ -206,7 +206,6 @@ class VehicleDrilled extends Component {
                     <Link className="btn btn-dark" to={`/edit/vehicle/${this.state.id}`}>Edit Vehicle</Link>
                     <button className="btn btn-danger" onClick={this.deleteRecall} disabled={this.state.removed}>Delete Vehicle</button>
                     <hr/>
-                    {console.log(data.vehicle.active)}
                     {data.vehicle.active ? <div className="alert alert-success alerter">Currently Active</div> : <div className="alert alert-danger alerter">Currently Inactive</div>}
                     <hr/>
                     <div className="row">

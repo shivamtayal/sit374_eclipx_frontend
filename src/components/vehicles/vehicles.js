@@ -124,7 +124,7 @@ class Vehicles extends Component {
                                     <td width="14%">Manufacturer</td>
                                     <td width="14%">Make</td>
                                     <td width="15%">Year</td>
-                                    <td width="14%">registration</td>
+                                    <td width="14%">Registration</td>
                                     <td width="14%">Recalls</td>
                                     <td>Active</td>
                                 </tr>
